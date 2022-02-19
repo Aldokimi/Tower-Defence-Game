@@ -1,0 +1,16 @@
+# Gradle
+/local.properties
+.gradle/
+/build/
+/app/build/
+/app/bin/
+
+# OS Specific
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+*.war
+*.ear
+hs_err_pid*
