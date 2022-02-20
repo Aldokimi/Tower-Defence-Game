@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="1">
+ <tileset firstgid="1" source="GrassGround.tsx"/>
+ <tileset firstgid="65" source="path.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2ksOgjAQgOHCTm/l4xImXgLjJRR3HMHLuPUmbt05JDZMaqsjHZiBzOJPMAr0oxDFUDrnypm0gtbQBtpCh4wkHTvoAT2hfcZ2pB0VdCucuxefx7eGlgWt9vPXSJQxxNZLVaPwNk7o/UvkGMcKDRzjox73xXt/oaNE26FsT/r8MYceR2swhznMMY6DMykHZ33mdo6O0DI1R2pOzJHv4LzWpRx95sQc5pB0cCXp4Moc5piiwy+bQ7+D0yLl4J4Tc9AclHtCc/R3UP+L8AaNjn/myxw6Hf51ysH1W3woh7d8c3COzRz6HFwWSQfnnGhwcNzfVygJR07Y4sc9RQfe3xCOoWtc913XRBy+teuehxnz2FLDY8fLuPa653geZkxHLPw8zFHBmH85UrXn39nFn4fRUmoOwsL1Xsvg5io=
+  </data>
+ </layer>
+ <layer id="4" name="Tile Layer 2" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </data>
+ </layer>
+</map>
