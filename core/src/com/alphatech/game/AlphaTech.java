@@ -5,10 +5,12 @@ import com.badlogic.gdx.Game;
 
 public class AlphaTech extends Game {
 
+	private GameScreen gameScreen;
 
 	@Override
 	public void create() {
-		setScreen(new GameScreen());
+		gameScreen = new GameScreen();
+		setScreen(gameScreen);
 	}
 
 	@Override

@@ -11,6 +11,7 @@ public class DesktopLauncher {
 		config.title = "Tower Defense";
 		config.height = Constants.SCREEN_HEIGHT;
 		config.width = Constants.SCREEN_WIDTH;
+		config.resizable = false;
 		new LwjglApplication( new AlphaTech(), config);
 	}
 }
