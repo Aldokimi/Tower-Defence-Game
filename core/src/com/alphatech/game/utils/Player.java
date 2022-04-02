@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.alphatech.game.helpers.Constants;
 
 public class Player {
+
     private int turnTime;
     private int gold;
     private boolean turn;
@@ -64,11 +65,16 @@ public class Player {
         return this.health;
     }
 
-    // Methods
+    /**
+     * Start player's turn
+     */
     public void startTurn() {
         this.turn = true;
     }
 
+    /**
+     * End player's turn
+     */
     public void endTurn() {
         this.turn = false;
     }

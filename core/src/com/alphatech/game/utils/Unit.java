@@ -1,14 +1,18 @@
 package com.alphatech.game.utils;
 
-import com.brashmonkey.spriter.Point;
-
 import com.alphatech.game.helpers.Constants;
+
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import com.brashmonkey.spriter.Point;
 
 public class Unit {
     protected int speed;
     protected Texture unitType;
     protected Point position;
+    protected Animation<TextureRegion> animation;
 
     public Unit(Point position) {
         this.position = position;
@@ -27,6 +31,10 @@ public class Unit {
         this.unitType = unitType;
     }
 
+    public void setAnimation(Animation<TextureRegion> animation) {
+        this.animation = animation;
+    }
+
     public int getSpeed() {
         return this.speed;
     }
@@ -39,6 +47,10 @@ public class Unit {
         return this.unitType;
     }
 
+    public Animation<TextureRegion> getAnimation() {
+        return this.animation;
+    }
+
     public void attackCastle() {
 
     }
@@ -46,4 +58,5 @@ public class Unit {
     public void collectTreasure() {
 
     }
+
 }

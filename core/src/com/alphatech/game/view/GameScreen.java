@@ -2,15 +2,20 @@ package com.alphatech.game.view;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
+import com.alphatech.game.utils.CrazySoldier;
+import com.alphatech.game.utils.NormalSoldier;
 import com.alphatech.game.utils.Player;
+import com.alphatech.game.utils.Unit;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -35,7 +40,6 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Stage gameScreenButtons;
-    // private ArrayList<Drawer> drawers;
 
     // Players
     private Player redPlayer;
@@ -43,6 +47,19 @@ public class GameScreen implements Screen {
 
     // Place holders
     private ArrayList<Point> placeHolders;
+
+    // Units
+    private TextureRegion sold1region;
+    private TextureRegionDrawable sold1regiondraw;
+    private ImageButton soldier1;
+    private Point unitsPosition;
+    private TextureRegion sold3region;
+    private TextureRegionDrawable sold3regiondraw;
+    private ImageButton soldier3;
+
+    // Units animation
+    private Animation<TextureRegion> animation;
+    private float elapsedTime = 0;
 
     // Turn Control
     private TextureRegion endTurnRegion;
@@ -62,7 +79,6 @@ public class GameScreen implements Screen {
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
         batch = new SpriteBatch();
-        // drawers = new ArrayList<>();
 
         // Place holders points for buildings
         placeHolders = new ArrayList<>();
@@ -94,21 +110,103 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (redPlayer.getTurn()) {
+                    // Switch turn to the blue player
                     redPlayer.endTurn();
                     bluePlayer.startTurn();
-                    System.out.println("Blue turn");
                 } else {
+                    // Switch turn to the red player
                     bluePlayer.endTurn();
                     redPlayer.startTurn();
-                    System.out.println("Red turn");
+                }
+            }
+        });
+
+        // Unit -- Soldier1
+        sold1region = new TextureRegion(Textures.SOLDIER1);
+        sold1regiondraw = new TextureRegionDrawable(sold1region);
+        soldier1 = new ImageButton(sold1regiondraw);
+
+        soldier1.setSize(110, 90);
+        soldier1.setPosition(567, 38);
+
+        soldier1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (redPlayer.getTurn()) {
+
+                    // Animations for the initial solider (before end-turn)
+                    animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER1_IDLE_RED.findRegions("idle"),
+                            PlayMode.LOOP);
+
+                    // Create red unit of type 1
+                    unitsPosition = new Point(820, 222);
+                    NormalSoldier newUnit = new NormalSoldier(unitsPosition);
+                    newUnit.setAnimation(animation);
+                    redPlayer.units.add(newUnit);
+
+                } else {
+
+                    // Animations for the initial solider (before end-turn)
+
+                    animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER1_IDLE_BLUE.findRegions("idle"),
+                            PlayMode.LOOP);
+
+                    // Create blue unit of type 1
+                    unitsPosition = new Point(85, 702);
+                    NormalSoldier newUnit = new NormalSoldier(unitsPosition);
+                    newUnit.setAnimation(animation);
+                    bluePlayer.units.add(newUnit);
+
+                }
+
+            }
+        });
+
+        // Unit -- Soldier3
+        sold3region = new TextureRegion(Textures.SOLDIER3);
+        sold3regiondraw = new TextureRegionDrawable(sold3region);
+        soldier3 = new ImageButton(sold3regiondraw);
+
+        soldier3.setSize(110, 90);
+        soldier3.setPosition(663, 38);
+        soldier3.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                if (redPlayer.getTurn()) {
+
+                    // Animations for the initial solider (before end-turn)
+                    animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER3_IDLE_RED.findRegions("idle"),
+                            PlayMode.LOOP);
+
+                    // Create red unit of type 3
+                    unitsPosition = new Point(820, 158);
+                    CrazySoldier newUnit = new CrazySoldier(unitsPosition);
+                    newUnit.setAnimation(animation);
+                    redPlayer.units.add(newUnit);
+
+                } else {
+                    // Animations for the initial solider (before end-turn)
+                    animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER3_IDLE_BLUE.findRegions("idle"),
+                            PlayMode.LOOP);
+
+                    // Create blue unit of type 3
+                    unitsPosition = new Point(85, 640);
+                    CrazySoldier newUnit = new CrazySoldier(unitsPosition);
+                    newUnit.setAnimation(animation);
+                    bluePlayer.units.add(newUnit);
+
                 }
             }
         });
 
         gameScreenButtons = new Stage(new ScreenViewport());
         gameScreenButtons.addActor(endTurn);
-        Gdx.input.setInputProcessor(gameScreenButtons);
+        gameScreenButtons.addActor(soldier1);
+        gameScreenButtons.addActor(soldier3);
 
+        // Stage should controll input.
+        Gdx.input.setInputProcessor(gameScreenButtons);
     }
 
     @Override
@@ -119,16 +217,12 @@ public class GameScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
         fillPlaceHolders();
+
         batch.begin();
-        // for (Drawer drawer : drawers) {
-        // Sprite sprite = drawer.sprite;
-        // sprite.setPosition(drawer.x, drawer.y);
-        // sprite.setSize(Constants.PLACEHOLDER_SIZE, Constants.PLACEHOLDER_SIZE);
-        // sprite.draw(batch);
-        // }
 
         // Rendering Placeholders
         Sprite placeHolderSprite = new Sprite(Textures.PLACE_HOLDER);
+
         for (Point placeHolder : placeHolders) {
             placeHolderSprite.setPosition(placeHolder.x * Constants.PLACEHOLDER_SIZE,
                     placeHolder.y * Constants.PLACEHOLDER_SIZE);
@@ -136,16 +230,28 @@ public class GameScreen implements Screen {
             placeHolderSprite.draw(batch);
         }
 
+        // Rendering units
+        for (Unit unit : redPlayer.units) {
+            batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x, unit.getPosition().y,
+                    50, 1,
+                    60,
+                    45, 1, 1, 0);
+
+        }
+
+        for (Unit unit : bluePlayer.units) {
+
+            batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
+                    unit.getPosition().y, 50, 1, 60, 45, 1, 1, 0);
+
+        }
+
+        elapsedTime += Gdx.graphics.getDeltaTime();
         gameScreenButtons.act(Gdx.graphics.getDeltaTime()); // Perform ui logic
         gameScreenButtons.draw(); // Draw the ui
 
         batch.end();
     }
-
-    // public void draw(Texture texture, int x, int y) {
-    // drawers.add(new Drawer(new Sprite(texture), x * Constants.UNIT_SIZE, y *
-    // Constants.UNIT_SIZE));
-    // }
 
     public void fillPlaceHolders() {
 
@@ -209,17 +315,7 @@ public class GameScreen implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
+        Textures.disposeConstants();
     }
 
-    // private class Drawer {
-    // private int x;
-    // private int y;
-    // private Sprite sprite;
-
-    // public Drawer(Sprite sprite, int x, int y) {
-    // this.x = x;
-    // this.y = y;
-    // this.sprite = sprite;
-    // }
-    // }
 }
