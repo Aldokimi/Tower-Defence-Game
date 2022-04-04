@@ -36,6 +36,11 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
+    tasks.withType(JavaCompile).configureEach {
+        javaCompiler = javaToolchains.compilerFor {
+            languageVersion = JavaLanguageVersion.of(8)
+    }
+  }
 }
 
 project(":desktop") {
@@ -55,12 +60,34 @@ project(":desktop") {
 project(":core") {
     apply plugin: "java-library"
 
-
+    sourceSets.test.java.srcDirs = ["test/"]
+    
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         api "com.underwaterapps.overlap2druntime:overlap2d-runtime-libgdx:0.1.0"
         
+
+        api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"                           
+        api fileTree(dir: 'libs', include: '*.jar')                                    
+
+        testImplementation(platform('org.junit:junit-bom:5.8.2'))
+        testImplementation('org.junit.jupiter:junit-jupiter')    
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'                                           
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.4.0'                                           
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"               
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"                                
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"       
+        testImplementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"                          
+        testImplementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop" 
+    
     }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+	}
+}
 }

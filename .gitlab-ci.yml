@@ -1,4 +1,4 @@
-image: gradle:alpine
+image: gradle:6.7.1
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
@@ -6,9 +6,13 @@ variables:
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
-build:
+stages:
+  - build
+  - test
+
+Build:
   stage: build
-  script: gradle --build-cache assemble --warning-mode summary --scan
+  script: gradle --build-cache assemble --warning-mode summary --scan #Warnings set to 'summary' because all warnings are about deprecation 
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -16,3 +20,17 @@ build:
       - ./core/build
       - ./desktop/build
       - .gradle
+
+Unit-Tests:
+  stage: test
+  script: 
+    - gradle :core:test
+    - gradle clean :core:test
+
+Check:
+  stage: test
+  script:  gradle clean check
+  artifacts:
+    paths:
+      - "./core/build/reports/tests/test/*"
+    expire_in: 30 days
