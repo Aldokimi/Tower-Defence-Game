@@ -6,7 +6,7 @@ Evolve your gaming experience
 ### Prerequisites
 
 - JDK 8+<br>
-- Gradle 6.7.1
+- Gradle 7.4.2
 
 ### Build
 ```bash

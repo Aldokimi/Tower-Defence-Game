@@ -1,40 +1,43 @@
 package com.alphatech.game;
 
-import com.alphatech.game.view.GameScreen;
+import com.alphatech.game.view.MainMenuScreen;
 import com.badlogic.gdx.Game;
 
 public class AlphaTech extends Game {
+	private MainMenuScreen MainMenuScreen;
 
-	private GameScreen gameScreen;
+	public AlphaTech() {
 
-	@Override
-	public void create() {
-		gameScreen = new GameScreen();
-		setScreen(gameScreen);
+		MainMenuScreen = new MainMenuScreen();
 	}
 
 	@Override
-	public void render(){
+	public void create() {
+		setScreen(MainMenuScreen);
+	}
+
+	@Override
+	public void render() {
 		super.render();
 	}
 
 	@Override
-	public void dispose(){
+	public void dispose() {
 		super.dispose();
 	}
 
 	@Override
-	public void resize(int width, int height){
+	public void resize(int width, int height) {
 		super.resize(width, height);
 	}
 
 	@Override
-	public void pause(){
+	public void pause() {
 		super.pause();
 	}
 
 	@Override
-	public void resume(){
+	public void resume() {
 		super.resume();
 	}
 }
