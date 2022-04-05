@@ -82,6 +82,7 @@ public class GameScreen implements Screen {
 
         // Place holders points for buildings
         placeHolders = new ArrayList<>();
+        fillPlaceHolders(); // Filling the placeholders once
 
         // Player
         redPlayer = new Player();
@@ -216,7 +217,6 @@ public class GameScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
-        fillPlaceHolders();
 
         batch.begin();
 
@@ -253,6 +253,9 @@ public class GameScreen implements Screen {
         batch.end();
     }
 
+    /**
+     * Showing the place holders on the map.
+     */
     public void fillPlaceHolders() {
 
         for (int x = 0; x < 30; x++) {
