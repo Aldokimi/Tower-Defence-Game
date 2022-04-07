@@ -14,6 +14,7 @@ public class Constants {
     public static final int VIEW_SIZE = 38 * PLACEHOLDER_SIZE;
     public static final int SCREEN_WIDTH = 960;
     public static final int SCREEN_HEIGHT = 896;
+    public static final float TIMER_CAPACITY = 174f;
 
     // Player
     public static final int TURN_TIME = 30;

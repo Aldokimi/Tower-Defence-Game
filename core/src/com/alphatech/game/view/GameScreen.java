@@ -12,6 +12,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,6 +22,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FillViewport;
@@ -61,6 +64,17 @@ public class GameScreen implements Screen {
     private Animation<TextureRegion> animation;
     private float elapsedTime = 0;
 
+    // Units counter
+    private int unitCountSoldier1;
+    private int unitCountSoldier3;
+    private BitmapFont unitCounter;
+
+    // Timer bar
+    ProgressBar timerBar;
+    ProgressBarStyle timerBarStyle;
+    float width = 174f;
+    float stateTime = 0; // Time span between the current frame and the last frame in seconds.
+
     // Turn Control
     private TextureRegion endTurnRegion;
     private TextureRegionDrawable endTurnRegionDraw;
@@ -68,6 +82,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+        // Map & Camera
         map = new TmxMapLoader().load("map/map.tmx");
         renderer = new OrthoCachedTiledMapRenderer(map);
         float w = Gdx.graphics.getWidth();
@@ -88,6 +103,9 @@ public class GameScreen implements Screen {
         redPlayer = new Player();
         bluePlayer = new Player();
 
+        // Unit counter
+        unitCounter = new BitmapFont();
+
         // Starting the turn randomly every new game
         Random rand = new Random(); // instance of random class
         int randomInt = rand.nextInt(2);
@@ -98,6 +116,14 @@ public class GameScreen implements Screen {
             bluePlayer.setTurn(true);
             System.out.println("Blue turn");
         }
+
+        // Timer
+        timerBarStyle = new ProgressBar.ProgressBarStyle();
+        timerBarStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.TIMER_BAR));
+        timerBarStyle.background.setMinHeight(13);
+
+        timerBar = new ProgressBar(0f, 50, 1f, false, timerBarStyle);
+        timerBar.setBounds(382, 793, 174, 97);
 
         // Turn Control
         endTurnRegion = new TextureRegion(Textures.ENDTURN_TEXT);
@@ -110,15 +136,7 @@ public class GameScreen implements Screen {
         endTurn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (redPlayer.getTurn()) {
-                    // Switch turn to the blue player
-                    redPlayer.endTurn();
-                    bluePlayer.startTurn();
-                } else {
-                    // Switch turn to the red player
-                    bluePlayer.endTurn();
-                    redPlayer.startTurn();
-                }
+                switchTurn();
             }
         });
 
@@ -144,7 +162,7 @@ public class GameScreen implements Screen {
                     NormalSoldier newUnit = new NormalSoldier(unitsPosition);
                     newUnit.setAnimation(animation);
                     redPlayer.units.add(newUnit);
-
+                    unitCountSoldier1 += 1;
                 } else {
 
                     // Animations for the initial solider (before end-turn)
@@ -157,6 +175,7 @@ public class GameScreen implements Screen {
                     NormalSoldier newUnit = new NormalSoldier(unitsPosition);
                     newUnit.setAnimation(animation);
                     bluePlayer.units.add(newUnit);
+                    unitCountSoldier1 += 1;
 
                 }
 
@@ -185,7 +204,7 @@ public class GameScreen implements Screen {
                     CrazySoldier newUnit = new CrazySoldier(unitsPosition);
                     newUnit.setAnimation(animation);
                     redPlayer.units.add(newUnit);
-
+                    unitCountSoldier3 += 1;
                 } else {
                     // Animations for the initial solider (before end-turn)
                     animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER3_IDLE_BLUE.findRegions("idle"),
@@ -196,12 +215,13 @@ public class GameScreen implements Screen {
                     CrazySoldier newUnit = new CrazySoldier(unitsPosition);
                     newUnit.setAnimation(animation);
                     bluePlayer.units.add(newUnit);
-
+                    unitCountSoldier3 += 1;
                 }
             }
         });
 
         gameScreenButtons = new Stage(new ScreenViewport());
+        gameScreenButtons.addActor(timerBar);
         gameScreenButtons.addActor(endTurn);
         gameScreenButtons.addActor(soldier1);
         gameScreenButtons.addActor(soldier3);
@@ -230,6 +250,22 @@ public class GameScreen implements Screen {
             placeHolderSprite.draw(batch);
         }
 
+        // Rendering Timer
+        if (elapsedTime > 1 && width > 0) {
+            // Decresing the timer
+            width -= 0.122222222;
+            timerBar.setWidth(width);
+        }
+        if (width < 1) {
+            // Reseting the timer and it's dependencies
+            switchTurn();
+        }
+
+        // Rendering unit counter
+        unitCounter.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        unitCounter.draw(batch, String.valueOf(unitCountSoldier1), 638, 129);// -- Soldier 1
+        unitCounter.draw(batch, String.valueOf(unitCountSoldier3), 734, 129);// -- Soldier 3
+
         // Rendering units
         for (Unit unit : redPlayer.units) {
             batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x, unit.getPosition().y,
@@ -246,11 +282,35 @@ public class GameScreen implements Screen {
 
         }
 
-        elapsedTime += Gdx.graphics.getDeltaTime();
+        elapsedTime += Gdx.graphics.getDeltaTime();// Time span between the current frame and the last frame in seconds.
         gameScreenButtons.act(Gdx.graphics.getDeltaTime()); // Perform ui logic
         gameScreenButtons.draw(); // Draw the ui
 
         batch.end();
+    }
+
+    /**
+     * Resseting the timer and soldiers count, and
+     * switching the turn among the two players.
+     * 
+     */
+    public void switchTurn() {
+        // Resetting the timer
+        width = Constants.TIMER_CAPACITY;
+
+        // Resetting the unit counter
+        unitCountSoldier1 = 0;
+        unitCountSoldier3 = 0;
+
+        if (redPlayer.getTurn()) {
+            // Switch turn to the blue player
+            redPlayer.endTurn();
+            bluePlayer.startTurn();
+        } else {
+            // Switch turn to the red player
+            bluePlayer.endTurn();
+            redPlayer.startTurn();
+        }
     }
 
     /**
@@ -260,7 +320,7 @@ public class GameScreen implements Screen {
 
         for (int x = 0; x < 30; x++) {
             for (int y = 0; y < 28; y++) {
-                if (// near castle 1
+                if (// near castle 1 (blue)
                 (x == 4 && (y == 21 || y == 23)) || (y == 19 && x == 4)
                         || ((y == 19 || y == 18) && (x == 2 || x == 0) || (y == 23 && x == 15)) ||
                         ((x == 7 || x == 9) && (y == 21 || y == 23)) || (y == 19 && x == 6)
@@ -273,10 +333,10 @@ public class GameScreen implements Screen {
                         || (y == 21 && x == 15) ||
                         (y == 17 && (x == 11 || x == 13)) || (y == 10 && (x == 8 || x == 10)) || (y == 8 && x == 1)
                         || (y == 5 && x == 6) ||
-                        // near castle 2
-                        ((y == 4 || y == 8) && (x == 25 || x == 23)) || (y == 8 && (x == 22 || x == 29))
+                        // near castle 2 (Red)
+                        ((y == 4 || y == 8) && (x == 25 || x == 21)) || (y == 8 && (x == 22 || x == 29))
                         || (y == 6 && x == 25) ||
-                        ((y == 4 || y == 6) && x == 22) || ((x == 25 || x == 27) && y == 8)
+                        ((y == 4 || y == 6) && x == 24) || ((x == 25 || x == 27) && y == 8)
                         || (y == 10 && (x == 23 || x == 25)) || (y == 11 && (x == 29 || x == 27)) ||
                         (y == 6 && x == 20) || (y == 12 && (x == 13 || x == 10 || x == 8 || x == 23))
                         || (y == 13 && (x == 27 || x == 29)) ||
@@ -318,6 +378,7 @@ public class GameScreen implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
+        gameScreenButtons.dispose();
         Textures.disposeConstants();
     }
 
