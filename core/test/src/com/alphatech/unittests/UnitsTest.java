@@ -1,22 +1,15 @@
-package com.alphatech.unittests;
+package src.com.alphatech.unittests;
+
+import com.alphatech.game.utils.CrazySoldier;
+import com.alphatech.game.utils.NormalSoldier;
+import com.alphatech.game.utils.Unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.alphatech.game.helpers.Textures;
-import com.alphatech.game.utils.CrazySoldier;
-import com.alphatech.game.utils.NormalSoldier;
-import com.alphatech.game.utils.Unit;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.brashmonkey.spriter.Point;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class UnitsTest {
 
