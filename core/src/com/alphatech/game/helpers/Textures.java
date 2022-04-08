@@ -14,6 +14,8 @@ public class Textures {
 
         // Map
         public static final Texture PLACE_HOLDER = new Texture("GroundTiles/BuildGround.png");
+        public static final Texture HIGHLIGHTED_PLACE_HOLDER = new Texture("GroundTiles/highlight.png");
+        public static final Texture RED_HIGHLIGHTED_PLACE_HOLDER = new Texture("GroundTiles/redPlaceholder.png");
         public static final Texture ENDTURN_TEXT = new Texture("Texts/EndTurn.png");
 
         // Timer Bar
@@ -35,10 +37,26 @@ public class Textures {
         public static final TextureAtlas SOLDIER3_IDLE_BLUE = new TextureAtlas(
                         Gdx.files.internal("Enemy3/Blue/Idle/Soldier.atlas"));
 
-
         // Path Arrow
         public static final Texture PathArrowB = new Texture("Extras/pathArrowB.png");
         public static final Texture PathArrowR = new Texture("Extras/pathArrowR.png");
+
+        // Towers Buttons
+        public static final Texture NORMAL_TOWER = new Texture("Towers/NormalTower.png");
+        public static final Texture MULTI_ATTACK_TOWER = new Texture("Towers/MultiAttackTower.png");
+        public static final Texture CRAZY_TOWER = new Texture("Towers/MultiAttackTower.png");
+
+        // Normal Towers
+        public static final Texture RED_NORMAL_TOWER = new Texture("Towers/Red/NormalTower.png");
+        public static final Texture BLUE_NORMAL_TOWER = new Texture("Towers/Blue/NormalTower.png");
+
+        // Multi-attack Towers
+        public static final Texture RED_MULTI_ATTACK_TOWER = new Texture("Towers/Red/MultiAttackTower.png");
+        public static final Texture BLUE_MULTI_ATTACK_TOWER = new Texture("Towers/Blue/MultiAttackTower.png");
+
+        // Crazy tower
+        public static final Texture RED_CRAZY_TOWER = new Texture("Towers/MultiAttackTower.png"); // *** Those textures should be changed
+        public static final Texture BLUE_CRAZY_TOWER = new Texture("Towers/MultiAttackTower.png");
 
 
         /**
@@ -52,6 +70,7 @@ public class Textures {
                 MAIN_MENU_EXIT_TEXT.dispose();
 
                 PLACE_HOLDER.dispose();
+                HIGHLIGHTED_PLACE_HOLDER.dispose();
                 ENDTURN_TEXT.dispose();
                 TIMER_BAR.dispose();
 
@@ -61,6 +80,13 @@ public class Textures {
                 SOLDIER3_IDLE_RED.dispose();
                 SOLDIER1_IDLE_BLUE.dispose();
                 SOLDIER3_IDLE_BLUE.dispose();
+
+                NORMAL_TOWER.dispose();
+                MULTI_ATTACK_TOWER.dispose();
+                RED_NORMAL_TOWER.dispose();
+                BLUE_NORMAL_TOWER.dispose();
+                RED_NORMAL_TOWER.dispose();
+                BLUE_MULTI_ATTACK_TOWER.dispose();
         }
 
 }
