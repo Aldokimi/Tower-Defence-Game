@@ -10,6 +10,7 @@ import com.alphatech.game.utils.towers.MultiAttackTower;
 import com.alphatech.game.utils.towers.NormalTower;
 import com.alphatech.game.utils.towers.Placeholder;
 import com.alphatech.game.utils.towers.Tower;
+import com.alphatech.game.utils.towers.GoldMine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -91,6 +92,14 @@ public class GameScreen implements Screen {
     private Tower blueMultiAttackTower;
     private Tower redMultiAttackTower;
     private ArrayList<Tower> towers;
+
+    //Gold mines
+    private ImageButton goldMineButton;
+    private TextureRegion goldMineRegion;
+    private TextureRegionDrawable goldMineRegionDrawable;
+    private Group goldMineHighlights;
+    private GoldMine goldMine;
+    private ArrayList<GoldMine> goldMines;
 
     // Timer bar
     ProgressBar timerBar;
@@ -380,7 +389,49 @@ public class GameScreen implements Screen {
         gameScreenButtons.addActor(normalTowerButton);
         gameScreenButtons.addActor(multiAttackTowerButton);
 
+        // Gold Mines
+        goldMineRegion = new TextureRegion(Textures.GOLD_MINE);
+        goldMineRegionDrawable = new TextureRegionDrawable(goldMineRegion);
+        goldMineButton = new ImageButton(goldMineRegionDrawable);
+        goldMineButton.setSize(110, 90);
+        goldMineButton.setPosition(473, 38);
+    
+        goldMine = new GoldMine(Textures.GOLD_MINE, placeHolders);
+
+        //Gold Mine's button listener
+        goldMineButton.addListener(new ClickListener() {
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                goldMineHighlights = new Group();
+                goldMineHighlights.setName("highlight");
+                if(!isHighlighted) {
+                    if (bluePlayer.getTurn()) {
+                        goldMine.build();
+
+                        for (Placeholder p : goldMine.getAvailablePlaces()) {
+                            if (p.isFreePlace())
+                                goldMineHighlights.addActor(highlightPlaceforGoldMine(p, goldMine));
+                        }
+                } else {
+                    // Measuring from all directions
+                    goldMine.build();
+
+                    for (Placeholder p : goldMine.getAvailablePlaces()) {
+                        if(p.isFreePlace())
+                            goldMineHighlights.addActor(highlightPlaceforGoldMine(p, goldMine));
+                    }
+                }
+                isHighlighted = true;
+                gameScreenButtons.addActor(goldMineHighlights);
+            } else {
+                removeHighlight();
+            }
+        }
+    });
+    gameScreenButtons.addActor(goldMineButton);
     }
+    
 
     @Override
     public void render(float delta) {
@@ -453,6 +504,19 @@ public class GameScreen implements Screen {
             }
 
         }
+
+        // Rendering Gold Mines
+        Sprite goldMineSprite = new Sprite(goldMine.getGoldMineTexture());
+        for(int i = 1; i < goldMine.getTakenPlaces().size(); i++) {
+            goldMineSprite.setPosition(
+                (float) (goldMine.getTakenPlaces().get(i).getX() * Constants.PLACEHOLDER_SIZE
+                            - Constants.UNIT_SIZE.x * 0.30),
+                        goldMine.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE);
+            goldMineSprite.setSize(Constants.UNIT_SIZE.x + Constants.UNIT_SIZE.x * 1 / 7,
+            Constants.UNIT_SIZE.y + Constants.UNIT_SIZE.y * 1 / 2);
+            goldMineSprite.draw(batch);
+        }
+
         batch.end();
     }
 
@@ -555,7 +619,26 @@ public class GameScreen implements Screen {
             }
         });
         return btn;
+    }
 
+    private ImageButton highlightPlaceforGoldMine(final Placeholder placeholder, final GoldMine goldMine) {
+        TextureRegion rgn = new TextureRegion(Textures.HIGHLIGHTED_PLACE_HOLDER);
+        TextureRegionDrawable rgndrbl = new TextureRegionDrawable(rgn);
+        ImageButton btn = new ImageButton(rgndrbl);
+        btn.setSize(Constants.PLACEHOLDER_SIZE, Constants.PLACEHOLDER_SIZE);
+        btn.setPosition(Constants.PLACEHOLDER_SIZE * (placeholder.getX()),
+        Constants.PLACEHOLDER_SIZE * (placeholder.getY()));
+
+        btn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                goldMine.addPlaceholder(placeholder);
+                placeholder.takePlace();
+                goldMine.releaseAvailablePlaces();
+                removeHighlight();
+            }
+        });
+        return btn;
     }
 
     /**

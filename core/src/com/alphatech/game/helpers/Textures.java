@@ -48,6 +48,8 @@ public class Textures {
         public static final Texture RED_MULTI_ATTACK_TOWER = new Texture("Towers/Red/MultiAttackTower.png");
         public static final Texture BLUE_MULTI_ATTACK_TOWER = new Texture("Towers/Blue/MultiAttackTower.png");
 
+        //Gold Mine
+        public static final Texture GOLD_MINE = new Texture("Towers/GoldMine.png");
         /**
          * Dispose the constants in the game screen
          */
