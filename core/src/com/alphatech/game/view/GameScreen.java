@@ -397,7 +397,7 @@ public class GameScreen implements Screen {
         goldMineButton.setPosition(473, 38);
     
         goldMine = new GoldMine(Textures.GOLD_MINE, placeHolders);
-
+        goldMines = new ArrayList<>(Arrays.asList(goldMine));
         //Gold Mine's button listener
         goldMineButton.addListener(new ClickListener() {
 
@@ -506,22 +506,24 @@ public class GameScreen implements Screen {
         }
 
         // Rendering Gold Mines
-        Sprite goldMineSprite = new Sprite(goldMine.getGoldMineTexture());
-        for(int i = 1; i < goldMine.getTakenPlaces().size(); i++) {
-            goldMineSprite.setPosition(
-                (float) (goldMine.getTakenPlaces().get(i).getX() * Constants.PLACEHOLDER_SIZE
-                            - Constants.UNIT_SIZE.x * 0.30),
-                        goldMine.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE);
-            goldMineSprite.setSize(Constants.UNIT_SIZE.x + Constants.UNIT_SIZE.x * 1 / 7,
-            Constants.UNIT_SIZE.y + Constants.UNIT_SIZE.y * 1 / 2);
-            goldMineSprite.draw(batch);
+        for(GoldMine goldMine : goldMines){
+            Sprite goldMineSprite = new Sprite(goldMine.getGoldMineTexture());
+            for(int i = 0; i < goldMine.getTakenPlaces().size(); i++) {
+                goldMineSprite.setPosition(
+                    (float) (goldMine.getTakenPlaces().get(i).getX() * Constants.PLACEHOLDER_SIZE
+                         - Constants.UNIT_SIZE.x * 0.30),
+                      goldMine.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE);
+                goldMineSprite.setSize(Constants.UNIT_SIZE.x + Constants.UNIT_SIZE.x * 1 / 10,
+                Constants.UNIT_SIZE.y + Constants.UNIT_SIZE.y * 1 / 2);
+                goldMineSprite.draw(batch);
         }
+    }
 
         batch.end();
     }
 
     /**
-     * Resseting the timer and soldiers count, and
+     * Reseting the timer and soldiers count, and
      * switching the turn among the two players.
      * 
      */
