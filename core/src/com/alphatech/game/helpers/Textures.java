@@ -50,6 +50,8 @@ public class Textures {
 
         //Gold Mine
         public static final Texture GOLD_MINE = new Texture("Towers/GoldMine.png");
+        public static final Texture RED_GOLD_MINE = new Texture("Towers/Red/GoldMine.png");
+        public static final Texture BLUE_GOLD_MINE = new Texture("Towers/Blue/GoldMine.png");
         /**
          * Dispose the constants in the game screen
          */

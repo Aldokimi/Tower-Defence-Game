@@ -99,6 +99,8 @@ public class GameScreen implements Screen {
     private TextureRegionDrawable goldMineRegionDrawable;
     private Group goldMineHighlights;
     private GoldMine goldMine;
+    private GoldMine redGoldMine;
+    private GoldMine blueGoldMine;
     private ArrayList<GoldMine> goldMines;
 
     // Timer bar
@@ -397,7 +399,9 @@ public class GameScreen implements Screen {
         goldMineButton.setPosition(473, 38);
     
         goldMine = new GoldMine(Textures.GOLD_MINE, placeHolders);
-        goldMines = new ArrayList<>(Arrays.asList(goldMine));
+        redGoldMine = new GoldMine(Textures.RED_GOLD_MINE, placeHolders);
+        blueGoldMine = new GoldMine(Textures.BLUE_GOLD_MINE, placeHolders);
+        goldMines = new ArrayList<>(Arrays.asList(blueGoldMine, redGoldMine));
         //Gold Mine's button listener
         goldMineButton.addListener(new ClickListener() {
 
@@ -407,19 +411,19 @@ public class GameScreen implements Screen {
                 goldMineHighlights.setName("highlight");
                 if(!isHighlighted) {
                     if (bluePlayer.getTurn()) {
-                        goldMine.build();
+                        blueGoldMine.build();
 
-                        for (Placeholder p : goldMine.getAvailablePlaces()) {
+                        for (Placeholder p : blueGoldMine.getAvailablePlaces()) {
                             if (p.isFreePlace())
-                                goldMineHighlights.addActor(highlightPlaceforGoldMine(p, goldMine));
+                                goldMineHighlights.addActor(highlightPlaceforGoldMine(p, blueGoldMine));
                         }
                 } else {
                     // Measuring from all directions
-                    goldMine.build();
+                    redGoldMine.build();
 
-                    for (Placeholder p : goldMine.getAvailablePlaces()) {
+                    for (Placeholder p : redGoldMine.getAvailablePlaces()) {
                         if(p.isFreePlace())
-                            goldMineHighlights.addActor(highlightPlaceforGoldMine(p, goldMine));
+                            goldMineHighlights.addActor(highlightPlaceforGoldMine(p, redGoldMine));
                     }
                 }
                 isHighlighted = true;
