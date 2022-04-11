@@ -13,11 +13,17 @@ public class Unit {
     protected Texture unitType;
     protected Point position;
     protected Animation<TextureRegion> animation;
+    protected Constants.PathNum path;
+
 
     public Unit(Point position) {
         this.position = position;
         this.speed = Constants.UNIT_SPEED;
     }
+
+    public Constants.PathNum getPath(){return path;}
+
+    public void setPath(Constants.PathNum path){this.path = path;}
 
     public void setSpeed(int speed) {
         this.speed = speed;

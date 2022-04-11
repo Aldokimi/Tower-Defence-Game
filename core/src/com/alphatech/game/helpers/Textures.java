@@ -35,6 +35,12 @@ public class Textures {
         public static final TextureAtlas SOLDIER3_IDLE_BLUE = new TextureAtlas(
                         Gdx.files.internal("Enemy3/Blue/Idle/Soldier.atlas"));
 
+
+        // Path Arrow
+        public static final Texture PathArrowB = new Texture("Extras/pathArrowB.png");
+        public static final Texture PathArrowR = new Texture("Extras/pathArrowR.png");
+
+
         /**
          * Dispose the constants in the game screen
          */
