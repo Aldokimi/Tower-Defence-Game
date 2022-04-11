@@ -21,4 +21,11 @@ public class Constants {
     public static final int INIT_HEALTH = 100;
     public static final int INIT_GOLD_COUNT = 10000;
 
+    //Paths
+    public enum PathNum {
+        FIRST,
+        SECOND,
+        THIRD,
+        FORTH
+    }
 }
