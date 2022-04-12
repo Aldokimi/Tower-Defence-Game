@@ -104,9 +104,14 @@ public class GameScreen implements Screen {
     private TextureRegionDrawable PathArrowRed4RegionDraw;
     private ImageButton PathArrowRed4;
 
-    // Place holders
+    // Placeholders
     Sprite placeHolderSprite;
     private static ArrayList<Placeholder> placeHolders;
+    private ArrayList<Placeholder> placeHoldersNearBlueCastle;
+    private ArrayList<Placeholder> placeHoldersNearRedCastle;
+
+    //barracks
+    private ArrayList<Placeholder> barrackPlaceholders;
 
     // Units
     private ArrayList<Unit> TempUnits;// to Store units before adding them to the user units
@@ -408,8 +413,22 @@ public class GameScreen implements Screen {
 
         // Place-holders points for buildings
         placeHolders = new ArrayList<>();
+        placeHoldersNearBlueCastle = new ArrayList<>();
+        placeHoldersNearRedCastle  = new ArrayList<>();
         fillPlaceHolders(); // Filling the placeholders once
         placeHolderSprite = new Sprite(Textures.PLACE_HOLDER);
+
+        // barracks
+        barrackPlaceholders = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            if(i >= 2 ){
+                barrackPlaceholders.add(placeHoldersNearRedCastle.get(new Random().nextInt(placeHoldersNearRedCastle.size())));
+            }
+            else {
+                barrackPlaceholders.add(placeHoldersNearBlueCastle.get(new Random().nextInt(placeHoldersNearBlueCastle.size())));
+            }
+        }
+
 
         // Player
         redPlayer = new Player();
@@ -740,6 +759,18 @@ public class GameScreen implements Screen {
 
         }
 
+        // rendering random barracks
+        Sprite sprite = new Sprite(Textures.BLUE_BARRACK);
+        for (int i = 0; i < barrackPlaceholders.size(); ++i) {
+            if (i == barrackPlaceholders.size()/2) sprite = new Sprite(Textures.RED_BARRACK);
+            final int x = Constants.PLACEHOLDER_SIZE + Constants.PLACEHOLDER_SIZE/3;
+            final int y = Constants.PLACEHOLDER_SIZE + Constants.PLACEHOLDER_SIZE - Constants.PLACEHOLDER_SIZE/ 3;
+            sprite.setPosition( barrackPlaceholders.get(i).getX() * Constants.PLACEHOLDER_SIZE - 5, barrackPlaceholders.get(i).getY() * Constants.PLACEHOLDER_SIZE - 10);
+            sprite.setSize(x, y);
+            sprite.draw(batch);
+        }
+
+
         batch.end();
     }
 
@@ -780,15 +811,15 @@ public class GameScreen implements Screen {
         blueCrazyTower.build();
 
         for (Placeholder p : blueCrazyTower.getAvailablePlaces()) {
-            if (p.isFreePlace())
+            if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower, "blue"));
         }
         for (Placeholder p : blueNormalTower.getAvailablePlaces()) {
-            if (p.isFreePlace())
+            if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower, "blue"));
         }
         for (Placeholder p : blueMultiAttackTower.getAvailablePlaces()) {
-            if (p.isFreePlace())
+            if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower, "blue"));
         }
 
@@ -808,15 +839,15 @@ public class GameScreen implements Screen {
         redCrazyTower.build();
 
         for (Placeholder p : redCrazyTower.getAvailablePlaces()) {
-            if (p.isFreePlace())
+            if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower, "red"));
         }
         for (Placeholder p : redMultiAttackTower.getAvailablePlaces()) {
-            if (p.isFreePlace())
+            if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower, "red"));
         }
         for (Placeholder p : redNormalTower.getAvailablePlaces()) {
-            if (p.isFreePlace())
+            if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower, "red"));
         }
     }
@@ -887,8 +918,13 @@ public class GameScreen implements Screen {
                         || (y == 21 && x == 15) ||
                         ((y == 15 || y == 19 || y == 17) && (x == 11 || x == 13))
                         || (y == 10 && (x == 8 || x == 10)) || (y == 8 && x == 1)
-                        || (y == 5 && x == 6) ||
-                        // near red castle
+                        || (y == 5 && x == 6) )
+                {
+                    placeHolders.add(new Placeholder(x, y));
+                    placeHoldersNearBlueCastle.add(new Placeholder(x, y));
+                }
+
+                if( // near red castle
                         (y == 8 && ( x == 21 || x == 23 )) || (y == 4  && x == 21)
                         || ( y == 6 && x == 22) || ( x == 23 && y == 6)
                         || (y == 10 && (x == 23 || x == 25)) || (y == 11 && (x == 29 || x == 27)) ||
@@ -903,13 +939,13 @@ public class GameScreen implements Screen {
                         || ((x == 7 || x == 13 || x == 16) && y == 7))
                 {
                     placeHolders.add(new Placeholder(x, y));
+                    placeHoldersNearRedCastle.add(new Placeholder(x, y));
                 }
             }
         }
     }
 
     /**
-<<<<<<< HEAD
      * Used to store the 4 paths inside paths hash map.
      * NOTE: Path starts from BLUE castle and ends in the RED castle
      */

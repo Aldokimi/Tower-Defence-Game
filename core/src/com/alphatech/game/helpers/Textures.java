@@ -58,6 +58,9 @@ public class Textures {
         public static final Texture RED_CRAZY_TOWER = new Texture("Towers/MultiAttackTower.png"); // *** Those textures should be changed
         public static final Texture BLUE_CRAZY_TOWER = new Texture("Towers/MultiAttackTower.png");
 
+        // Barracks
+        public static final Texture RED_BARRACK = new Texture("Towers/Red/Knight Post Front.png");
+        public static final Texture BLUE_BARRACK = new Texture("Towers/Blue/Knight Post Front.png");
 
         /**
          * Dispose the constants in the game screen
@@ -87,6 +90,9 @@ public class Textures {
                 BLUE_NORMAL_TOWER.dispose();
                 RED_NORMAL_TOWER.dispose();
                 BLUE_MULTI_ATTACK_TOWER.dispose();
+
+                RED_BARRACK.dispose();
+                BLUE_BARRACK.dispose();
         }
 
 }

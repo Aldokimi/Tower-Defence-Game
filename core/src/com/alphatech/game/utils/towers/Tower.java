@@ -56,24 +56,15 @@ public class Tower {
     public void build() {
         for (Placeholder currentPlace : takenPlaces) {
             for (Placeholder newPlace : placeholders) {
-                if (canBuild(currentPlace, newPlace) && !contains(takenPlaces, newPlace)
-                        && !contains(availablePlaces, newPlace)) {
+                if (canBuild(currentPlace, newPlace) && !takenPlaces.contains(newPlace)
+                        && !takenPlaces.contains(newPlace))
+                {
                     availablePlaces.add(newPlace);
                 }
             }
         }
     }
 
-    /**
-     * Checks if the given placeholder 'p' is in the placeholders array
-     *
-     * @param placeholders array of placeholders
-     * @param p            given placeholder
-     * @return true if it is contained by the array, otherwise false
-     */
-    private boolean contains(ArrayList<Placeholder> placeholders, Placeholder p) {
-        return placeholders.contains(p);
-    }
 
     /**
      * Gets the avaliable placeholders to build on
