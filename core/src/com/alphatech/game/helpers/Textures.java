@@ -66,6 +66,15 @@ public class Textures {
         public static final Texture GOLD_MINE = new Texture("Towers/GoldMine.png");
         public static final Texture RED_GOLD_MINE = new Texture("Towers/Red/GoldMine.png");
         public static final Texture BLUE_GOLD_MINE = new Texture("Towers/Blue/GoldMine.png");
+  
+        //heath-bar
+        public static final Texture healthBarFrame = new Texture("Extras/healthbar_frame.png");
+        public static final Texture healthBar = new Texture("Extras/health_bar.png");
+        public static final Texture CastleHealthBarFrame = new Texture("Extras/Castle_Health_Frame.png");
+        public static final Texture healthBarV = new Texture("Extras/health_bar_Vertical.png");
+
+
+
 
         /**
          * Dispose the constants in the game screen

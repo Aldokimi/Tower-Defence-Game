@@ -34,6 +34,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.brashmonkey.spriter.Point;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -110,7 +111,7 @@ public class GameScreen implements Screen {
 
     // barracks
     private ArrayList<Placeholder> barrackPlaceholders;
-
+   
     // Units
     private ArrayList<Unit> TempUnits;// to Store units before adding them to the user units
     private TextureRegion sold1region;
@@ -173,6 +174,16 @@ public class GameScreen implements Screen {
     private TextureRegionDrawable endTurnRegionDraw;
     private ImageButton endTurn;
 
+    //Castles health bars
+    TextureRegionDrawable CastleHealthBarFrameB ;
+    TextureRegionDrawable CastleHealthBarFrameR ;
+
+    ProgressBarStyle healthBarBStyle;
+    ProgressBarStyle healthBarRStyle;
+
+
+
+
     @Override
     public void show() {
 
@@ -192,6 +203,21 @@ public class GameScreen implements Screen {
 
         // Stage should control input.
         Gdx.input.setInputProcessor(gameScreenButtons);
+
+        //Health bar for castles
+
+        CastleHealthBarFrameB = new TextureRegionDrawable(Textures.CastleHealthBarFrame);
+
+        CastleHealthBarFrameR = new TextureRegionDrawable(Textures.CastleHealthBarFrame);
+
+        healthBarBStyle = new ProgressBar.ProgressBarStyle();
+        healthBarBStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.healthBarV));
+
+        healthBarRStyle = new ProgressBar.ProgressBarStyle();
+        healthBarRStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.healthBarV));
+
+
+
 
         // Paths
         isPathChosen = false;
@@ -707,6 +733,21 @@ public class GameScreen implements Screen {
             // Resetting the timer and its dependencies
             switchTurn();
         }
+        //rendering castles healthbars
+        CastleHealthBarFrameB.draw(batch,6,21*Constants.PLACEHOLDER_SIZE+1,22,80);
+        CastleHealthBarFrameR.draw(batch,29*Constants.PLACEHOLDER_SIZE+8,5*Constants.PLACEHOLDER_SIZE+4,22,80);
+                //Blue
+
+        healthBarBStyle.background.setMinWidth(15);
+        ProgressBar healthBarB = new ProgressBar(0f, 1000, 1f, true, healthBarBStyle);
+        healthBarB.setBounds(14.5f,21*Constants.PLACEHOLDER_SIZE+17.5f, 1f, 66f*(float)bluePlayer.getHealth()/Constants.INIT_HEALTH);
+        healthBarB.draw(batch,1);
+                //Red
+        healthBarBStyle.background.setMinWidth(15);
+        ProgressBar healthBarR = new ProgressBar(0f, 1000, 1f, true, healthBarBStyle);
+        healthBarR.setBounds(29*Constants.PLACEHOLDER_SIZE+16.5f,5*Constants.PLACEHOLDER_SIZE+20.5f, 1f, 66f*(float)redPlayer.getHealth()/Constants.INIT_HEALTH);
+        healthBarR.draw(batch,1);
+
 
         // Rendering unit counter
         unitCounter.setColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -715,7 +756,13 @@ public class GameScreen implements Screen {
 
         // Rendering units
         for (Unit unit : redPlayer.units) {
-            batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x, unit.getPosition().y,
+            if(!unit.isAlive())
+                continue;
+
+            drawHealthBar(unit);
+
+
+            batch.draw(unit.getAnimation().getKeyFrame(elapsedTime,true), unit.getPosition().x, unit.getPosition().y,
                     50, 1,
                     60,
                     45, 1, 1, 0);
@@ -723,7 +770,10 @@ public class GameScreen implements Screen {
         }
 
         for (Unit unit : bluePlayer.units) {
+            if(!unit.isAlive())
+                continue;
 
+            drawHealthBar(unit);
             batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
                     unit.getPosition().y, 50, 1, 60, 45, 1, 1, 0);
 
@@ -732,6 +782,11 @@ public class GameScreen implements Screen {
         ///// Rendering the temporary created units before choosing their path and add
         ///// them to Player units
         for (Unit unit : TempUnits) {
+            if(!unit.isAlive())
+                continue;
+
+            drawHealthBar(unit);
+
             if (bluePlayer.getTurn()) {
                 batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
                         unit.getPosition().y, 50, 1, 60, 45, 1, 1, 0);
@@ -1119,6 +1174,7 @@ public class GameScreen implements Screen {
         PathArrowBlue4.getImage().setColor(Color.VIOLET);
     }
 
+
     /**
      * highlight the avaliable (to build on) place holder.
      * 
@@ -1259,6 +1315,17 @@ public class GameScreen implements Screen {
                 new Placeholder(25, 8),
                 new Placeholder(27, 8),
                 new Placeholder(29, 8)));
+    }
+    public void drawHealthBar(Unit unit)
+    {
+        TextureRegionDrawable healthBarFrame = new TextureRegionDrawable(Textures.healthBarFrame);
+        healthBarFrame.draw(batch,unit.getPosition().x+8,unit.getPosition().y+40,45,10);
+        ProgressBarStyle healthBarStyle = new ProgressBar.ProgressBarStyle();
+        healthBarStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.healthBar));
+        healthBarStyle.background.setMinHeight(8);
+        ProgressBar healthBar = new ProgressBar(0f, 1000, 1f, false, healthBarStyle);
+        healthBar.setBounds(unit.getPosition().x+17f, unit.getPosition().y+44.2f, 36*(float)unit.getHealth()/Constants.FULL_UNIT_HEALTH_POINTS, 1);
+        healthBar.draw(batch,1);
 
     }
 
