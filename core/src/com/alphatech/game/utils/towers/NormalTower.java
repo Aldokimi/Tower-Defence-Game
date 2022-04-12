@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class NormalTower extends Tower {
 
-    public NormalTower(Texture texture, ArrayList<Placeholder> placeholders, boolean isBlue) {
-        super(texture, placeholders, isBlue);
+    public NormalTower(Texture texture, ArrayList<Placeholder> placeholders) {
+        super(texture, placeholders);
     }
 }

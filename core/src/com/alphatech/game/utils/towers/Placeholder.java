@@ -4,13 +4,11 @@ public class Placeholder {
     private float x;
     private float y;
     private boolean isFree;
-    private String occupiedBy;
 
     public Placeholder(float x, float y) {
         this.x = x;
         this.y = y;
         this.isFree = true;
-        this.occupiedBy = "none";
     }
 
     public float getX() {
@@ -35,14 +33,6 @@ public class Placeholder {
      */
     public boolean isFreePlace() {
         return this.isFree;
-    }
-
-    public void occupy(String playerColor){
-        this.occupiedBy = playerColor;
-    }
-
-    public String occupier(){
-        return this.occupiedBy;
     }
 
     @Override

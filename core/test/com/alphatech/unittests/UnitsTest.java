@@ -1,15 +1,15 @@
-package src.com.alphatech.unittests;
-
-import com.alphatech.game.utils.CrazySoldier;
-import com.alphatech.game.utils.NormalSoldier;
-import com.alphatech.game.utils.Unit;
+package com.alphatech.unittests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.alphatech.game.utils.CrazySoldier;
+import com.alphatech.game.utils.NormalSoldier;
+import com.alphatech.game.utils.Unit;
 import com.brashmonkey.spriter.Point;
+
 
 public class UnitsTest {
 
@@ -60,9 +60,5 @@ public class UnitsTest {
         assertEquals(100, normal.getSpeed());
         assertEquals(200, crazy.getSpeed());
     }
-
-
-
-
 
 }

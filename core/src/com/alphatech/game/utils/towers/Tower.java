@@ -9,14 +9,12 @@ public class Tower {
     protected ArrayList<Placeholder> placeholders;
     protected ArrayList<Placeholder> availablePlaces;
     protected ArrayList<Placeholder> takenPlaces;
-    private boolean isBlueTower;
 
-    public Tower(Texture texture, ArrayList<Placeholder> placeholders, boolean isBlueTower) {
-        this.towerTexture    = texture;
-        this.placeholders    = placeholders;
+    public Tower(Texture texture, ArrayList<Placeholder> placeholders) {
+        this.towerTexture = texture;
+        this.placeholders = placeholders;
         this.availablePlaces = new ArrayList<>();
-        this.takenPlaces     = new ArrayList<>();
-        this.isBlueTower     = isBlueTower;
+        this.takenPlaces = new ArrayList<>();
     }
 
     public Texture getTowerTexture() {
@@ -57,14 +55,12 @@ public class Tower {
         for (Placeholder currentPlace : takenPlaces) {
             for (Placeholder newPlace : placeholders) {
                 if (canBuild(currentPlace, newPlace) && !takenPlaces.contains(newPlace)
-                        && !takenPlaces.contains(newPlace))
-                {
+                        && !takenPlaces.contains(newPlace)) {
                     availablePlaces.add(newPlace);
                 }
             }
         }
     }
-
 
     /**
      * Gets the avaliable placeholders to build on
@@ -110,7 +106,7 @@ public class Tower {
         this.takenPlaces.add(placeholder);
     }
 
+    protected void attack() {
+    }
 
-
-    protected void attack(){}
 }

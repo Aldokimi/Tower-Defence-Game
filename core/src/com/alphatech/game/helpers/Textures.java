@@ -62,6 +62,11 @@ public class Textures {
         public static final Texture RED_BARRACK = new Texture("Towers/Red/Knight Post Front.png");
         public static final Texture BLUE_BARRACK = new Texture("Towers/Blue/Knight Post Front.png");
 
+        // Gold Mine
+        public static final Texture GOLD_MINE = new Texture("Towers/GoldMine.png");
+        public static final Texture RED_GOLD_MINE = new Texture("Towers/Red/GoldMine.png");
+        public static final Texture BLUE_GOLD_MINE = new Texture("Towers/Blue/GoldMine.png");
+
         /**
          * Dispose the constants in the game screen
          */
@@ -84,15 +89,23 @@ public class Textures {
                 SOLDIER1_IDLE_BLUE.dispose();
                 SOLDIER3_IDLE_BLUE.dispose();
 
-                NORMAL_TOWER.dispose();
-                MULTI_ATTACK_TOWER.dispose();
-                RED_NORMAL_TOWER.dispose();
-                BLUE_NORMAL_TOWER.dispose();
-                RED_NORMAL_TOWER.dispose();
-                BLUE_MULTI_ATTACK_TOWER.dispose();
-
                 RED_BARRACK.dispose();
                 BLUE_BARRACK.dispose();
+
+                NORMAL_TOWER.dispose();
+                MULTI_ATTACK_TOWER.dispose();
+                CRAZY_TOWER.dispose();
+                RED_NORMAL_TOWER.dispose();
+                BLUE_NORMAL_TOWER.dispose();
+                RED_MULTI_ATTACK_TOWER.dispose();
+                BLUE_MULTI_ATTACK_TOWER.dispose();
+                RED_CRAZY_TOWER.dispose();
+                BLUE_CRAZY_TOWER.dispose();
+
+                GOLD_MINE.dispose();
+                RED_GOLD_MINE.dispose();
+                BLUE_GOLD_MINE.dispose();
+
         }
 
 }

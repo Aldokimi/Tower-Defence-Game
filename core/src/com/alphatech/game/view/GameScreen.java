@@ -10,6 +10,7 @@ import com.alphatech.game.utils.towers.MultiAttackTower;
 import com.alphatech.game.utils.towers.NormalTower;
 import com.alphatech.game.utils.towers.Placeholder;
 import com.alphatech.game.utils.towers.Tower;
+import com.alphatech.game.utils.towers.GoldMine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -39,6 +40,7 @@ import com.brashmonkey.spriter.Point;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import java.util.HashMap;
 import java.util.Random;
 
@@ -110,7 +112,7 @@ public class GameScreen implements Screen {
     private ArrayList<Placeholder> placeHoldersNearBlueCastle;
     private ArrayList<Placeholder> placeHoldersNearRedCastle;
 
-    //barracks
+    // barracks
     private ArrayList<Placeholder> barrackPlaceholders;
 
     // Units
@@ -155,13 +157,22 @@ public class GameScreen implements Screen {
 
     // Crazy
     private ImageButton crazyTowerButton;
-    private TextureRegion crazyTowerRegion;
-    private TextureRegionDrawable crazyTowerRegionDrawable;
+    // private TextureRegion crazyTowerRegion;
+    // private TextureRegionDrawable crazyTowerRegionDrawable;
     private Group crazyTowerHighlights;
     private Tower blueCrazyTower;
     private Tower redCrazyTower;
 
     private ArrayList<Tower> towers;
+
+    // Gold mines
+    private ImageButton goldMineButton;
+    private TextureRegion goldMineRegion;
+    private TextureRegionDrawable goldMineRegionDrawable;
+    private Group goldMineHighlights;
+    private GoldMine redGoldMine;
+    private GoldMine blueGoldMine;
+    private ArrayList<GoldMine> goldMines;
 
     // Timer bar
     ProgressBar timerBar;
@@ -191,7 +202,7 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
         gameScreenButtons = new Stage(new ScreenViewport());
 
-        // Stage should controll input.
+        // Stage should control input.
         Gdx.input.setInputProcessor(gameScreenButtons);
 
         // Paths
@@ -208,13 +219,11 @@ public class GameScreen implements Screen {
         PathArrowBlue1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(isPathChosen && chosenPath == Constants.PathNum.FIRST )
-                {
+                if (isPathChosen && chosenPath == Constants.PathNum.FIRST) {
                     resetColorsOfPaths();
                     isPathChosen = false;
                     chosenPath = null;
-                }
-                else {
+                } else {
                     chosenPath = Constants.PathNum.FIRST;
                     isPathChosen = true;
                     colorPath1();
@@ -230,13 +239,11 @@ public class GameScreen implements Screen {
         PathArrowBlue2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(isPathChosen && chosenPath == Constants.PathNum.SECOND )
-                {
+                if (isPathChosen && chosenPath == Constants.PathNum.SECOND) {
                     resetColorsOfPaths();
                     isPathChosen = false;
                     chosenPath = null;
-                }
-                else {
+                } else {
                     chosenPath = Constants.PathNum.SECOND;
                     isPathChosen = true;
                     colorPath2();
@@ -255,13 +262,11 @@ public class GameScreen implements Screen {
         PathArrowBlue3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(isPathChosen && chosenPath == Constants.PathNum.THIRD )
-                {
+                if (isPathChosen && chosenPath == Constants.PathNum.THIRD) {
                     resetColorsOfPaths();
                     isPathChosen = false;
                     chosenPath = null;
-                }
-                else {
+                } else {
                     chosenPath = Constants.PathNum.THIRD;
                     isPathChosen = true;
                     colorPath3();
@@ -281,13 +286,11 @@ public class GameScreen implements Screen {
         PathArrowBlue4.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(isPathChosen && chosenPath == Constants.PathNum.FORTH )
-                {
+                if (isPathChosen && chosenPath == Constants.PathNum.FORTH) {
                     resetColorsOfPaths();
                     isPathChosen = false;
                     chosenPath = null;
-                }
-                else {
+                } else {
                     chosenPath = Constants.PathNum.FORTH;
                     isPathChosen = true;
                     colorPath4();
@@ -310,13 +313,11 @@ public class GameScreen implements Screen {
         PathArrowRed1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(isPathChosen && chosenPath == Constants.PathNum.FIRST )
-                {
+                if (isPathChosen && chosenPath == Constants.PathNum.FIRST) {
                     resetColorsOfPaths();
                     isPathChosen = false;
                     chosenPath = null;
-                }
-                else {
+                } else {
                     chosenPath = Constants.PathNum.FIRST;
                     isPathChosen = true;
                     colorPath1();
@@ -338,13 +339,11 @@ public class GameScreen implements Screen {
         PathArrowRed2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(isPathChosen && chosenPath == Constants.PathNum.SECOND )
-                {
+                if (isPathChosen && chosenPath == Constants.PathNum.SECOND) {
                     resetColorsOfPaths();
                     isPathChosen = false;
                     chosenPath = null;
-                }
-                else {
+                } else {
                     chosenPath = Constants.PathNum.SECOND;
                     isPathChosen = true;
                     colorPath2();
@@ -365,13 +364,11 @@ public class GameScreen implements Screen {
         PathArrowRed3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(isPathChosen && chosenPath == Constants.PathNum.THIRD )
-                {
+                if (isPathChosen && chosenPath == Constants.PathNum.THIRD) {
                     resetColorsOfPaths();
                     isPathChosen = false;
                     chosenPath = null;
-                }
-                else {
+                } else {
                     chosenPath = Constants.PathNum.THIRD;
                     isPathChosen = true;
                     colorPath3();
@@ -393,13 +390,11 @@ public class GameScreen implements Screen {
         PathArrowRed4.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(isPathChosen && chosenPath == Constants.PathNum.FORTH )
-                {
+                if (isPathChosen && chosenPath == Constants.PathNum.FORTH) {
                     resetColorsOfPaths();
                     isPathChosen = false;
                     chosenPath = null;
-                }
-                else {
+                } else {
                     chosenPath = Constants.PathNum.FORTH;
                     isPathChosen = true;
                     colorPath4();
@@ -414,21 +409,21 @@ public class GameScreen implements Screen {
         // Place-holders points for buildings
         placeHolders = new ArrayList<>();
         placeHoldersNearBlueCastle = new ArrayList<>();
-        placeHoldersNearRedCastle  = new ArrayList<>();
+        placeHoldersNearRedCastle = new ArrayList<>();
         fillPlaceHolders(); // Filling the placeholders once
         placeHolderSprite = new Sprite(Textures.PLACE_HOLDER);
 
         // barracks
         barrackPlaceholders = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            if(i >= 2 ){
-                barrackPlaceholders.add(placeHoldersNearRedCastle.get(new Random().nextInt(placeHoldersNearRedCastle.size())));
-            }
-            else {
-                barrackPlaceholders.add(placeHoldersNearBlueCastle.get(new Random().nextInt(placeHoldersNearBlueCastle.size())));
+            if (i >= 2) {
+                barrackPlaceholders
+                        .add(placeHoldersNearRedCastle.get(new Random().nextInt(placeHoldersNearRedCastle.size())));
+            } else {
+                barrackPlaceholders
+                        .add(placeHoldersNearBlueCastle.get(new Random().nextInt(placeHoldersNearBlueCastle.size())));
             }
         }
-
 
         // Player
         redPlayer = new Player();
@@ -489,25 +484,25 @@ public class GameScreen implements Screen {
                 if (redPlayer.getTurn()) {
 
                     // Animations for the initial solider (before end-turn)
-                    animation = new Animation<>(0.08f, Textures.SOLDIER1_IDLE_RED.findRegions("idle"),
+                    animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER1_IDLE_RED.findRegions("idle"),
                             PlayMode.LOOP);
 
                     // Create red unit of type 1
                     unitsPosition = new Point(820, 222);
                     NormalSoldier newUnit = new NormalSoldier(unitsPosition);
                     newUnit.setAnimation(animation);
-                    TempUnits.add(newUnit);/////////////////////////////////
+                    TempUnits.add(newUnit);
                 } else {
 
                     // Animations for the initial solider (before end-turn)
-                    animation = new Animation<>(0.08f, Textures.SOLDIER1_IDLE_BLUE.findRegions("idle"),
+                    animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER1_IDLE_BLUE.findRegions("idle"),
                             PlayMode.LOOP);
 
                     // Create blue unit of type 1
                     unitsPosition = new Point(85, 702);
                     NormalSoldier newUnit = new NormalSoldier(unitsPosition);
                     newUnit.setAnimation(animation);
-                    TempUnits.add(newUnit);/////////////////////////////////
+                    TempUnits.add(newUnit);
                 }
                 unitCountSoldier1 += 1;
 
@@ -529,24 +524,24 @@ public class GameScreen implements Screen {
                 if (redPlayer.getTurn()) {
 
                     // Animations for the initial solider (before end-turn)
-                    animation = new Animation<>(0.08f, Textures.SOLDIER3_IDLE_RED.findRegions("idle"),
+                    animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER3_IDLE_RED.findRegions("idle"),
                             PlayMode.LOOP);
 
                     // Create red unit of type 3
                     unitsPosition = new Point(820, 158);
                     CrazySoldier newUnit = new CrazySoldier(unitsPosition);
                     newUnit.setAnimation(animation);
-                    TempUnits.add(newUnit);/////////////////////////////////
+                    TempUnits.add(newUnit);
                 } else {
                     // Animations for the initial solider (before end-turn)
-                    animation = new Animation<>(0.08f, Textures.SOLDIER3_IDLE_BLUE.findRegions("idle"),
+                    animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER3_IDLE_BLUE.findRegions("idle"),
                             PlayMode.LOOP);
 
                     // Create blue unit of type 3
                     unitsPosition = new Point(85, 640);
                     CrazySoldier newUnit = new CrazySoldier(unitsPosition);
                     newUnit.setAnimation(animation);
-                    TempUnits.add(newUnit);/////////////////////////////////
+                    TempUnits.add(newUnit);
                 }
                 unitCountSoldier3 += 1;
             }
@@ -565,9 +560,6 @@ public class GameScreen implements Screen {
         gameScreenButtons.addActor(PathArrowRed3);
         gameScreenButtons.addActor(PathArrowRed4);
 
-        // Stage should control input.
-        Gdx.input.setInputProcessor(gameScreenButtons);
-
         // Towers -- Normal
         normalTowerRegion = new TextureRegion(Textures.NORMAL_TOWER);
         normalTowerRegionDrawable = new TextureRegionDrawable(normalTowerRegion);
@@ -575,8 +567,8 @@ public class GameScreen implements Screen {
         normalTowerButton.setSize(Constants.UNIT_SIZE.x * 2, (float) (Constants.UNIT_SIZE.y * 2.3));
         normalTowerButton.setPosition(Constants.UNIT_SIZE.x * 3, (Constants.UNIT_SIZE.y - 11));
 
-        blueNormalTower = new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders, true);
-        redNormalTower = new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders, false);
+        blueNormalTower = new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders);
+        redNormalTower = new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders);
 
         // Towers -- Multi-Attack
         multiAttackTowerRegion = new TextureRegion(Textures.MULTI_ATTACK_TOWER);
@@ -585,22 +577,23 @@ public class GameScreen implements Screen {
         multiAttackTowerButton.setSize((float) (Constants.UNIT_SIZE.x * 1.4), (float) (Constants.UNIT_SIZE.y * 2.3));
         multiAttackTowerButton.setPosition((float) (Constants.UNIT_SIZE.x * 4.9), (Constants.UNIT_SIZE.y - 14));
 
-        blueMultiAttackTower = new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER, placeHolders, true);
-        redMultiAttackTower = new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER, placeHolders, false);
+        blueMultiAttackTower = new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER, placeHolders);
+        redMultiAttackTower = new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER, placeHolders);
 
         // Towers -- Crazy
-        crazyTowerRegion = new TextureRegion(Textures.CRAZY_TOWER);
-        crazyTowerRegionDrawable = new TextureRegionDrawable(normalTowerRegion);
+        // crazyTowerRegion = new TextureRegion(Textures.CRAZY_TOWER);
+        // crazyTowerRegionDrawable = new TextureRegionDrawable(normalTowerRegion);
         crazyTowerButton = new ImageButton(normalTowerRegionDrawable);
         crazyTowerButton.setSize(Constants.UNIT_SIZE.x * 2, (float) (Constants.UNIT_SIZE.y * 2.3));
         crazyTowerButton.setPosition((float) (Constants.UNIT_SIZE.x * 6.2), (Constants.UNIT_SIZE.y - 16));
 
-        blueCrazyTower = new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders, true);
-        redCrazyTower = new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders, false);
+        blueCrazyTower = new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders);
+        redCrazyTower = new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders);
 
         // Prepare all towers for rendering
         towers = new ArrayList<>(
-                Arrays.asList(blueNormalTower, redNormalTower, blueMultiAttackTower, redMultiAttackTower, blueCrazyTower, redCrazyTower));
+                Arrays.asList(blueNormalTower, redNormalTower, blueMultiAttackTower, redMultiAttackTower,
+                        blueCrazyTower, redCrazyTower));
 
         // Initializing the center which we will measure from.
         blueNormalTower.initializeCenterofMeasurement(new Placeholder(3, 19));
@@ -643,6 +636,49 @@ public class GameScreen implements Screen {
         gameScreenButtons.addActor(multiAttackTowerButton);
         gameScreenButtons.addActor(crazyTowerButton);
 
+        // Gold Mines
+        goldMineRegion = new TextureRegion(Textures.GOLD_MINE);
+        goldMineRegionDrawable = new TextureRegionDrawable(goldMineRegion);
+        goldMineButton = new ImageButton(goldMineRegionDrawable);
+        goldMineButton.setSize(110, 90);
+        goldMineButton.setPosition(473, 38);
+
+        // goldMine = new GoldMine(Textures.GOLD_MINE, placeHolders);
+        redGoldMine = new GoldMine(Textures.RED_GOLD_MINE, placeHolders);
+        blueGoldMine = new GoldMine(Textures.BLUE_GOLD_MINE, placeHolders);
+        goldMines = new ArrayList<>(Arrays.asList(blueGoldMine, redGoldMine));
+        // Gold Mine's button listener
+        goldMineButton.addListener(new ClickListener() {
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                goldMineHighlights = new Group();
+                goldMineHighlights.setName("highlight");
+                if (!isHighlighted) {
+                    if (bluePlayer.getTurn()) {
+                        blueGoldMine.build();
+
+                        for (Placeholder p : blueGoldMine.getAvailablePlaces()) {
+                            if (p.isFreePlace() && !gePlaceholdersNearCastle().contains(p))
+                                goldMineHighlights.addActor(highlightPlaceforGoldMine(p, blueGoldMine));
+                        }
+                    } else {
+                        // Measuring from all directions
+                        redGoldMine.build();
+
+                        for (Placeholder p : redGoldMine.getAvailablePlaces()) {
+                            if (p.isFreePlace() && !gePlaceholdersNearCastle().contains(p))
+                                goldMineHighlights.addActor(highlightPlaceforGoldMine(p, redGoldMine));
+                        }
+                    }
+                    isHighlighted = true;
+                    gameScreenButtons.addActor(goldMineHighlights);
+                } else {
+                    removeHighlight();
+                }
+            }
+        });
+        gameScreenButtons.addActor(goldMineButton);
 
     }
 
@@ -697,6 +733,7 @@ public class GameScreen implements Screen {
                     unit.getPosition().y, 50, 1, 60, 45, 1, 1, 0);
 
         }
+
         ///// Rendering the temporary created units before choosing their path and add
         ///// them to Player units
         for (Unit unit : TempUnits) {
@@ -711,15 +748,12 @@ public class GameScreen implements Screen {
                         45, 1, 1, 0);
             }
         }
-        ////
 
         elapsedTime += Gdx.graphics.getDeltaTime();// Time span between the current frame and the last frame in seconds.
         gameScreenButtons.act(Gdx.graphics.getDeltaTime()); // Perform ui logic
         gameScreenButtons.draw(); // Draw the ui
 
-
-        /// rendering Paths arrows by turn
-
+        // rendering Paths arrows by turn
         if (bluePlayer.getTurn()) {
             PathArrowRed1.setVisible(false);
             PathArrowRed2.setVisible(false);
@@ -742,7 +776,6 @@ public class GameScreen implements Screen {
             PathArrowBlue4.setVisible(false);
         }
 
-
         // Rendering Towers
         for (Tower tower : towers) {
 
@@ -762,14 +795,29 @@ public class GameScreen implements Screen {
         // rendering random barracks
         Sprite sprite = new Sprite(Textures.BLUE_BARRACK);
         for (int i = 0; i < barrackPlaceholders.size(); ++i) {
-            if (i == barrackPlaceholders.size()/2) sprite = new Sprite(Textures.RED_BARRACK);
-            final int x = Constants.PLACEHOLDER_SIZE + Constants.PLACEHOLDER_SIZE/3;
-            final int y = Constants.PLACEHOLDER_SIZE + Constants.PLACEHOLDER_SIZE - Constants.PLACEHOLDER_SIZE/ 3;
-            sprite.setPosition( barrackPlaceholders.get(i).getX() * Constants.PLACEHOLDER_SIZE - 5, barrackPlaceholders.get(i).getY() * Constants.PLACEHOLDER_SIZE - 10);
+            if (i == barrackPlaceholders.size() / 2)
+                sprite = new Sprite(Textures.RED_BARRACK);
+            final int x = Constants.PLACEHOLDER_SIZE + Constants.PLACEHOLDER_SIZE / 3;
+            final int y = Constants.PLACEHOLDER_SIZE + Constants.PLACEHOLDER_SIZE - Constants.PLACEHOLDER_SIZE / 3;
+            sprite.setPosition(barrackPlaceholders.get(i).getX() * Constants.PLACEHOLDER_SIZE - 5,
+                    barrackPlaceholders.get(i).getY() * Constants.PLACEHOLDER_SIZE - 10);
             sprite.setSize(x, y);
             sprite.draw(batch);
         }
 
+        // Rendering Gold Mines
+        for (GoldMine goldMine : goldMines) {
+            Sprite goldMineSprite = new Sprite(goldMine.getGoldMineTexture());
+            for (int i = 0; i < goldMine.getTakenPlaces().size(); i++) {
+                goldMineSprite.setPosition(
+                        (float) (goldMine.getTakenPlaces().get(i).getX() * Constants.PLACEHOLDER_SIZE
+                                - Constants.UNIT_SIZE.x * 0.30),
+                        goldMine.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE);
+                goldMineSprite.setSize(Constants.UNIT_SIZE.x + Constants.UNIT_SIZE.x * 1 / 10,
+                        Constants.UNIT_SIZE.y + Constants.UNIT_SIZE.y * 1 / 2);
+                goldMineSprite.draw(batch);
+            }
+        }
 
         batch.end();
     }
@@ -781,7 +829,7 @@ public class GameScreen implements Screen {
      * @param redTower
      * @param highlights
      */
-    private void buildTowers(Tower blueTower, Tower redTower, Group highlights){
+    private void buildTowers(Tower blueTower, Tower redTower, Group highlights) {
         highlights.setName("highlight");
         if (!isHighlighted) {// Checking if the button has been clicked (double click gives the same state)
 
@@ -799,56 +847,60 @@ public class GameScreen implements Screen {
 
     /**
      * Builds the blue towers when it is the red player turn.
-     * We go over each tower available places then we highlight the placeholder according to the given tower.
-     * Then we highlight the given places and the player can build on the highlighted places.
+     * We go over each tower available places then we highlight the placeholder
+     * according to the given tower.
+     * Then we highlight the given places and the player can build on the
+     * highlighted places.
      *
      * @param tower
      * @param highlights
      */
-    private void buildBlueTowers(Tower tower, Group highlights){
+    private void buildBlueTowers(Tower tower, Group highlights) {
         blueMultiAttackTower.build();
         blueNormalTower.build();
         blueCrazyTower.build();
 
         for (Placeholder p : blueCrazyTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
-                highlights.addActor(highlightPlace(p, tower, "blue"));
+                highlights.addActor(highlightPlace(p, tower));
         }
         for (Placeholder p : blueNormalTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
-                highlights.addActor(highlightPlace(p, tower, "blue"));
+                highlights.addActor(highlightPlace(p, tower));
         }
         for (Placeholder p : blueMultiAttackTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
-                highlights.addActor(highlightPlace(p, tower, "blue"));
+                highlights.addActor(highlightPlace(p, tower));
         }
 
     }
 
     /**
      * Builds the red towers when it is the red player turn.
-     * We go over each tower available places then we highlight the placeholder according to the given tower.
-     * Then we highlight the given places and the player can build on the highlighted places.
+     * We go over each tower available places then we highlight the placeholder
+     * according to the given tower.
+     * Then we highlight the given places and the player can build on the
+     * highlighted places.
      *
      * @param tower
      * @param highlights
      */
-    private void buildRedTowers(Tower tower, Group highlights){
+    private void buildRedTowers(Tower tower, Group highlights) {
         redMultiAttackTower.build();
         redNormalTower.build();
         redCrazyTower.build();
 
         for (Placeholder p : redCrazyTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
-                highlights.addActor(highlightPlace(p, tower, "red"));
+                highlights.addActor(highlightPlace(p, tower));
         }
         for (Placeholder p : redMultiAttackTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
-                highlights.addActor(highlightPlace(p, tower, "red"));
+                highlights.addActor(highlightPlace(p, tower));
         }
         for (Placeholder p : redNormalTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
-                highlights.addActor(highlightPlace(p, tower, "red"));
+                highlights.addActor(highlightPlace(p, tower));
         }
     }
 
@@ -864,6 +916,9 @@ public class GameScreen implements Screen {
         // Resetting the unit counter
         unitCountSoldier1 = 0;
         unitCountSoldier3 = 0;
+
+        // Resetting highlights
+        removeHighlight();
 
         // Choosing a random path for each Unit if the player did not select a path
         if (!isPathChosen) {
@@ -907,9 +962,9 @@ public class GameScreen implements Screen {
         for (int x = 0; x < 30; x++) {
             for (int y = 0; y < 28; y++) {
                 if (// near blue castle
-                        (x == 6 && y == 21) || (y == 23 && ( x == 5 || x == 7 || x == 10 || x == 12 || x == 14 || x == 17)) ||
+                (x == 6 && y == 21) || (y == 23 && (x == 5 || x == 7 || x == 10 || x == 12 || x == 14 || x == 17)) ||
                         ((x == 8 || x == 10) && y == 21) || (y == 19 && x == 6)
-                        || ((y == 16 || y == 18 ) && (x == 2 || x == 0)) || ((y == 15 || y == 18) && x == 4) ||
+                        || ((y == 16 || y == 18) && (x == 2 || x == 0)) || ((y == 15 || y == 18) && x == 4) ||
                         (y == 19 && x == 8)
                         || (y == 14 && (x == 2 || x == 0) || (x == 21 && y == 23)) ||
                         (y == 21 && x == 12) || (y == 12 && (x == 2 || x == 0))
@@ -918,15 +973,14 @@ public class GameScreen implements Screen {
                         || (y == 21 && x == 15) ||
                         ((y == 15 || y == 19 || y == 17) && (x == 11 || x == 13))
                         || (y == 10 && (x == 8 || x == 10)) || (y == 8 && x == 1)
-                        || (y == 5 && x == 6) )
-                {
+                        || (y == 5 && x == 6)) {
                     placeHolders.add(new Placeholder(x, y));
                     placeHoldersNearBlueCastle.add(new Placeholder(x, y));
                 }
 
-                if( // near red castle
-                        (y == 8 && ( x == 21 || x == 23 )) || (y == 4  && x == 21)
-                        || ( y == 6 && x == 22) || ( x == 23 && y == 6)
+                if ( // near red castle
+                (y == 8 && (x == 21 || x == 23)) || (y == 4 && x == 21)
+                        || (y == 6 && x == 22) || (x == 23 && y == 6)
                         || (y == 10 && (x == 23 || x == 25)) || (y == 11 && (x == 29 || x == 27)) ||
                         (y == 6 && x == 20) || (y == 12 && (x == 13 || x == 10 || x == 8 || x == 23))
                         || (y == 13 && (x == 27 || x == 29)) ||
@@ -936,8 +990,7 @@ public class GameScreen implements Screen {
                         (y == 5 && (x == 8 || x == 13 || x == 11)) || (y == 8 && (x == 3 || x == 14))
                         || (y == 13 && (x == 12 || x == 15 || x == 17)) ||
                         (y == 17 && (x == 18 || x == 21 || x == 23)) || ((y == 21 || y == 17) && x == 25)
-                        || ((x == 7 || x == 13 || x == 16) && y == 7))
-                {
+                        || ((x == 7 || x == 13 || x == 16) && y == 7)) {
                     placeHolders.add(new Placeholder(x, y));
                     placeHoldersNearRedCastle.add(new Placeholder(x, y));
                 }
@@ -951,7 +1004,7 @@ public class GameScreen implements Screen {
      */
 
     public void fillPaths() {
-        /// First Path
+        // First Path
         paths.put(Constants.PathNum.FIRST, new ArrayList<>(Arrays.asList(
                 new Point(4, 22),
                 new Point(24, 22),
@@ -1013,7 +1066,6 @@ public class GameScreen implements Screen {
      */
     public void colorPath2() {
 
-
         PathArrowRed1.getImage().setColor(Color.RED);
         PathArrowRed2.getImage().setColor(Color.BLACK);
         PathArrowRed3.getImage().setColor(Color.RED);
@@ -1068,6 +1120,7 @@ public class GameScreen implements Screen {
         PathArrowBlue3.getImage().setColor(Color.VIOLET);
         PathArrowBlue4.getImage().setColor(Color.VIOLET);
     }
+
     /**
      * highlight the avaliable (to build on) place holder.
      * 
@@ -1076,9 +1129,10 @@ public class GameScreen implements Screen {
      *                    highlight is clicked.
      * @return ImageButton, the highlighted placeholder
      */
-    private ImageButton highlightPlace(final Placeholder placeholder, final Tower type, final String occupier) {
+    private ImageButton highlightPlace(final Placeholder placeholder, final Tower type) {
         TextureRegion rgn = new TextureRegion(Textures.HIGHLIGHTED_PLACE_HOLDER);
-        if(gePlaceholdersNearCastle().contains(placeholder)) rgn = new TextureRegion(Textures.RED_HIGHLIGHTED_PLACE_HOLDER);
+        if (gePlaceholdersNearCastle().contains(placeholder))
+            rgn = new TextureRegion(Textures.RED_HIGHLIGHTED_PLACE_HOLDER);
         TextureRegionDrawable rgndrbl = new TextureRegionDrawable(rgn);
         ImageButton btn = new ImageButton(rgndrbl);
         btn.setSize(Constants.PLACEHOLDER_SIZE, Constants.PLACEHOLDER_SIZE);
@@ -1088,11 +1142,10 @@ public class GameScreen implements Screen {
         btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(!gePlaceholdersNearCastle().contains(placeholder)){
+                if (!gePlaceholdersNearCastle().contains(placeholder)) {
                     type.addTower(placeholder);
 
                     placeholder.takePlace();
-                    placeholder.occupy(occupier);
 
                     type.releaseAvailablePlaces();
                 }
@@ -1100,7 +1153,28 @@ public class GameScreen implements Screen {
             }
         });
         return btn;
+    }
 
+    private ImageButton highlightPlaceforGoldMine(final Placeholder placeholder, final GoldMine goldMine) {
+        TextureRegion rgn = new TextureRegion(Textures.HIGHLIGHTED_PLACE_HOLDER);
+        TextureRegionDrawable rgndrbl = new TextureRegionDrawable(rgn);
+        ImageButton btn = new ImageButton(rgndrbl);
+        btn.setSize(Constants.PLACEHOLDER_SIZE, Constants.PLACEHOLDER_SIZE);
+        btn.setPosition(Constants.PLACEHOLDER_SIZE * (placeholder.getX()),
+                Constants.PLACEHOLDER_SIZE * (placeholder.getY()));
+
+        btn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                goldMine.addPlaceholder(placeholder);
+                placeholder.takePlace();
+                goldMine.releaseAvailablePlaces();
+
+                removeHighlight();
+            }
+        });
+        return btn;
     }
 
     /**
@@ -1120,31 +1194,30 @@ public class GameScreen implements Screen {
      *
      * @return array contains the placeholder of the game.
      */
-    public static ArrayList<Placeholder> getPlaceHolders(){
+    public static ArrayList<Placeholder> getPlaceHolders() {
         return placeHolders;
     }
 
     /**
-     * Get the placeholder near the opposite castle of each player to prevent building on them.
+     * Get the placeholder near the opposite castle of each player to prevent
+     * building on them.
      *
      * @return array of place holders.
      */
-    private ArrayList<Placeholder> gePlaceholdersNearCastle(){
-        if(this.redPlayer.getTurn())
+    private ArrayList<Placeholder> gePlaceholdersNearCastle() {
+        if (this.redPlayer.getTurn())
             return new ArrayList<>(Arrays.asList(
                     new Placeholder(0, 18),
                     new Placeholder(2, 18),
                     new Placeholder(4, 18),
                     new Placeholder(6, 19),
                     new Placeholder(6, 21),
-                    new Placeholder(5, 23)
-        ));
+                    new Placeholder(5, 23)));
         return new ArrayList<>(Arrays.asList(
                 new Placeholder(23, 6),
                 new Placeholder(25, 8),
                 new Placeholder(27, 8),
-                new Placeholder(29, 8)
-        ));
+                new Placeholder(29, 8)));
 
     }
 
