@@ -7,6 +7,7 @@ public class Constants {
     // Units
     public static final Point UNIT_SIZE = new Point(60, 45);// width,heigth
     public static final int UNIT_SPEED = 20;
+    public static final int FULL_UNIT_HEALTH_POINTS = 1000;
 
     // Map
     public static final int PLACEHOLDER_SIZE = 32;
@@ -18,7 +19,7 @@ public class Constants {
 
     // Player
     public static final int TURN_TIME = 30;
-    public static final int INIT_HEALTH = 100;
+    public static final int INIT_HEALTH = 1000;
     public static final int INIT_GOLD_COUNT = 10000;
 
     // Gaining gold
