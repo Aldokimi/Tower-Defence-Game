@@ -6,11 +6,7 @@ import com.alphatech.game.utils.CrazySoldier;
 import com.alphatech.game.utils.NormalSoldier;
 import com.alphatech.game.utils.Player;
 import com.alphatech.game.utils.Unit;
-import com.alphatech.game.utils.towers.MultiAttackTower;
-import com.alphatech.game.utils.towers.NormalTower;
-import com.alphatech.game.utils.towers.Placeholder;
-import com.alphatech.game.utils.towers.Tower;
-import com.alphatech.game.utils.towers.GoldMine;
+import com.alphatech.game.utils.towers.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -144,24 +140,18 @@ public class GameScreen implements Screen {
     private TextureRegion normalTowerRegion;
     private TextureRegionDrawable normalTowerRegionDrawable;
     private Group normalTowerHighlights;
-    private Tower blueNormalTower;
-    private Tower redNormalTower;
 
     // Multi attack
     private ImageButton multiAttackTowerButton;
     private TextureRegion multiAttackTowerRegion;
     private TextureRegionDrawable multiAttackTowerRegionDrawable;
     private Group MultiAttackTowerHighlights;
-    private Tower blueMultiAttackTower;
-    private Tower redMultiAttackTower;
 
     // Crazy
     private ImageButton crazyTowerButton;
-    // private TextureRegion crazyTowerRegion;
-    // private TextureRegionDrawable crazyTowerRegionDrawable;
+    private TextureRegion crazyTowerRegion;
+    private TextureRegionDrawable crazyTowerRegionDrawable;
     private Group crazyTowerHighlights;
-    private Tower blueCrazyTower;
-    private Tower redCrazyTower;
 
     private ArrayList<Tower> towers;
 
@@ -170,8 +160,6 @@ public class GameScreen implements Screen {
     private TextureRegion goldMineRegion;
     private TextureRegionDrawable goldMineRegionDrawable;
     private Group goldMineHighlights;
-    private GoldMine redGoldMine;
-    private GoldMine blueGoldMine;
     private ArrayList<GoldMine> goldMines;
 
     // Timer bar
@@ -417,11 +405,9 @@ public class GameScreen implements Screen {
         barrackPlaceholders = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             if (i >= 2) {
-                barrackPlaceholders
-                        .add(placeHoldersNearRedCastle.get(new Random().nextInt(placeHoldersNearRedCastle.size())));
+                barrackPlaceholders.add(placeHoldersNearRedCastle.get(new Random().nextInt(placeHoldersNearRedCastle.size())));
             } else {
-                barrackPlaceholders
-                        .add(placeHoldersNearBlueCastle.get(new Random().nextInt(placeHoldersNearBlueCastle.size())));
+                barrackPlaceholders.add(placeHoldersNearBlueCastle.get(new Random().nextInt(placeHoldersNearBlueCastle.size())));
             }
         }
 
@@ -481,7 +467,7 @@ public class GameScreen implements Screen {
         soldier1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (redPlayer.getTurn()) {
+                if (redPlayer.getTurn() && redPlayer.hasEnoughGold(Constants.TRAIN_NORMAL_SOLDIER)) {
 
                     // Animations for the initial solider (before end-turn)
                     animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER1_IDLE_RED.findRegions("idle"),
@@ -491,8 +477,12 @@ public class GameScreen implements Screen {
                     unitsPosition = new Point(820, 222);
                     NormalSoldier newUnit = new NormalSoldier(unitsPosition);
                     newUnit.setAnimation(animation);
+                    redPlayer.units.add(newUnit);
+
+                    redPlayer.trainUnit(newUnit);
+                    System.out.println("red: " + redPlayer.getGold());
                     TempUnits.add(newUnit);
-                } else {
+                } else if ( bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.TRAIN_NORMAL_SOLDIER)) {
 
                     // Animations for the initial solider (before end-turn)
                     animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER1_IDLE_BLUE.findRegions("idle"),
@@ -502,10 +492,13 @@ public class GameScreen implements Screen {
                     unitsPosition = new Point(85, 702);
                     NormalSoldier newUnit = new NormalSoldier(unitsPosition);
                     newUnit.setAnimation(animation);
+                    bluePlayer.units.add(newUnit);
+
+                    bluePlayer.trainUnit(newUnit);
+                    System.out.println("blue: " + bluePlayer.getGold());
                     TempUnits.add(newUnit);
                 }
                 unitCountSoldier1 += 1;
-
             }
         });
 
@@ -521,8 +514,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-                if (redPlayer.getTurn()) {
-
+                if (redPlayer.getTurn() && redPlayer.hasEnoughGold(Constants.TRAIN_CRAZY_SOLDIER)) {
                     // Animations for the initial solider (before end-turn)
                     animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER3_IDLE_RED.findRegions("idle"),
                             PlayMode.LOOP);
@@ -531,8 +523,12 @@ public class GameScreen implements Screen {
                     unitsPosition = new Point(820, 158);
                     CrazySoldier newUnit = new CrazySoldier(unitsPosition);
                     newUnit.setAnimation(animation);
+                    redPlayer.units.add(newUnit);
+
+                    redPlayer.trainUnit(newUnit);
+                    System.out.print("red: " + redPlayer.getGold());
                     TempUnits.add(newUnit);
-                } else {
+                } else if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.TRAIN_CRAZY_SOLDIER)) {
                     // Animations for the initial solider (before end-turn)
                     animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER3_IDLE_BLUE.findRegions("idle"),
                             PlayMode.LOOP);
@@ -541,6 +537,10 @@ public class GameScreen implements Screen {
                     unitsPosition = new Point(85, 640);
                     CrazySoldier newUnit = new CrazySoldier(unitsPosition);
                     newUnit.setAnimation(animation);
+                    bluePlayer.units.add(newUnit);
+
+                    bluePlayer.trainUnit(newUnit);
+                    System.out.println("blue: " + bluePlayer.getGold());
                     TempUnits.add(newUnit);
                 }
                 unitCountSoldier3 += 1;
@@ -567,8 +567,8 @@ public class GameScreen implements Screen {
         normalTowerButton.setSize(Constants.UNIT_SIZE.x * 2, (float) (Constants.UNIT_SIZE.y * 2.3));
         normalTowerButton.setPosition(Constants.UNIT_SIZE.x * 3, (Constants.UNIT_SIZE.y - 11));
 
-        blueNormalTower = new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders);
-        redNormalTower = new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders);
+        bluePlayer.normalTower = new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders);
+        redPlayer.normalTower = new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders);
 
         // Towers -- Multi-Attack
         multiAttackTowerRegion = new TextureRegion(Textures.MULTI_ATTACK_TOWER);
@@ -577,32 +577,29 @@ public class GameScreen implements Screen {
         multiAttackTowerButton.setSize((float) (Constants.UNIT_SIZE.x * 1.4), (float) (Constants.UNIT_SIZE.y * 2.3));
         multiAttackTowerButton.setPosition((float) (Constants.UNIT_SIZE.x * 4.9), (Constants.UNIT_SIZE.y - 14));
 
-        blueMultiAttackTower = new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER, placeHolders);
-        redMultiAttackTower = new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER, placeHolders);
+        bluePlayer.multiAttackTower = new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER, placeHolders);
+        redPlayer.multiAttackTower = new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER, placeHolders);
 
         // Towers -- Crazy
-        // crazyTowerRegion = new TextureRegion(Textures.CRAZY_TOWER);
-        // crazyTowerRegionDrawable = new TextureRegionDrawable(normalTowerRegion);
+        crazyTowerRegion = new TextureRegion(Textures.CRAZY_TOWER);
+        crazyTowerRegionDrawable = new TextureRegionDrawable(normalTowerRegion);
         crazyTowerButton = new ImageButton(normalTowerRegionDrawable);
         crazyTowerButton.setSize(Constants.UNIT_SIZE.x * 2, (float) (Constants.UNIT_SIZE.y * 2.3));
         crazyTowerButton.setPosition((float) (Constants.UNIT_SIZE.x * 6.2), (Constants.UNIT_SIZE.y - 16));
 
-        blueCrazyTower = new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders);
-        redCrazyTower = new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders);
+        bluePlayer.crazyTower = new CrazyTower(Textures.BLUE_CRAZY_TOWER, placeHolders);
+        redPlayer.crazyTower = new CrazyTower(Textures.RED_CRAZY_TOWER, placeHolders);
 
         // Prepare all towers for rendering
-        towers = new ArrayList<>(
-                Arrays.asList(blueNormalTower, redNormalTower, blueMultiAttackTower, redMultiAttackTower,
-                        blueCrazyTower, redCrazyTower));
+        towers = new ArrayList<>( Arrays.asList(bluePlayer.normalTower, redPlayer.normalTower, bluePlayer.multiAttackTower,
+                        redPlayer.multiAttackTower, bluePlayer.crazyTower, redPlayer.crazyTower));
 
         // Initializing the center which we will measure from.
-        blueNormalTower.initializeCenterofMeasurement(new Placeholder(3, 19));
-        blueMultiAttackTower.initializeCenterofMeasurement(new Placeholder(3, 19));
-        blueCrazyTower.initializeCenterofMeasurement(new Placeholder(3, 19));
+        bluePlayer.normalTower.initializeCenterofMeasurement(new Placeholder(2, 21));
+        bluePlayer.multiAttackTower.initializeCenterofMeasurement(new Placeholder(2, 21));
 
-        redNormalTower.initializeCenterofMeasurement(new Placeholder(26, 7));
-        redMultiAttackTower.initializeCenterofMeasurement(new Placeholder(26, 7));
-        redCrazyTower.initializeCenterofMeasurement(new Placeholder(26, 7));
+        redPlayer.normalTower.initializeCenterofMeasurement(new Placeholder(27, 6));
+        redPlayer.multiAttackTower.initializeCenterofMeasurement(new Placeholder(27, 6));
 
         // Tower's buttons listeners
         normalTowerButton.addListener(new ClickListener() {
@@ -610,7 +607,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 normalTowerHighlights = new Group();
-                buildTowers(blueNormalTower, redNormalTower, normalTowerHighlights);
+                buildTowers(bluePlayer.normalTower, redPlayer.normalTower, normalTowerHighlights);
             }
         });
 
@@ -619,7 +616,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 MultiAttackTowerHighlights = new Group();
-                buildTowers(blueMultiAttackTower, redMultiAttackTower, MultiAttackTowerHighlights);
+                buildTowers(bluePlayer.multiAttackTower, redPlayer.multiAttackTower, MultiAttackTowerHighlights);
             }
         });
 
@@ -628,7 +625,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 crazyTowerHighlights = new Group();
-                buildTowers(blueCrazyTower, redCrazyTower, crazyTowerHighlights);
+                buildTowers(bluePlayer.crazyTower, redPlayer.crazyTower, crazyTowerHighlights);
             }
         });
 
@@ -643,10 +640,9 @@ public class GameScreen implements Screen {
         goldMineButton.setSize(110, 90);
         goldMineButton.setPosition(473, 38);
 
-        // goldMine = new GoldMine(Textures.GOLD_MINE, placeHolders);
-        redGoldMine = new GoldMine(Textures.RED_GOLD_MINE, placeHolders);
-        blueGoldMine = new GoldMine(Textures.BLUE_GOLD_MINE, placeHolders);
-        goldMines = new ArrayList<>(Arrays.asList(blueGoldMine, redGoldMine));
+        bluePlayer.goldMine = new GoldMine(Textures.BLUE_GOLD_MINE, placeHolders);
+        redPlayer.goldMine = new GoldMine(Textures.RED_GOLD_MINE, placeHolders);
+        goldMines = new ArrayList<>(Arrays.asList(bluePlayer.goldMine, redPlayer.goldMine));
         // Gold Mine's button listener
         goldMineButton.addListener(new ClickListener() {
 
@@ -655,20 +651,20 @@ public class GameScreen implements Screen {
                 goldMineHighlights = new Group();
                 goldMineHighlights.setName("highlight");
                 if (!isHighlighted) {
-                    if (bluePlayer.getTurn()) {
-                        blueGoldMine.build();
+                    if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.BUILD_GOLDMINE)) {
+                        bluePlayer.goldMine.build();
 
-                        for (Placeholder p : blueGoldMine.getAvailablePlaces()) {
+                        for (Placeholder p : bluePlayer.goldMine.getAvailablePlaces()) {
                             if (p.isFreePlace() && !gePlaceholdersNearCastle().contains(p))
-                                goldMineHighlights.addActor(highlightPlaceforGoldMine(p, blueGoldMine));
+                                goldMineHighlights.addActor(highlightPlaceforGoldMine(p, bluePlayer.goldMine));
                         }
-                    } else {
+                    } else if (redPlayer.getTurn() && redPlayer.hasEnoughGold(Constants.BUILD_GOLDMINE)){
                         // Measuring from all directions
-                        redGoldMine.build();
+                        redPlayer.goldMine.build();
 
-                        for (Placeholder p : redGoldMine.getAvailablePlaces()) {
+                        for (Placeholder p : redPlayer.goldMine.getAvailablePlaces()) {
                             if (p.isFreePlace() && !gePlaceholdersNearCastle().contains(p))
-                                goldMineHighlights.addActor(highlightPlaceforGoldMine(p, redGoldMine));
+                                goldMineHighlights.addActor(highlightPlaceforGoldMine(p, redPlayer.goldMine));
                         }
                     }
                     isHighlighted = true;
@@ -679,7 +675,6 @@ public class GameScreen implements Screen {
             }
         });
         gameScreenButtons.addActor(goldMineButton);
-
     }
 
     @Override
@@ -778,7 +773,6 @@ public class GameScreen implements Screen {
 
         // Rendering Towers
         for (Tower tower : towers) {
-
             Sprite towerSprite = new Sprite(tower.getTowerTexture());
             for (int i = 1; i < tower.getTakenPlaces().size(); i++) {
                 towerSprite.setPosition(
@@ -819,6 +813,10 @@ public class GameScreen implements Screen {
             }
         }
 
+        // Goldmines making gold
+        redPlayer.makeGold(Gdx.graphics.getDeltaTime());
+        bluePlayer.makeGold(Gdx.graphics.getDeltaTime());
+
         batch.end();
     }
 
@@ -856,19 +854,19 @@ public class GameScreen implements Screen {
      * @param highlights
      */
     private void buildBlueTowers(Tower tower, Group highlights) {
-        blueMultiAttackTower.build();
-        blueNormalTower.build();
-        blueCrazyTower.build();
+        bluePlayer.multiAttackTower.build();
+        bluePlayer.normalTower.build();
+        bluePlayer.crazyTower.build();
 
-        for (Placeholder p : blueCrazyTower.getAvailablePlaces()) {
+        for (Placeholder p : bluePlayer.crazyTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower));
         }
-        for (Placeholder p : blueNormalTower.getAvailablePlaces()) {
+        for (Placeholder p : bluePlayer.multiAttackTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower));
         }
-        for (Placeholder p : blueMultiAttackTower.getAvailablePlaces()) {
+        for (Placeholder p : bluePlayer.normalTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower));
         }
@@ -886,19 +884,19 @@ public class GameScreen implements Screen {
      * @param highlights
      */
     private void buildRedTowers(Tower tower, Group highlights) {
-        redMultiAttackTower.build();
-        redNormalTower.build();
-        redCrazyTower.build();
+        redPlayer.multiAttackTower.build();
+        redPlayer.normalTower.build();
+        redPlayer.crazyTower.build();
 
-        for (Placeholder p : redCrazyTower.getAvailablePlaces()) {
+        for (Placeholder p : redPlayer.crazyTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower));
         }
-        for (Placeholder p : redMultiAttackTower.getAvailablePlaces()) {
+        for (Placeholder p : redPlayer.multiAttackTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower));
         }
-        for (Placeholder p : redNormalTower.getAvailablePlaces()) {
+        for (Placeholder p : redPlayer.normalTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower));
         }
@@ -1142,12 +1140,38 @@ public class GameScreen implements Screen {
         btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (!gePlaceholdersNearCastle().contains(placeholder)) {
-                    type.addTower(placeholder);
+                int price;
+                if (type instanceof NormalTower) {
+                    price = Constants.BUILD_NORMAL_TOWER;
+                } else {
+                    price = Constants.BUILD_MULTIATTACK_TOWER;
+                }
+                if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(price)) {
+                    if (!gePlaceholdersNearCastle().contains(placeholder)) {
+                        type.addTower(placeholder);
+                        bluePlayer.buildTower(type);
 
-                    placeholder.takePlace();
+                        type.addTower(placeholder);
 
-                    type.releaseAvailablePlaces();
+                        placeholder.takePlace();
+
+                        type.releaseAvailablePlaces();
+                    }
+
+                    System.out.println("blue: " + bluePlayer.getGold());
+                } else if (redPlayer.hasEnoughGold(price)) {
+                    if (!gePlaceholdersNearCastle().contains(placeholder)) {
+                        type.addTower(placeholder);
+                        redPlayer.buildTower(type);
+
+                        type.addTower(placeholder);
+
+                        placeholder.takePlace();
+
+                        type.releaseAvailablePlaces();
+                    }
+
+                    System.out.println("red: " + redPlayer.getGold());
                 }
                 removeHighlight();
             }
@@ -1155,6 +1179,13 @@ public class GameScreen implements Screen {
         return btn;
     }
 
+    /**
+     * Highlight a placeholder of the map so we can build a gold  mine on it.
+     *
+     * @param placeholder Place holder
+     * @param goldMine    if the highlighted placeholder is clicked we build into it.
+     * @return ImageButton, the highlighted placeholder
+     */
     private ImageButton highlightPlaceforGoldMine(final Placeholder placeholder, final GoldMine goldMine) {
         TextureRegion rgn = new TextureRegion(Textures.HIGHLIGHTED_PLACE_HOLDER);
         TextureRegionDrawable rgndrbl = new TextureRegionDrawable(rgn);
@@ -1172,6 +1203,16 @@ public class GameScreen implements Screen {
                 goldMine.releaseAvailablePlaces();
 
                 removeHighlight();
+
+                if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.BUILD_GOLDMINE)) {
+                    bluePlayer.buildGoldMine();
+                    System.out.println("blue player: " + bluePlayer.goldMineCounter);
+                    System.out.println("blue: " + bluePlayer.getGold());
+                } else if (redPlayer.hasEnoughGold(Constants.BUILD_GOLDMINE)) {
+                    redPlayer.buildGoldMine();
+                    System.out.println("red player: " + redPlayer.goldMineCounter);
+                    System.out.println("red: " + redPlayer.getGold());
+                }
             }
         });
         return btn;

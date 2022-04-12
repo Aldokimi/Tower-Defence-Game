@@ -1,5 +1,6 @@
 package com.alphatech.game.utils.towers;
 
+import com.alphatech.game.utils.Player;
 import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 
@@ -8,6 +9,14 @@ public class GoldMine {
     protected ArrayList<Placeholder> placeholders;
     protected ArrayList<Placeholder> availablePlaces;
     protected ArrayList<Placeholder> takenPlaces;
+    protected Player player;
+
+    // For testing
+    public GoldMine(ArrayList<Placeholder> placeholders) {
+        this.placeholders = placeholders;
+        availablePlaces = new ArrayList<>();
+        takenPlaces = new ArrayList<>();
+    }
 
     public GoldMine(Texture texture, ArrayList<Placeholder> placeholders) {
         goldMineTexture = texture;
@@ -21,21 +30,12 @@ public class GoldMine {
     }
 
     /**
-     * Set the goldmine texture
-     * 
-     * @param goldMineTexture
-     */
-    public void setGoldMineTexture(Texture goldMineTexture) {
-        this.goldMineTexture = goldMineTexture;
-    }
-
-     /**
      * Checks if placeholder is free
      * 
      * @param a placeholder
      * @return true if placeholder is free so gold mine can be built
      */
-    private boolean canBuild(Placeholder placeholder) {
+    public boolean canBuild(Placeholder placeholder) {
         return placeholder.isFreePlace();
     }
 
@@ -44,10 +44,10 @@ public class GoldMine {
      * By checking if the placeholder has been taken (by himself or his enemy)
      */
     public void build() {
-            for(Placeholder p : placeholders) {  
-                if(canBuild(p) && !contains(takenPlaces, p)
-                && !contains(availablePlaces, p)) {
-                      availablePlaces.add(p);
+        for (Placeholder p : placeholders) {
+            if (canBuild(p) && !contains(takenPlaces, p)
+                    && !contains(availablePlaces, p)) {
+                availablePlaces.add(p);
             }
         }
     }
@@ -59,7 +59,7 @@ public class GoldMine {
      * @param p            given placeholder
      * @return true if it is contained by the array, otherwise false
      */
-    private boolean contains(ArrayList<Placeholder> placeholders, Placeholder p) {
+    public boolean contains(ArrayList<Placeholder> placeholders, Placeholder p) {
         return placeholders.contains(p);
     }
 
@@ -97,6 +97,22 @@ public class GoldMine {
         this.takenPlaces.add(placeholder);
     }
 
-    
+    /**
+     * Add a placeholder to the available placeholders array
+     * 
+     * @param placeholder
+     */
+    public void addAvailablePlaceholder(Placeholder placeholder) {
+        this.availablePlaces.add(placeholder);
+    }
+
+    /**
+     * Add a placeholder to the general placeholders array
+     * 
+     * @param placeholder
+     */
+    public void addGeneralPlaceholder(Placeholder placeholder) {
+        this.placeholders.add(placeholder);
+    }
 
 }
