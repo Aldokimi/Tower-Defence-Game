@@ -21,6 +21,18 @@ public class Constants {
     public static final int INIT_HEALTH = 100;
     public static final int INIT_GOLD_COUNT = 10000;
 
+    // Gaining gold
+    public static final int GOLDMINE_GAIN = 50;
+    public static final int TREASURE_CHEST = 500;
+
+    // Spending gold
+    public static final int BUILD_NORMAL_TOWER = 1000;
+    public static final int BUILD_GOLDMINE = 3000;
+    public static final int BUILD_MULTIATTACK_TOWER = 1500;
+    public static final int BUILD_CRAZY_TOWER = 1500;
+    public static final int TRAIN_NORMAL_SOLDIER = 500;
+    public static final int TRAIN_CRAZY_SOLDIER = 800;
+
     //Paths
     public enum PathNum {
         FIRST,

@@ -4,13 +4,12 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
-public class NormalTower extends Tower {
-
-    public NormalTower(ArrayList<Placeholder> placeholders) {
+public class CrazyTower extends Tower{
+    public CrazyTower(ArrayList<Placeholder> placeholders) {
         super(placeholders);
     }
 
-    public NormalTower(Texture texture, ArrayList<Placeholder> placeholders) {
+    public CrazyTower(Texture texture, ArrayList<Placeholder> placeholders) {
         super(texture, placeholders);
     }
 }

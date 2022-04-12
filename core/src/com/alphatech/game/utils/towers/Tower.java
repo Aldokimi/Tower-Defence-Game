@@ -10,6 +10,14 @@ public class Tower {
     protected ArrayList<Placeholder> availablePlaces;
     protected ArrayList<Placeholder> takenPlaces;
 
+    // For Testing
+    public Tower(ArrayList<Placeholder> placeholders) {
+        this.placeholders = placeholders;
+        availablePlaces = new ArrayList<>();
+        takenPlaces = new ArrayList<>();
+
+    }
+
     public Tower(Texture texture, ArrayList<Placeholder> placeholders) {
         this.towerTexture = texture;
         this.placeholders = placeholders;
