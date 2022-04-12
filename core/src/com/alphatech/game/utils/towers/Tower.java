@@ -46,7 +46,7 @@ public class Tower {
      * @return true if the distance is less than (3.5/~three squares) and the
      *         placeholder is not occupied, otherwise false
      */
-    private boolean canBuild(Placeholder a, Placeholder b) {
+    public boolean canBuild(Placeholder a, Placeholder b) {
         return ((Math.sqrt(
                 (Math.abs(a.getY() - b.getY()) * Math.abs(a.getY() - b.getY())) +
                         (Math.abs(a.getX() - b.getX()) * Math.abs(a.getX() - b.getX()))) <= 3.5)

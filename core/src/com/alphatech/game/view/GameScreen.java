@@ -1287,15 +1287,6 @@ public class GameScreen implements Screen {
     }
 
     /**
-     * Get the placeholders array.
-     *
-     * @return array contains the placeholder of the game.
-     */
-    public static ArrayList<Placeholder> getPlaceHolders() {
-        return placeHolders;
-    }
-
-    /**
      * Get the placeholder near the opposite castle of each player to prevent
      * building on them.
      *
