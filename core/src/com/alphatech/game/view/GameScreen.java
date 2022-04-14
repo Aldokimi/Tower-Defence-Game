@@ -181,7 +181,19 @@ public class GameScreen implements Screen {
     ProgressBarStyle healthBarBStyle;
     ProgressBarStyle healthBarRStyle;
 
+    // Player's money
+    private BitmapFont playerMoney;
+    private int redPlayerMoneyCounter = Constants.INIT_GOLD_COUNT;
+    private int bluePlayerMoneyCounter = Constants.INIT_GOLD_COUNT;
 
+    // Prices
+    private BitmapFont prices;
+    private int normalTowerPrice = Constants.BUILD_NORMAL_TOWER;
+    private int multiAttackTowerPrice = Constants.BUILD_MULTIATTACK_TOWER;
+    private int crazyTowerPrice = Constants.BUILD_CRAZY_TOWER;
+    private int goldMinePrice = Constants.BUILD_GOLDMINE;
+    private int normalSoldierPrice = Constants.TRAIN_NORMAL_SOLDIER;
+    private int crazySoldierPrice = Constants.TRAIN_CRAZY_SOLDIER;
 
 
     @Override
@@ -443,6 +455,10 @@ public class GameScreen implements Screen {
 
         // Unit counter
         unitCounter = new BitmapFont();
+        
+        //Money and prices
+        playerMoney = new BitmapFont();
+        prices = new BitmapFont();
 
         // Starting the turn randomly every new game
         Random rand = new Random(); // instance of random class
@@ -507,6 +523,7 @@ public class GameScreen implements Screen {
 
                     redPlayer.trainUnit(newUnit);
                     System.out.println("red: " + redPlayer.getGold());
+                    redPlayerMoneyCounter = redPlayer.getGold();
                     TempUnits.add(newUnit);
                 } else if ( bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.TRAIN_NORMAL_SOLDIER)) {
 
@@ -522,6 +539,7 @@ public class GameScreen implements Screen {
 
                     bluePlayer.trainUnit(newUnit);
                     System.out.println("blue: " + bluePlayer.getGold());
+                    bluePlayerMoneyCounter = bluePlayer.getGold();
                     TempUnits.add(newUnit);
                 }
                 unitCountSoldier1 += 1;
@@ -553,6 +571,7 @@ public class GameScreen implements Screen {
 
                     redPlayer.trainUnit(newUnit);
                     System.out.print("red: " + redPlayer.getGold());
+                    redPlayerMoneyCounter = redPlayer.getGold();
                     TempUnits.add(newUnit);
                 } else if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.TRAIN_CRAZY_SOLDIER)) {
                     // Animations for the initial solider (before end-turn)
@@ -567,6 +586,7 @@ public class GameScreen implements Screen {
 
                     bluePlayer.trainUnit(newUnit);
                     System.out.println("blue: " + bluePlayer.getGold());
+                    bluePlayerMoneyCounter = bluePlayer.getGold();
                     TempUnits.add(newUnit);
                 }
                 unitCountSoldier3 += 1;
@@ -870,8 +890,24 @@ public class GameScreen implements Screen {
 
         // Goldmines making gold
         redPlayer.makeGold(Gdx.graphics.getDeltaTime());
+        redPlayerMoneyCounter = redPlayer.getGold();
         bluePlayer.makeGold(Gdx.graphics.getDeltaTime());
+        bluePlayerMoneyCounter = bluePlayer.getGold();
 
+         // Rendering player's money
+         playerMoney.setColor(Color.YELLOW);
+         playerMoney.draw(batch, String.valueOf(redPlayerMoneyCounter), 702, 843);
+         playerMoney.draw(batch, String.valueOf(bluePlayerMoneyCounter), 220, 843);
+ 
+         // Rendering prices
+         prices.setColor(Color.YELLOW);
+         prices.draw(batch, String.valueOf(normalTowerPrice), 230, 22);
+         prices.draw(batch, String.valueOf(multiAttackTowerPrice), 325, 22);
+         prices.draw(batch, String.valueOf(crazyTowerPrice), 424, 22);
+         prices.draw(batch, String.valueOf(goldMinePrice), 520, 22);
+         prices.draw(batch, String.valueOf(normalSoldierPrice), 617, 22);
+         prices.draw(batch, String.valueOf(crazySoldierPrice), 714, 22);
+ 
         batch.end();
     }
 
@@ -1212,6 +1248,8 @@ public class GameScreen implements Screen {
                         placeholder.takePlace();
 
                         type.releaseAvailablePlaces();
+
+                        bluePlayerMoneyCounter = bluePlayer.getGold();
                     }
 
                     System.out.println("blue: " + bluePlayer.getGold());
@@ -1225,6 +1263,8 @@ public class GameScreen implements Screen {
                         placeholder.takePlace();
 
                         type.releaseAvailablePlaces();
+
+                        redPlayerMoneyCounter = redPlayer.getGold();
                     }
 
                     System.out.println("red: " + redPlayer.getGold());
@@ -1264,10 +1304,12 @@ public class GameScreen implements Screen {
                     bluePlayer.buildGoldMine();
                     System.out.println("blue player: " + bluePlayer.goldMineCounter);
                     System.out.println("blue: " + bluePlayer.getGold());
+                    bluePlayerMoneyCounter = bluePlayer.getGold();
                 } else if (redPlayer.hasEnoughGold(Constants.BUILD_GOLDMINE)) {
                     redPlayer.buildGoldMine();
                     System.out.println("red player: " + redPlayer.goldMineCounter);
                     System.out.println("red: " + redPlayer.getGold());
+                    redPlayerMoneyCounter = redPlayer.getGold();
                 }
             }
         });

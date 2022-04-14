@@ -29,7 +29,7 @@ public class Constants {
     // Spending gold
     public static final int BUILD_NORMAL_TOWER = 1000;
     public static final int BUILD_GOLDMINE = 3000;
-    public static final int BUILD_MULTIATTACK_TOWER = 1500;
+    public static final int BUILD_MULTIATTACK_TOWER = 1300;
     public static final int BUILD_CRAZY_TOWER = 1500;
     public static final int TRAIN_NORMAL_SOLDIER = 500;
     public static final int TRAIN_CRAZY_SOLDIER = 800;
