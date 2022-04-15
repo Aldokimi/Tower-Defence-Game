@@ -34,7 +34,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.brashmonkey.spriter.Point;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -525,6 +524,7 @@ public class GameScreen implements Screen {
                     System.out.println("red: " + redPlayer.getGold());
                     redPlayerMoneyCounter = redPlayer.getGold();
                     TempUnits.add(newUnit);
+                    unitCountSoldier1++;
                 } else if ( bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.TRAIN_NORMAL_SOLDIER)) {
 
                     // Animations for the initial solider (before end-turn)
@@ -541,8 +541,8 @@ public class GameScreen implements Screen {
                     System.out.println("blue: " + bluePlayer.getGold());
                     bluePlayerMoneyCounter = bluePlayer.getGold();
                     TempUnits.add(newUnit);
+                    unitCountSoldier1++;
                 }
-                unitCountSoldier1 += 1;
             }
         });
 
@@ -573,6 +573,7 @@ public class GameScreen implements Screen {
                     System.out.print("red: " + redPlayer.getGold());
                     redPlayerMoneyCounter = redPlayer.getGold();
                     TempUnits.add(newUnit);
+                    unitCountSoldier3++;
                 } else if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.TRAIN_CRAZY_SOLDIER)) {
                     // Animations for the initial solider (before end-turn)
                     animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER3_IDLE_BLUE.findRegions("idle"),
@@ -588,8 +589,8 @@ public class GameScreen implements Screen {
                     System.out.println("blue: " + bluePlayer.getGold());
                     bluePlayerMoneyCounter = bluePlayer.getGold();
                     TempUnits.add(newUnit);
+                    unitCountSoldier3++;
                 }
-                unitCountSoldier3 += 1;
             }
         });
 
