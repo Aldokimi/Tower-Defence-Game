@@ -1,4 +1,4 @@
-package src.com.alphatech.unittests;
+package com.alphatech.unittests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;

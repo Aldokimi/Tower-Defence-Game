@@ -18,7 +18,7 @@ public class Player {
     // Initialized in the game screen
     public NormalTower normalTower;
     public MultiAttackTower multiAttackTower;
-    public CrazyTower crazyTower;
+    public MagicTower magicTower;
     public GoldMine goldMine;
 
     public Player() {
@@ -97,7 +97,7 @@ public class Player {
             this.spendGold(Constants.BUILD_NORMAL_TOWER);
         } else if (tower instanceof MultiAttackTower) {
             this.spendGold(Constants.BUILD_MULTIATTACK_TOWER);
-        }else if(tower instanceof CrazyTower){
+        } else if (tower instanceof MagicTower) {
             this.spendGold(Constants.BUILD_CRAZY_TOWER);
         }
     }

@@ -110,7 +110,7 @@ public class GameScreen implements Screen {
 
     // barracks
     private ArrayList<Placeholder> barrackPlaceholders;
-   
+
     // Units
     private ArrayList<Unit> TempUnits;// to Store units before adding them to the user units
     private TextureRegion sold1region;
@@ -134,6 +134,7 @@ public class GameScreen implements Screen {
 
     // Towers
     private boolean isHighlighted;
+    private ArrayList<Tower> towers;
 
     // Normal
     private ImageButton normalTowerButton;
@@ -147,13 +148,11 @@ public class GameScreen implements Screen {
     private TextureRegionDrawable multiAttackTowerRegionDrawable;
     private Group MultiAttackTowerHighlights;
 
-    // Crazy
-    private ImageButton crazyTowerButton;
-    private TextureRegion crazyTowerRegion;
-    private TextureRegionDrawable crazyTowerRegionDrawable;
-    private Group crazyTowerHighlights;
-
-    private ArrayList<Tower> towers;
+    // Magic
+    private ImageButton magicTowerButton;
+    private TextureRegion magicTowerRegion;
+    private TextureRegionDrawable magicTowerRegionDrawable;
+    private Group magicTowerHighlights;
 
     // Gold mines
     private ImageButton goldMineButton;
@@ -173,9 +172,9 @@ public class GameScreen implements Screen {
     private TextureRegionDrawable endTurnRegionDraw;
     private ImageButton endTurn;
 
-    //Castles health bars
-    TextureRegionDrawable CastleHealthBarFrameB ;
-    TextureRegionDrawable CastleHealthBarFrameR ;
+    // Castles health bars
+    TextureRegionDrawable CastleHealthBarFrameB;
+    TextureRegionDrawable CastleHealthBarFrameR;
 
     ProgressBarStyle healthBarBStyle;
     ProgressBarStyle healthBarRStyle;
@@ -193,7 +192,6 @@ public class GameScreen implements Screen {
     private int goldMinePrice = Constants.BUILD_GOLDMINE;
     private int normalSoldierPrice = Constants.TRAIN_NORMAL_SOLDIER;
     private int crazySoldierPrice = Constants.TRAIN_CRAZY_SOLDIER;
-
 
     @Override
     public void show() {
@@ -215,20 +213,17 @@ public class GameScreen implements Screen {
         // Stage should control input.
         Gdx.input.setInputProcessor(gameScreenButtons);
 
-        //Health bar for castles
+        // Health bar for castles
 
-        CastleHealthBarFrameB = new TextureRegionDrawable(Textures.CastleHealthBarFrame);
+        CastleHealthBarFrameB = new TextureRegionDrawable(Textures.CASTLE_HEALTH_BAR_FRAME);
 
-        CastleHealthBarFrameR = new TextureRegionDrawable(Textures.CastleHealthBarFrame);
+        CastleHealthBarFrameR = new TextureRegionDrawable(Textures.CASTLE_HEALTH_BAR_FRAME);
 
         healthBarBStyle = new ProgressBar.ProgressBarStyle();
-        healthBarBStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.healthBarV));
+        healthBarBStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.VERTICAL_HEALTH_BAR));
 
         healthBarRStyle = new ProgressBar.ProgressBarStyle();
-        healthBarRStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.healthBarV));
-
-
-
+        healthBarRStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.VERTICAL_HEALTH_BAR));
 
         // Paths
         isPathChosen = false;
@@ -442,9 +437,11 @@ public class GameScreen implements Screen {
         barrackPlaceholders = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             if (i >= 2) {
-                barrackPlaceholders.add(placeHoldersNearRedCastle.get(new Random().nextInt(placeHoldersNearRedCastle.size())));
+                barrackPlaceholders
+                        .add(placeHoldersNearRedCastle.get(new Random().nextInt(placeHoldersNearRedCastle.size())));
             } else {
-                barrackPlaceholders.add(placeHoldersNearBlueCastle.get(new Random().nextInt(placeHoldersNearBlueCastle.size())));
+                barrackPlaceholders
+                        .add(placeHoldersNearBlueCastle.get(new Random().nextInt(placeHoldersNearBlueCastle.size())));
             }
         }
 
@@ -454,8 +451,8 @@ public class GameScreen implements Screen {
 
         // Unit counter
         unitCounter = new BitmapFont();
-        
-        //Money and prices
+
+        // Money and prices
         playerMoney = new BitmapFont();
         prices = new BitmapFont();
 
@@ -515,17 +512,16 @@ public class GameScreen implements Screen {
                             PlayMode.LOOP);
 
                     // Create red unit of type 1
-                    unitsPosition = new Point(820, 222);
+                    unitsPosition = new Point(820, 217);
                     NormalSoldier newUnit = new NormalSoldier(unitsPosition);
                     newUnit.setAnimation(animation);
-                    redPlayer.units.add(newUnit);
 
                     redPlayer.trainUnit(newUnit);
                     System.out.println("red: " + redPlayer.getGold());
                     redPlayerMoneyCounter = redPlayer.getGold();
                     TempUnits.add(newUnit);
                     unitCountSoldier1++;
-                } else if ( bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.TRAIN_NORMAL_SOLDIER)) {
+                } else if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.TRAIN_NORMAL_SOLDIER)) {
 
                     // Animations for the initial solider (before end-turn)
                     animation = new Animation<TextureRegion>(0.08f, Textures.SOLDIER1_IDLE_BLUE.findRegions("idle"),
@@ -567,7 +563,6 @@ public class GameScreen implements Screen {
                     unitsPosition = new Point(820, 158);
                     CrazySoldier newUnit = new CrazySoldier(unitsPosition);
                     newUnit.setAnimation(animation);
-                    redPlayer.units.add(newUnit);
 
                     redPlayer.trainUnit(newUnit);
                     System.out.print("red: " + redPlayer.getGold());
@@ -583,7 +578,6 @@ public class GameScreen implements Screen {
                     unitsPosition = new Point(85, 640);
                     CrazySoldier newUnit = new CrazySoldier(unitsPosition);
                     newUnit.setAnimation(animation);
-                    bluePlayer.units.add(newUnit);
 
                     bluePlayer.trainUnit(newUnit);
                     System.out.println("blue: " + bluePlayer.getGold());
@@ -627,26 +621,29 @@ public class GameScreen implements Screen {
         bluePlayer.multiAttackTower = new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER, placeHolders);
         redPlayer.multiAttackTower = new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER, placeHolders);
 
-        // Towers -- Crazy
-        crazyTowerRegion = new TextureRegion(Textures.CRAZY_TOWER);
-        crazyTowerRegionDrawable = new TextureRegionDrawable(normalTowerRegion);
-        crazyTowerButton = new ImageButton(normalTowerRegionDrawable);
-        crazyTowerButton.setSize(Constants.UNIT_SIZE.x * 2, (float) (Constants.UNIT_SIZE.y * 2.3));
-        crazyTowerButton.setPosition((float) (Constants.UNIT_SIZE.x * 6.2), (Constants.UNIT_SIZE.y - 16));
+        // Towers -- Magic
+        magicTowerRegion = new TextureRegion(Textures.MAGIC_TOWER);
+        magicTowerRegionDrawable = new TextureRegionDrawable(magicTowerRegion);
+        magicTowerButton = new ImageButton(magicTowerRegionDrawable);
+        magicTowerButton.setSize(Constants.UNIT_SIZE.x * 1.9f, (float) (Constants.UNIT_SIZE.y * 1.8));
+        magicTowerButton.setPosition(376, 38);
 
-        bluePlayer.crazyTower = new CrazyTower(Textures.BLUE_CRAZY_TOWER, placeHolders);
-        redPlayer.crazyTower = new CrazyTower(Textures.RED_CRAZY_TOWER, placeHolders);
+        bluePlayer.magicTower = new MagicTower(Textures.BLUE_MAGIC_TOWER, placeHolders);
+        redPlayer.magicTower = new MagicTower(Textures.RED_MAGIC_TOWER, placeHolders);
 
         // Prepare all towers for rendering
-        towers = new ArrayList<>( Arrays.asList(bluePlayer.normalTower, redPlayer.normalTower, bluePlayer.multiAttackTower,
-                        redPlayer.multiAttackTower, bluePlayer.crazyTower, redPlayer.crazyTower));
+        towers = new ArrayList<>(
+                Arrays.asList(bluePlayer.normalTower, redPlayer.normalTower, bluePlayer.multiAttackTower,
+                        redPlayer.multiAttackTower, bluePlayer.magicTower, redPlayer.magicTower));
 
         // Initializing the center which we will measure from.
-        bluePlayer.normalTower.initializeCenterofMeasurement(new Placeholder(2, 21));
-        bluePlayer.multiAttackTower.initializeCenterofMeasurement(new Placeholder(2, 21));
+        bluePlayer.normalTower.initializeCenterofMeasurement(new Placeholder(2, 20));
+        bluePlayer.multiAttackTower.initializeCenterofMeasurement(new Placeholder(2, 20));
+        bluePlayer.magicTower.initializeCenterofMeasurement(new Placeholder(2, 20));
 
         redPlayer.normalTower.initializeCenterofMeasurement(new Placeholder(27, 6));
         redPlayer.multiAttackTower.initializeCenterofMeasurement(new Placeholder(27, 6));
+        redPlayer.magicTower.initializeCenterofMeasurement(new Placeholder(27, 6));
 
         // Tower's buttons listeners
         normalTowerButton.addListener(new ClickListener() {
@@ -667,18 +664,18 @@ public class GameScreen implements Screen {
             }
         });
 
-        crazyTowerButton.addListener(new ClickListener() {
+        magicTowerButton.addListener(new ClickListener() {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                crazyTowerHighlights = new Group();
-                buildTowers(bluePlayer.crazyTower, redPlayer.crazyTower, crazyTowerHighlights);
+                magicTowerHighlights = new Group();
+                buildTowers(bluePlayer.magicTower, redPlayer.magicTower, magicTowerHighlights);
             }
         });
 
         gameScreenButtons.addActor(normalTowerButton);
         gameScreenButtons.addActor(multiAttackTowerButton);
-        gameScreenButtons.addActor(crazyTowerButton);
+        gameScreenButtons.addActor(magicTowerButton);
 
         // Gold Mines
         goldMineRegion = new TextureRegion(Textures.GOLD_MINE);
@@ -705,7 +702,7 @@ public class GameScreen implements Screen {
                             if (p.isFreePlace() && !gePlaceholdersNearCastle().contains(p))
                                 goldMineHighlights.addActor(highlightPlaceforGoldMine(p, bluePlayer.goldMine));
                         }
-                    } else if (redPlayer.getTurn() && redPlayer.hasEnoughGold(Constants.BUILD_GOLDMINE)){
+                    } else if (redPlayer.getTurn() && redPlayer.hasEnoughGold(Constants.BUILD_GOLDMINE)) {
                         // Measuring from all directions
                         redPlayer.goldMine.build();
 
@@ -754,71 +751,29 @@ public class GameScreen implements Screen {
             // Resetting the timer and its dependencies
             switchTurn();
         }
-        //rendering castles healthbars
-        CastleHealthBarFrameB.draw(batch,6,21*Constants.PLACEHOLDER_SIZE+1,22,80);
-        CastleHealthBarFrameR.draw(batch,29*Constants.PLACEHOLDER_SIZE+8,5*Constants.PLACEHOLDER_SIZE+4,22,80);
-                //Blue
 
+        // rendering castles healthbars
+        CastleHealthBarFrameB.draw(batch, 6, 21 * Constants.PLACEHOLDER_SIZE + 1, 22, 80);
+        CastleHealthBarFrameR.draw(batch, 29 * Constants.PLACEHOLDER_SIZE + 8, 5 * Constants.PLACEHOLDER_SIZE + 4, 22,
+                80);
+
+        // Blue
         healthBarBStyle.background.setMinWidth(15);
         ProgressBar healthBarB = new ProgressBar(0f, 1000, 1f, true, healthBarBStyle);
-        healthBarB.setBounds(14.5f,21*Constants.PLACEHOLDER_SIZE+17.5f, 1f, 66f*(float)bluePlayer.getHealth()/Constants.INIT_HEALTH);
-        healthBarB.draw(batch,1);
-                //Red
+        healthBarB.setBounds(14.5f, 21 * Constants.PLACEHOLDER_SIZE + 17.5f, 1f,
+                66f * (float) bluePlayer.getHealth() / Constants.INIT_HEALTH);
+        healthBarB.draw(batch, 1);
+        // Red
         healthBarBStyle.background.setMinWidth(15);
         ProgressBar healthBarR = new ProgressBar(0f, 1000, 1f, true, healthBarBStyle);
-        healthBarR.setBounds(29*Constants.PLACEHOLDER_SIZE+16.5f,5*Constants.PLACEHOLDER_SIZE+20.5f, 1f, 66f*(float)redPlayer.getHealth()/Constants.INIT_HEALTH);
-        healthBarR.draw(batch,1);
-
+        healthBarR.setBounds(29 * Constants.PLACEHOLDER_SIZE + 16.5f, 5 * Constants.PLACEHOLDER_SIZE + 20.5f, 1f,
+                66f * (float) redPlayer.getHealth() / Constants.INIT_HEALTH);
+        healthBarR.draw(batch, 1);
 
         // Rendering unit counter
         unitCounter.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         unitCounter.draw(batch, String.valueOf(unitCountSoldier1), 638, 129);// -- Soldier 1
         unitCounter.draw(batch, String.valueOf(unitCountSoldier3), 734, 129);// -- Soldier 3
-
-        // Rendering units
-        for (Unit unit : redPlayer.units) {
-            if(!unit.isAlive())
-                continue;
-
-            drawHealthBar(unit);
-
-
-            batch.draw(unit.getAnimation().getKeyFrame(elapsedTime,true), unit.getPosition().x, unit.getPosition().y,
-                    50, 1,
-                    60,
-                    45, 1, 1, 0);
-
-        }
-
-        for (Unit unit : bluePlayer.units) {
-            if(!unit.isAlive())
-                continue;
-
-            drawHealthBar(unit);
-            batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
-                    unit.getPosition().y, 50, 1, 60, 45, 1, 1, 0);
-
-        }
-
-        ///// Rendering the temporary created units before choosing their path and add
-        ///// them to Player units
-        for (Unit unit : TempUnits) {
-            if(!unit.isAlive())
-                continue;
-
-            drawHealthBar(unit);
-
-            if (bluePlayer.getTurn()) {
-                batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
-                        unit.getPosition().y, 50, 1, 60, 45, 1, 1, 0);
-            } else {
-                batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
-                        unit.getPosition().y,
-                        50, 1,
-                        60,
-                        45, 1, 1, 0);
-            }
-        }
 
         elapsedTime += Gdx.graphics.getDeltaTime();// Time span between the current frame and the last frame in seconds.
         gameScreenButtons.act(Gdx.graphics.getDeltaTime()); // Perform ui logic
@@ -851,12 +806,20 @@ public class GameScreen implements Screen {
         for (Tower tower : towers) {
             Sprite towerSprite = new Sprite(tower.getTowerTexture());
             for (int i = 1; i < tower.getTakenPlaces().size(); i++) {
-                towerSprite.setPosition(
-                        (float) (tower.getTakenPlaces().get(i).getX() * Constants.PLACEHOLDER_SIZE
-                                - Constants.UNIT_SIZE.x * 0.30),
-                        tower.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE);
-                towerSprite.setSize(Constants.UNIT_SIZE.x + Constants.UNIT_SIZE.x * 1 / 7,
-                        Constants.UNIT_SIZE.y + Constants.UNIT_SIZE.y * 1 / 2);
+                // Checking if the tower is a magic tower to set different dimentions for it
+                if (tower.getTowerTexture() == Textures.RED_MAGIC_TOWER
+                        || tower.getTowerTexture() == Textures.BLUE_MAGIC_TOWER) {
+                    towerSprite.setPosition(
+                            (float) (tower.getTakenPlaces().get(i).getX() * 32 - 1),
+                            tower.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE);
+                    towerSprite.setSize(35, 58);
+                } else {
+                    towerSprite.setPosition(
+                            (float) (tower.getTakenPlaces().get(i).getX() * Constants.PLACEHOLDER_SIZE + 3
+                                    - Constants.UNIT_SIZE.x * 0.30),
+                            tower.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE - 2);
+                    towerSprite.setSize(61, 63);
+                }
                 towerSprite.draw(batch);
             }
 
@@ -870,7 +833,7 @@ public class GameScreen implements Screen {
             final int x = Constants.PLACEHOLDER_SIZE + Constants.PLACEHOLDER_SIZE / 3;
             final int y = Constants.PLACEHOLDER_SIZE + Constants.PLACEHOLDER_SIZE - Constants.PLACEHOLDER_SIZE / 3;
             sprite.setPosition(barrackPlaceholders.get(i).getX() * Constants.PLACEHOLDER_SIZE - 5,
-                    barrackPlaceholders.get(i).getY() * Constants.PLACEHOLDER_SIZE - 10);
+                    barrackPlaceholders.get(i).getY() * Constants.PLACEHOLDER_SIZE - 9);
             sprite.setSize(x, y);
             sprite.draw(batch);
         }
@@ -880,11 +843,10 @@ public class GameScreen implements Screen {
             Sprite goldMineSprite = new Sprite(goldMine.getGoldMineTexture());
             for (int i = 0; i < goldMine.getTakenPlaces().size(); i++) {
                 goldMineSprite.setPosition(
-                        (float) (goldMine.getTakenPlaces().get(i).getX() * Constants.PLACEHOLDER_SIZE
+                        (float) (goldMine.getTakenPlaces().get(i).getX() * Constants.PLACEHOLDER_SIZE + 7
                                 - Constants.UNIT_SIZE.x * 0.30),
-                        goldMine.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE);
-                goldMineSprite.setSize(Constants.UNIT_SIZE.x + Constants.UNIT_SIZE.x * 1 / 10,
-                        Constants.UNIT_SIZE.y + Constants.UNIT_SIZE.y * 1 / 2);
+                        goldMine.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE - 2);
+                goldMineSprite.setSize(55, 58);
                 goldMineSprite.draw(batch);
             }
         }
@@ -895,20 +857,63 @@ public class GameScreen implements Screen {
         bluePlayer.makeGold(Gdx.graphics.getDeltaTime());
         bluePlayerMoneyCounter = bluePlayer.getGold();
 
-         // Rendering player's money
-         playerMoney.setColor(Color.YELLOW);
-         playerMoney.draw(batch, String.valueOf(redPlayerMoneyCounter), 702, 843);
-         playerMoney.draw(batch, String.valueOf(bluePlayerMoneyCounter), 220, 843);
- 
-         // Rendering prices
-         prices.setColor(Color.YELLOW);
-         prices.draw(batch, String.valueOf(normalTowerPrice), 230, 22);
-         prices.draw(batch, String.valueOf(multiAttackTowerPrice), 325, 22);
-         prices.draw(batch, String.valueOf(crazyTowerPrice), 424, 22);
-         prices.draw(batch, String.valueOf(goldMinePrice), 520, 22);
-         prices.draw(batch, String.valueOf(normalSoldierPrice), 617, 22);
-         prices.draw(batch, String.valueOf(crazySoldierPrice), 714, 22);
- 
+        // Rendering player's money
+        playerMoney.setColor(Color.YELLOW);
+        playerMoney.draw(batch, String.valueOf(redPlayerMoneyCounter), 702, 843);
+        playerMoney.draw(batch, String.valueOf(bluePlayerMoneyCounter), 220, 843);
+
+        // Rendering prices
+        prices.setColor(Color.YELLOW);
+        prices.draw(batch, String.valueOf(normalTowerPrice), 230, 22);
+        prices.draw(batch, String.valueOf(multiAttackTowerPrice), 325, 22);
+        prices.draw(batch, String.valueOf(crazyTowerPrice), 424, 22);
+        prices.draw(batch, String.valueOf(goldMinePrice), 520, 22);
+        prices.draw(batch, String.valueOf(normalSoldierPrice), 617, 22);
+        prices.draw(batch, String.valueOf(crazySoldierPrice), 714, 22);
+
+        // Rendering units
+        for (Unit unit : redPlayer.units) {
+            if (!unit.isAlive())
+                continue;
+
+            drawHealthBar(unit);
+
+            batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x, unit.getPosition().y,
+                    50, 1,
+                    60,
+                    45, 1, 1, 0);
+
+        }
+
+        for (Unit unit : bluePlayer.units) {
+            if (!unit.isAlive())
+                continue;
+
+            drawHealthBar(unit);
+            batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
+                    unit.getPosition().y, 50, 1, 60, 45, 1, 1, 0);
+
+        }
+
+        // Rendering the temporary created units before choosing their path and add
+        // them to Player units
+        for (Unit unit : TempUnits) {
+            if (!unit.isAlive())
+                continue;
+
+            drawHealthBar(unit);
+
+            if (bluePlayer.getTurn()) {
+                batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
+                        unit.getPosition().y, 50, 1, 60, 45, 1, 1, 0);
+            } else {
+                batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
+                        unit.getPosition().y,
+                        50, 1,
+                        60,
+                        45, 1, 1, 0);
+            }
+        }
         batch.end();
     }
 
@@ -948,9 +953,9 @@ public class GameScreen implements Screen {
     private void buildBlueTowers(Tower tower, Group highlights) {
         bluePlayer.multiAttackTower.build();
         bluePlayer.normalTower.build();
-        bluePlayer.crazyTower.build();
+        bluePlayer.magicTower.build();
 
-        for (Placeholder p : bluePlayer.crazyTower.getAvailablePlaces()) {
+        for (Placeholder p : bluePlayer.magicTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower));
         }
@@ -978,9 +983,9 @@ public class GameScreen implements Screen {
     private void buildRedTowers(Tower tower, Group highlights) {
         redPlayer.multiAttackTower.build();
         redPlayer.normalTower.build();
-        redPlayer.crazyTower.build();
+        redPlayer.magicTower.build();
 
-        for (Placeholder p : redPlayer.crazyTower.getAvailablePlaces()) {
+        for (Placeholder p : redPlayer.magicTower.getAvailablePlaces()) {
             if (p.isFreePlace() && !barrackPlaceholders.contains(p))
                 highlights.addActor(highlightPlace(p, tower));
         }
@@ -1211,7 +1216,6 @@ public class GameScreen implements Screen {
         PathArrowBlue4.getImage().setColor(Color.VIOLET);
     }
 
-
     /**
      * highlight the avaliable (to build on) place holder.
      * 
@@ -1277,10 +1281,11 @@ public class GameScreen implements Screen {
     }
 
     /**
-     * Highlight a placeholder of the map so we can build a gold  mine on it.
+     * Highlight a placeholder of the map so we can build a gold mine on it.
      *
      * @param placeholder Place holder
-     * @param goldMine    if the highlighted placeholder is clicked we build into it.
+     * @param goldMine    if the highlighted placeholder is clicked we build into
+     *                    it.
      * @return ImageButton, the highlighted placeholder
      */
     private ImageButton highlightPlaceforGoldMine(final Placeholder placeholder, final GoldMine goldMine) {
@@ -1350,16 +1355,17 @@ public class GameScreen implements Screen {
                 new Placeholder(27, 8),
                 new Placeholder(29, 8)));
     }
-    public void drawHealthBar(Unit unit)
-    {
-        TextureRegionDrawable healthBarFrame = new TextureRegionDrawable(Textures.healthBarFrame);
-        healthBarFrame.draw(batch,unit.getPosition().x+8,unit.getPosition().y+40,45,10);
+
+    public void drawHealthBar(Unit unit) {
+        TextureRegionDrawable healthBarFrame = new TextureRegionDrawable(Textures.HEALTH_BAR_FRAME);
+        healthBarFrame.draw(batch, unit.getPosition().x + 8, unit.getPosition().y + 40, 45, 10);
         ProgressBarStyle healthBarStyle = new ProgressBar.ProgressBarStyle();
-        healthBarStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.healthBar));
+        healthBarStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.HEALTH_BAR));
         healthBarStyle.background.setMinHeight(8);
         ProgressBar healthBar = new ProgressBar(0f, 1000, 1f, false, healthBarStyle);
-        healthBar.setBounds(unit.getPosition().x+17f, unit.getPosition().y+44.2f, 36*(float)unit.getHealth()/Constants.FULL_UNIT_HEALTH_POINTS, 1);
-        healthBar.draw(batch,1);
+        healthBar.setBounds(unit.getPosition().x + 17f, unit.getPosition().y + 44.2f,
+                36 * (float) unit.getHealth() / Constants.FULL_UNIT_HEALTH_POINTS, 1);
+        healthBar.draw(batch, 1);
 
     }
 
