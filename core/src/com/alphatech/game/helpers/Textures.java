@@ -44,7 +44,7 @@ public class Textures {
         // Towers Buttons
         public static final Texture NORMAL_TOWER = new Texture("Towers/NormalTower.png");
         public static final Texture MULTI_ATTACK_TOWER = new Texture("Towers/MultiAttackTower.png");
-        public static final Texture CRAZY_TOWER = new Texture("Towers/MultiAttackTower.png");
+        public static final Texture MAGIC_TOWER = new Texture("Towers/MagicTower.png");
 
         // Normal Towers
         public static final Texture RED_NORMAL_TOWER = new Texture("Towers/Red/NormalTower.png");
@@ -54,9 +54,9 @@ public class Textures {
         public static final Texture RED_MULTI_ATTACK_TOWER = new Texture("Towers/Red/MultiAttackTower.png");
         public static final Texture BLUE_MULTI_ATTACK_TOWER = new Texture("Towers/Blue/MultiAttackTower.png");
 
-        // Crazy tower
-        public static final Texture RED_CRAZY_TOWER = new Texture("Towers/MultiAttackTower.png"); // *** Those textures should be changed
-        public static final Texture BLUE_CRAZY_TOWER = new Texture("Towers/MultiAttackTower.png");
+        // Magic tower
+        public static final Texture RED_MAGIC_TOWER = new Texture("Towers/MagicTower.png");
+        public static final Texture BLUE_MAGIC_TOWER = new Texture("Towers/Blue/MagicTower.png");
 
         // Barracks
         public static final Texture RED_BARRACK = new Texture("Towers/Red/Knight Post Front.png");
@@ -66,15 +66,12 @@ public class Textures {
         public static final Texture GOLD_MINE = new Texture("Towers/GoldMine.png");
         public static final Texture RED_GOLD_MINE = new Texture("Towers/Red/GoldMine.png");
         public static final Texture BLUE_GOLD_MINE = new Texture("Towers/Blue/GoldMine.png");
-  
-        //heath-bar
-        public static final Texture healthBarFrame = new Texture("Extras/healthbar_frame.png");
-        public static final Texture healthBar = new Texture("Extras/health_bar.png");
-        public static final Texture CastleHealthBarFrame = new Texture("Extras/Castle_Health_Frame.png");
-        public static final Texture healthBarV = new Texture("Extras/health_bar_Vertical.png");
 
-
-
+        // Heath-bar
+        public static final Texture HEALTH_BAR_FRAME = new Texture("Extras/healthbar_frame.png");
+        public static final Texture HEALTH_BAR = new Texture("Extras/health_bar.png");
+        public static final Texture CASTLE_HEALTH_BAR_FRAME = new Texture("Extras/Castle_Health_Frame.png");
+        public static final Texture VERTICAL_HEALTH_BAR = new Texture("Extras/health_bar_Vertical.png");
 
         /**
          * Dispose the constants in the game screen
@@ -103,17 +100,22 @@ public class Textures {
 
                 NORMAL_TOWER.dispose();
                 MULTI_ATTACK_TOWER.dispose();
-                CRAZY_TOWER.dispose();
+                MAGIC_TOWER.dispose();
                 RED_NORMAL_TOWER.dispose();
                 BLUE_NORMAL_TOWER.dispose();
                 RED_MULTI_ATTACK_TOWER.dispose();
                 BLUE_MULTI_ATTACK_TOWER.dispose();
-                RED_CRAZY_TOWER.dispose();
-                BLUE_CRAZY_TOWER.dispose();
+                RED_MAGIC_TOWER.dispose();
+                BLUE_MAGIC_TOWER.dispose();
 
                 GOLD_MINE.dispose();
                 RED_GOLD_MINE.dispose();
                 BLUE_GOLD_MINE.dispose();
+
+                HEALTH_BAR_FRAME.dispose();
+                HEALTH_BAR.dispose();
+                CASTLE_HEALTH_BAR_FRAME.dispose();
+                VERTICAL_HEALTH_BAR.dispose();
 
         }
 

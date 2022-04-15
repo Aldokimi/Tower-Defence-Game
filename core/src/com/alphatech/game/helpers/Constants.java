@@ -4,11 +4,6 @@ import com.brashmonkey.spriter.Point;
 
 public class Constants {
 
-    // Units
-    public static final Point UNIT_SIZE = new Point(60, 45);// width,heigth
-    public static final int UNIT_SPEED = 20;
-    public static final int FULL_UNIT_HEALTH_POINTS = 1000;
-
     // Map
     public static final int PLACEHOLDER_SIZE = 32;
     public static final int MAP_SIZE = 32 * PLACEHOLDER_SIZE;
@@ -16,6 +11,11 @@ public class Constants {
     public static final int SCREEN_WIDTH = 960;
     public static final int SCREEN_HEIGHT = 896;
     public static final float TIMER_CAPACITY = 174f;
+
+    // Units
+    public static final Point UNIT_SIZE = new Point(60, 45);// width,heigth
+    public static final int UNIT_SPEED = 20;
+    public static final int FULL_UNIT_HEALTH_POINTS = 1000;
 
     // Player
     public static final int TURN_TIME = 30;
@@ -34,7 +34,7 @@ public class Constants {
     public static final int TRAIN_NORMAL_SOLDIER = 500;
     public static final int TRAIN_CRAZY_SOLDIER = 800;
 
-    //Paths
+    // Paths
     public enum PathNum {
         FIRST,
         SECOND,
