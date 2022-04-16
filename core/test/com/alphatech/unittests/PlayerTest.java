@@ -6,10 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.*;
 
+import com.alphatech.game.utils.Player;
 import com.alphatech.game.utils.towers.*;
-import com.brashmonkey.spriter.Point;
+import com.alphatech.game.utils.units.CrazySoldier;
+import com.alphatech.game.utils.units.NormalSoldier;
+
+import java.awt.Point;
 import com.alphatech.game.helpers.Constants;
-import com.alphatech.game.utils.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

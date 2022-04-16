@@ -1,0 +1,151 @@
+
+Soldier.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+walk
+  rotate: false
+  xy: 1, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 0
+walk
+  rotate: false
+  xy: 1, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 1
+walk
+  rotate: false
+  xy: 503, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 10
+walk
+  rotate: false
+  xy: 503, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 11
+
+Soldier2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+walk
+  rotate: false
+  xy: 1, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 12
+walk
+  rotate: false
+  xy: 1, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 13
+walk
+  rotate: false
+  xy: 503, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 14
+walk
+  rotate: false
+  xy: 503, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 15
+
+Soldier3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+walk
+  rotate: false
+  xy: 1, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 16
+walk
+  rotate: false
+  xy: 1, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 17
+walk
+  rotate: false
+  xy: 503, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 2
+walk
+  rotate: false
+  xy: 503, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 3
+
+Soldier4.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+walk
+  rotate: false
+  xy: 1, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 4
+walk
+  rotate: false
+  xy: 1, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 5
+walk
+  rotate: false
+  xy: 503, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 6
+walk
+  rotate: false
+  xy: 503, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 7
+
+Soldier5.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+walk
+  rotate: false
+  xy: 1, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 8
+walk
+  rotate: false
+  xy: 503, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 9

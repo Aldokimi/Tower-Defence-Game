@@ -1,0 +1,99 @@
+
+Soldier.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+attack
+  rotate: false
+  xy: 1, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 0
+attack
+  rotate: false
+  xy: 1, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 1
+attack
+  rotate: false
+  xy: 503, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 10
+attack
+  rotate: false
+  xy: 503, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 11
+
+Soldier2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+attack
+  rotate: false
+  xy: 1, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 2
+attack
+  rotate: false
+  xy: 1, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 3
+attack
+  rotate: false
+  xy: 503, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 4
+attack
+  rotate: false
+  xy: 503, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 5
+
+Soldier3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+attack
+  rotate: false
+  xy: 1, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 6
+attack
+  rotate: false
+  xy: 1, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 7
+attack
+  rotate: false
+  xy: 503, 351
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 8
+attack
+  rotate: false
+  xy: 503, 1
+  size: 500, 348
+  orig: 500, 348
+  offset: 0, 0
+  index: 9

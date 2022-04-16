@@ -37,6 +37,22 @@ public class Textures {
         public static final TextureAtlas SOLDIER3_IDLE_BLUE = new TextureAtlas(
                         Gdx.files.internal("Enemy3/Blue/Idle/Soldier.atlas"));
 
+        // Walking Red Soldiers
+        public static final TextureAtlas SOLDIER1_WALKING_RED = new TextureAtlas(
+                        Gdx.files.internal("Enemy1/Red/Walking/Soldier.atlas"));
+
+        // Walking Blue Soldiers
+        public static final TextureAtlas SOLDIER1_WALKING_BLUE = new TextureAtlas(
+                        Gdx.files.internal("Enemy1/Blue/Walking/Soldier.atlas"));
+
+        // Attacking Red Soldiers
+        public static final TextureAtlas SOLDIER1_ATTACKING_RED = new TextureAtlas(
+                        Gdx.files.internal("Enemy1/Red/Attacking/Soldier.atlas"));
+
+        // Attacking Red Soldiers
+        public static final TextureAtlas SOLDIER1_ATTACKING_BLUE = new TextureAtlas(
+                        Gdx.files.internal("Enemy1/Blue/Attacking/Soldier.atlas"));
+
         // Path Arrow
         public static final Texture PathArrowB = new Texture("Extras/pathArrowB.png");
         public static final Texture PathArrowR = new Texture("Extras/pathArrowR.png");
@@ -91,8 +107,12 @@ public class Textures {
                 SOLDIER1.dispose();
                 SOLDIER3.dispose();
                 SOLDIER1_IDLE_RED.dispose();
+                SOLDIER1_WALKING_RED.dispose();
+                SOLDIER1_ATTACKING_RED.dispose();
                 SOLDIER3_IDLE_RED.dispose();
                 SOLDIER1_IDLE_BLUE.dispose();
+                SOLDIER1_WALKING_BLUE.dispose();
+                SOLDIER1_ATTACKING_BLUE.dispose();
                 SOLDIER3_IDLE_BLUE.dispose();
 
                 RED_BARRACK.dispose();
