@@ -9,10 +9,11 @@ before_script:
 stages:
   - build
   - test
+  - deploy
 
 Build:
   stage: build
-  script: gradle --build-cache assemble --warning-mode summary --scan #Warnings set to 'summary' because all warnings are about deprecation 
+  script: gradle --build-cache assemble --warning-mode summary --scan
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -34,3 +35,13 @@ Check:
     paths:
       - "./core/build/reports/tests/test/*"
     expire_in: 30 days
+
+Deploy:
+  stage: deploy
+  script:  gradle clean desktop:dist
+  artifacts:
+    paths:
+      - "./desktop/build/libs/*"
+  only:
+    - main
+    - merge_requests
