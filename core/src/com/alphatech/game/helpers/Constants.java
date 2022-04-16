@@ -1,6 +1,6 @@
 package com.alphatech.game.helpers;
 
-import com.brashmonkey.spriter.Point;
+import java.awt.Point;
 
 public class Constants {
 

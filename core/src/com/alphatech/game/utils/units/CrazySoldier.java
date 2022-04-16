@@ -1,6 +1,6 @@
-package com.alphatech.game.utils;
+package com.alphatech.game.utils.units;
 
-import com.brashmonkey.spriter.Point;
+import java.awt.Point;
 
 // Unit that moves through obstacles 
 public class CrazySoldier extends Unit {
