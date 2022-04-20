@@ -48,6 +48,6 @@ public class Constants {
         CRAZY
     }
 
-    // Fire shooting
+    // Fire shooting 
     public static final float PROXIMITY_RANGE = PLACEHOLDER_SIZE;
 }
