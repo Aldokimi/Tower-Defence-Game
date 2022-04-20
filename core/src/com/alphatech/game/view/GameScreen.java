@@ -220,12 +220,14 @@ public class GameScreen implements Screen {
 
         // rendering Paths arrows by turn
         pathSettings.setArrowsVisibility(bluePlayer.getTurn());
-
-        // rendering random barracks
-        towerSettings.renderBarracks(batch);
+        
+        // Set enemies for towers
+        towerSettings.setEnemies(this.redPlayer, this.bluePlayer);
 
         // Rendering Towers
-        towerSettings.renderTowers(batch);
+        towerSettings.renderTowers(batch, this.redPlayer, this.bluePlayer);
+        // rendering random barracks
+        towerSettings.renderBarracks(batch);
 
         // Rendering Gold Mines
         towerSettings.renderGoldMines(batch);
@@ -239,6 +241,8 @@ public class GameScreen implements Screen {
 
         // Rendering player's gold and towers prices
         towerSettings.renderPlayersGoldAndGoldMines(batch);
+
+        towerSettings.hideFireBallesInCorner(batch);
 
         // Rendering units
         unitSettings.renderPlayersUnits(bluePlayer, redPlayer, pathSettings, elapsedTime, batch);

@@ -25,6 +25,7 @@ public class Textures {
         public static final Texture ENDTURN_TEXT = new Texture("Texts/EndTurn.png");
         public static final Texture OPTIONS = new Texture("Extras/options.png");
         public static final Texture SAVE = new Texture("Extras/save.png");
+        public static final Texture GROUND = new Texture("GroundTiles/GrassGround.png");
 
         // Timer Bar
         public static final Texture TIMER_BAR = new Texture("GUI/TimerBar.png");
@@ -115,6 +116,11 @@ public class Textures {
         public static final Texture HEALTH_BAR = new Texture("Extras/health_bar.png");
         public static final Texture CASTLE_HEALTH_BAR_FRAME = new Texture("Extras/Castle_Health_Frame.png");
         public static final Texture VERTICAL_HEALTH_BAR = new Texture("Extras/health_bar_Vertical.png");
+
+        // Fire ball
+        public static final Texture NORMAL_FIRE_BALL = new Texture("Extras/fireBall.png");
+        public static final Texture MULTIATTACK_FIRE_BALL = new Texture("Extras/Rock 05.png");
+        public static final Texture MAGIC_FIRE_BALL = new Texture("Extras/heart.png");
 
         /**
          * Dispose the constants in the game screen

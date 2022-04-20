@@ -17,6 +17,11 @@ public class Constants {
     public static final int UNIT_SPEED = 20;
     public static final int FULL_UNIT_HEALTH_POINTS = 1000;
 
+    // Towers
+    public static final String NORMAL_TOWER = "Normal Tower";
+    public static final String MULTIATTACK_TOWER = "Multi Attack Tower";
+    public static final String MAGIC_TOWER = "Magic Tower";
+
     // Player
     public static final int TURN_TIME = 30;
     public static final int INIT_HEALTH = 1000;
@@ -42,4 +47,7 @@ public class Constants {
         FORTH,
         CRAZY
     }
+
+    // Fire shooting 
+    public static final float PROXIMITY_RANGE = PLACEHOLDER_SIZE;
 }

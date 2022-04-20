@@ -62,15 +62,15 @@ public class TowersTest {
     @Test
     @DisplayName("Adding a tower")
     void addingTower() {
-        tower.addTower(new Placeholder(11, 222));
+        tower.addTower(new Placeholder(11, 222), "NONE");
         assertFalse(tower.getTakenPlaces().isEmpty());
         assertEquals(1, tower.getTakenPlaces().size());
 
-        normalTower.addTower(new Placeholder(121, 221));
+        normalTower.addTower(new Placeholder(121, 221), "NONE");
         assertFalse(normalTower.getTakenPlaces().isEmpty());
         assertEquals(1, normalTower.getTakenPlaces().size());
 
-        multiAttTower.addTower(new Placeholder(131, 2222));
+        multiAttTower.addTower(new Placeholder(131, 2222), "NONE");
         assertFalse(multiAttTower.getTakenPlaces().isEmpty());
         assertEquals(1, multiAttTower.getTakenPlaces().size());
     }

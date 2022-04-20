@@ -7,6 +7,7 @@ import com.alphatech.game.utils.towers.MultiAttackTower;
 import com.alphatech.game.utils.towers.NormalTower;
 import com.alphatech.game.utils.towers.Placeholder;
 import com.alphatech.game.utils.towers.Tower;
+import com.alphatech.game.utils.towers.TowerSprite;
 import com.alphatech.game.utils.units.CrazySoldier;
 import com.alphatech.game.utils.units.NormalSoldier;
 import com.alphatech.game.utils.units.Unit;
@@ -215,7 +216,7 @@ public class LoadGame {
 
         int takenPlacesArraySize;
 
-        ArrayList<Placeholder> takenPlaces;
+        ArrayList<TowerSprite> takenPlaces;
         for (int i = 0; i < towersArraySize; i++) {
             // parent name
             parentName = prefs.getString("ParentName_" + i, "");
@@ -293,7 +294,7 @@ public class LoadGame {
                 towerPlaceholder = new Placeholder(prefs.getFloat(i + "towerTakenPlacesX_" + j, 0),
                         prefs.getFloat(i + "towerTakenPlacesY_" + j, 0));
                 towerPlaceholder.setIsFree(prefs.getBoolean(i + "towerTakenPlacesIsFree_" + j, false));
-                takenPlaces.add(towerPlaceholder);
+                takenPlaces.add(new TowerSprite(towerPlaceholder, "NONE"));
             }
             tower.setTakenPlaces(takenPlaces);
 

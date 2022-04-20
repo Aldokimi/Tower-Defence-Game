@@ -125,11 +125,11 @@ public class SaveGame {
                         // iterate over the placeholders in the array
                         for (int j = 0; j < gameScreen.towerSettings.towers.get(i).getTakenPlaces().size(); j++) {
                                 prefs.putFloat(i + "towerTakenPlacesX_" + j,
-                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j).getX());
+                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j).getPosition().getX());
                                 prefs.putFloat(i + "towerTakenPlacesY_" + j,
-                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j).getY());
+                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j).getPosition().getY());
                                 prefs.putBoolean(i + "towerTakenPlacesIsFree_" + j,
-                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j)
+                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j).getPosition()
                                                                 .getIsFree());
                         }
                 }
