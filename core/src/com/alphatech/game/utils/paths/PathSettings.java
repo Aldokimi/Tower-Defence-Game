@@ -2,6 +2,7 @@ package com.alphatech.game.utils.paths;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
+import com.alphatech.game.utils.Player;
 import com.alphatech.game.utils.towers.Placeholder;
 import com.alphatech.game.utils.units.NormalSoldier;
 import com.alphatech.game.utils.units.Unit;
@@ -552,36 +553,33 @@ public class PathSettings {
         this.treasurePlace = new Point2D.Float(newSpotForTreasure.x, newSpotForTreasure.y);
     }
 
-    public void placeTreasureChests(SpriteBatch batch, float deltaTime) {
+    public void placeTreasureChests(SpriteBatch batch, float deltaTime, Player redPlayer, Player bluePlayer) {
 
         Sprite sprite = new Sprite(Textures.TREASURE_CHEST);
-
-        if (appearingTime <= Constants.MAX_APPEARING_TIME) {
-           // if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
-                sprite.setPosition((float) treasurePlace.getX()+15 , (float) treasurePlace.getY() );
-          //  } else {
-//                sprite.setPosition((float) treasurePlace.getX() * Constants.PLACEHOLDER_SIZE,
-//                        (float) treasurePlace.getY() * Constants.PLACEHOLDER_SIZE);
-          //  }
+        if (appearingTime <= 10) {
+            if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
+                sprite.setPosition((float) treasurePlace.getX() - 5, (float) treasurePlace.getY() - 5);
+            } else {
+                sprite.setPosition((float) treasurePlace.getX() * Constants.PLACEHOLDER_SIZE,
+                        (float) treasurePlace.getY() * Constants.PLACEHOLDER_SIZE);
+            }
             sprite.setSize(30, 32);
             sprite.draw(batch);
             appearingTime += deltaTime;
-           } else {
+        } else {
             disapearingTime -= deltaTime;
             if (disapearingTime <= 0.0) {
                 appearingTime = 0;
                 disapearingTime =Constants.INIT_DISAPPEARING_TIME;
                 chooseRandomPlaceForTreasureChest();
                 if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
-                    sprite.setPosition((float) treasurePlace.getX() - 15,
-                            (float) treasurePlace.getY() - 15);
+                    sprite.setPosition((float) treasurePlace.getX() - 5, (float) treasurePlace.getY() - 5);
                 } else {
-                    sprite.setPosition((float) treasurePlace.getX() * Constants.PLACEHOLDER_SIZE - 15,
-                            (float) treasurePlace.getY() * Constants.PLACEHOLDER_SIZE - 15);
+                    sprite.setPosition((float) treasurePlace.getX() * Constants.PLACEHOLDER_SIZE,
+                            (float) treasurePlace.getY() * Constants.PLACEHOLDER_SIZE);
                 }
             }
         }
-
     }
 
     public Point2D.Float getTreasurePlace() {
