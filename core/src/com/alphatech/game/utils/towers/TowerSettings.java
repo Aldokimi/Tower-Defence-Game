@@ -77,8 +77,41 @@ public class TowerSettings {
 
         // Place-holders points for buildings
         placeHolders = new ArrayList<>();
-        placeHoldersNearBlueCastle = new ArrayList<>();
-        placeHoldersNearRedCastle = new ArrayList<>();
+        placeHoldersNearBlueCastle = new ArrayList<>(Arrays.asList(
+            new Placeholder(24, 23),
+            new Placeholder(25, 22),
+            new Placeholder(12, 21),
+            new Placeholder(11, 19),
+            new Placeholder(28, 17),
+            new Placeholder(25, 17),
+            new Placeholder(23, 17),
+            new Placeholder(18, 17),
+            new Placeholder(29, 16),
+            new Placeholder(19, 15),
+            new Placeholder(17, 15),
+            new Placeholder(13, 15),
+            new Placeholder(2, 10),
+            new Placeholder(1, 8),
+            new Placeholder(6, 10),
+            new Placeholder(5, 8)
+        ));
+        placeHoldersNearRedCastle = new ArrayList<>(Arrays.asList(
+            new Placeholder(19, 15),
+            new Placeholder(17, 15),
+            new Placeholder(13, 15),
+            new Placeholder(6, 10),
+            new Placeholder(5, 8),
+            new Placeholder(6, 5),
+            new Placeholder(16, 5),
+            new Placeholder(17, 7),
+            new Placeholder(18, 6),
+            new Placeholder(21, 8),
+            new Placeholder(20, 6),
+            new Placeholder(28, 17),
+            new Placeholder(25, 17),
+            new Placeholder(23, 17),
+            new Placeholder(23, 10)
+        ));
         fillPlaceHolders(); // Filling the placeholders once
         placeHolderSprite = new Sprite(Textures.PLACE_HOLDER);
 
@@ -86,11 +119,18 @@ public class TowerSettings {
         barrackPlaceholders = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             if (i >= 2) {
-                barrackPlaceholders
-                        .add(placeHoldersNearRedCastle.get(new Random().nextInt(placeHoldersNearRedCastle.size())));
+
+                Placeholder placeholderToAdd = placeHoldersNearRedCastle.get(new Random().nextInt(placeHoldersNearRedCastle.size()));
+                while(barrackPlaceholders.contains(placeholderToAdd)){
+                    placeholderToAdd = placeHoldersNearRedCastle.get(new Random().nextInt(placeHoldersNearRedCastle.size()));
+                }
+                barrackPlaceholders.add(placeholderToAdd);
             } else {
-                barrackPlaceholders
-                        .add(placeHoldersNearBlueCastle.get(new Random().nextInt(placeHoldersNearBlueCastle.size())));
+                Placeholder placeholderToAdd = placeHoldersNearBlueCastle.get(new Random().nextInt(placeHoldersNearBlueCastle.size()));
+                while(barrackPlaceholders.contains(placeholderToAdd)){
+                    placeholderToAdd = placeHoldersNearBlueCastle.get(new Random().nextInt(placeHoldersNearBlueCastle.size()));
+                }
+                barrackPlaceholders.add(placeholderToAdd);
             }
         }
 
@@ -437,27 +477,22 @@ public class TowerSettings {
                         (x == 17 && (y == 21) || (x == 19 && y == 21) || (y == 23 && x == 24))
                         || (y == 21 && x == 15) ||
                         ((y == 15 || y == 19 || y == 17) && (x == 11 || x == 13))
-                        || (y == 10 && (x == 8 || x == 10)) || (y == 8 && x == 1)
-                        || (y == 5 && x == 6)) {
-                    placeHolders.add(new Placeholder(x, y));
-                    placeHoldersNearBlueCastle.add(new Placeholder(x, y));
-                }
-
-                if ( // near red castle
-                (y == 8 && (x == 21 || x == 23)) || (y == 4 && x == 21)
+                        || (y == 10 && (x == 8 || x == 10)) || (y == 8 && (x == 1 || x == 5))
+                        || (y == 5 && x == 6) ||
+                        // near red castle
+                        (y == 8 && (x == 21 || x == 23)) || (y == 4 && x == 21)
                         || (y == 6 && x == 22) || (x == 23 && y == 6)
                         || (y == 10 && (x == 23 || x == 25)) || (y == 11 && (x == 29 || x == 27)) ||
-                        (y == 6 && x == 20) || (y == 12 && (x == 13 || x == 10 || x == 8 || x == 23))
+                        (y == 6 && x == 20) || (y == 12 && (x == 14 || x == 10 || x == 8 || x == 23))
                         || (y == 13 && (x == 27 || x == 29)) ||
-                        ((y == 4 || y == 6) && x == 18) || (y == 8 && (x == 17 || x == 25 || x == 27 || x == 29))
-                        || (y == 15 && (x == 29 || x == 23 || x == 17)) ||
+                        ((y == 4 || y == 6) && x == 18) || (y == 8 && (x == 16 || x == 25 || x == 27 || x == 29))
+                        || (y == 15 && (x == 23 || x == 17)) || (y == 16 && x == 29 ) ||
                         (y == 10 && x == 20) || (y == 17 && x == 28) || (y == 5 && x == 16) || (x == 19 && y == 15) ||
                         (y == 5 && (x == 8 || x == 13 || x == 11)) || (y == 8 && (x == 3 || x == 14))
                         || (y == 13 && (x == 12 || x == 15 || x == 17)) ||
-                        (y == 17 && (x == 18 || x == 21 || x == 23)) || ((y == 21 || y == 17) && x == 25)
-                        || ((x == 7 || x == 13 || x == 16) && y == 7)) {
+                        (y == 17 && (x == 18 || x == 21 || x == 23)) || ((y == 22 || y == 17) && x == 25)
+                        || ((x == 7 || x == 13 || x == 17) && y == 7)) {
                     placeHolders.add(new Placeholder(x, y));
-                    placeHoldersNearRedCastle.add(new Placeholder(x, y));
                 }
             }
         }
