@@ -815,15 +815,15 @@ public class UnitSettings {
         }
 
         // Clearing dead units
-        clearDeadUnits(redPlayer);
-        clearDeadUnits(bluePlayer);
+         clearDeadUnits(redPlayer);
+         clearDeadUnits(bluePlayer);
 
     }
 
     /**
      * Clearing the units from the players `Unit` array lists
      */
-    public void clearDeadUnits(Player player) {
+   public void clearDeadUnits(Player player) {
         player.units.removeIf(element -> !element.isAlive());
     }
 
