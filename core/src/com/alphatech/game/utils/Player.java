@@ -59,6 +59,10 @@ public class Player {
         this.health = health;
     }
 
+    public void setTimer(float timer) {
+        this.timer = timer;
+    }
+
     // Getters
     public int getTurnTime() {
         return this.turnTime;
@@ -74,6 +78,10 @@ public class Player {
 
     public int getHealth() {
         return this.health;
+    }
+
+    public float getTimer() {
+        return this.timer;
     }
 
     /**

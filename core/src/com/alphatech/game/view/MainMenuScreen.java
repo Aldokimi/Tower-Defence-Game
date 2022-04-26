@@ -4,6 +4,7 @@ import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -29,6 +30,7 @@ public class MainMenuScreen implements Screen {
     private Viewport viewport;
     private OrthographicCamera camera;
     private OrthoCachedTiledMapRenderer renderer;
+    private GameScreen gameScreen;
 
     // Menu Buttons
     // Start button
@@ -64,7 +66,7 @@ public class MainMenuScreen implements Screen {
 
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
-
+        gameScreen = new GameScreen();
         mainmenuScreenButtons = new Stage(new ScreenViewport());
 
         // Buttons
@@ -96,13 +98,38 @@ public class MainMenuScreen implements Screen {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+                ((Game) Gdx.app.getApplicationListener()).setScreen(gameScreen);
             }
         });
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
+            }
+        });
+        loadButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Preferences prefs = Gdx.app.getPreferences("tower-defense");
+                ((Game) Gdx.app.getApplicationListener()).setScreen(gameScreen);
+
+                // setting the stored data
+                // gold
+                gameScreen.redPlayer.setGold(prefs.getInteger("Rgold", Constants.INIT_GOLD_COUNT));
+                gameScreen.bluePlayer.setGold(prefs.getInteger("Bgold", Constants.INIT_GOLD_COUNT));
+
+                // turn
+                gameScreen.redPlayer.setTurn(prefs.getBoolean("Rturn", false));
+                gameScreen.bluePlayer.setTurn(prefs.getBoolean("Bturn", false));
+
+                // health
+                gameScreen.redPlayer.setHealth(prefs.getInteger("Rhealth", Constants.INIT_HEALTH));
+                gameScreen.bluePlayer.setHealth(prefs.getInteger("Bhealth", Constants.INIT_HEALTH));
+
+                // timer
+                gameScreen.redPlayer.setTimer(prefs.getFloat("Rtimer", 0));
+                gameScreen.bluePlayer.setTimer(prefs.getFloat("Btimer", 0));
+
             }
         });
 
