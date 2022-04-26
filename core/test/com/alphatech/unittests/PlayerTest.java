@@ -11,7 +11,7 @@ import com.alphatech.game.utils.towers.*;
 import com.alphatech.game.utils.units.CrazySoldier;
 import com.alphatech.game.utils.units.NormalSoldier;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import com.alphatech.game.helpers.Constants;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -93,7 +93,7 @@ public class PlayerTest {
     void trainNormalSoldier() {
 
         player.setGold(Constants.INIT_GOLD_COUNT);
-        player.trainUnit(new NormalSoldier(new Point(3, 3)));
+        player.trainUnit(new NormalSoldier(new Point2D.Float(3, 3)));
         assertEquals(player.getGold(), Constants.INIT_GOLD_COUNT - Constants.TRAIN_NORMAL_SOLDIER);
     }
     
@@ -102,7 +102,7 @@ public class PlayerTest {
     void trainCrazySoldier() {
 
         player.setGold(Constants.INIT_GOLD_COUNT);
-        player.trainUnit(new CrazySoldier(new Point(3, 3)));
+        player.trainUnit(new CrazySoldier(new Point2D.Float(3, 3)));
         assertEquals(player.getGold(), Constants.INIT_GOLD_COUNT - Constants.TRAIN_CRAZY_SOLDIER);
     }
 

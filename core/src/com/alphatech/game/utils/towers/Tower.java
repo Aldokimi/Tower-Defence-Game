@@ -62,8 +62,7 @@ public class Tower {
     public void build() {
         for (Placeholder currentPlace : takenPlaces) {
             for (Placeholder newPlace : placeholders) {
-                if (canBuild(currentPlace, newPlace) && !takenPlaces.contains(newPlace)
-                        && !takenPlaces.contains(newPlace)) {
+                if (canBuild(currentPlace, newPlace) && !takenPlaces.contains(newPlace)) {
                     availablePlaces.add(newPlace);
                 }
             }

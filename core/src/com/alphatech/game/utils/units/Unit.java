@@ -1,27 +1,33 @@
 package com.alphatech.game.utils.units;
-
 import com.alphatech.game.helpers.Constants;
-
+import com.alphatech.game.utils.Player;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class Unit {
     protected int speed;
     protected String currentState; // current unit state {IDLE, WALK, ATTACK, DEAD}
-    protected Point position;
+    protected Point2D.Float position;
     protected Animation<TextureRegion> animation;
     protected int nextPathLevel; // index of the next element in `paths` array
     protected boolean isXaxis;
     protected Constants.PathNum path;
     protected int health;
+    protected boolean movedInPath;
+    protected int timeToDie;
+    protected Boolean fromBarrack;
+    protected String color;
 
-    public Unit(Point position) {
+    public Unit(Point2D.Float position) {
         this.position = position;
         this.speed = Constants.UNIT_SPEED;
         this.currentState = "IDLE";
         this.health = 1000; // Constants.FULL_UNIT_HEALTH_POINTS;
+        this.movedInPath = false;
+        this.fromBarrack = false;
+        this.color = null;
     }
 
     public void setNextPathLevel(int nextPathLevel) {
@@ -40,8 +46,16 @@ public class Unit {
         this.speed = speed;
     }
 
-    public void setPosition(Point position) {
+    public void setMovedInPath(boolean movedInPath) {
+        this.movedInPath = movedInPath;
+    }
+
+    public void setPosition(Point2D.Float position) {
         this.position = position;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public void setState(String state) {
@@ -56,6 +70,18 @@ public class Unit {
         return isXaxis;
     }
 
+    public boolean getMovedInPath() {
+        return movedInPath;
+    }
+
+    public Boolean getFromBarrack() {
+        return fromBarrack;
+    }
+
+    public void setFromBarrack(Boolean fromBarrack) {
+        this.fromBarrack = fromBarrack;
+    }
+
     public Constants.PathNum getPath() {
         return path;
     }
@@ -64,7 +90,15 @@ public class Unit {
         return this.speed;
     }
 
-    public Point getPosition() {
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public Point2D.Float getPosition() {
         return this.position;
     }
 
@@ -80,8 +114,8 @@ public class Unit {
         return this.animation;
     }
 
-    public void attackCastle() {
-
+    public void attackCastle(Player p,int damage) {
+        p.decreaseHealthBy(damage);
     }
 
     public void collectTreasure() {
@@ -92,8 +126,25 @@ public class Unit {
         return health;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    /**
+     * Make each unit move one by one (no collapse).
+     * must be synced with turnToMove variable in the UnitSettings
+     * 
+     * @param timeToMove
+     */
+    public void moveInPath(int timeToMove, int unitsArraySize) {
+        if (timeToMove == unitsArraySize && !getMovedInPath()) {
+            setMovedInPath(true);
+        }
+
+    }
+
+    public int getTimeToDie() {
+        return timeToDie;
+    }
+
+    public void setTimeToDie(int timeToDie) {
+        this.timeToDie = timeToDie;
     }
 
     public Boolean isAlive() {

@@ -115,7 +115,7 @@ public class GameScreen implements Screen {
         towerSettings = new TowerSettings(bluePlayer, redPlayer, gameScreenButtons);
 
         // Units init
-        unitSettings = new UnitSettings(bluePlayer, redPlayer, towerSettings);
+        unitSettings = new UnitSettings(bluePlayer, redPlayer, towerSettings,pathSettings);
 
         // Timer
         timerBarStyle = new ProgressBar.ProgressBarStyle();
@@ -285,7 +285,7 @@ public class GameScreen implements Screen {
         towerSettings.removeHighlight(gameScreenButtons);
 
         // Choosing a random path for each Unit if the player did not select a path
-        pathSettings.chooseRandomPath(unitSettings.getTempUnits());
+        //pathSettings.chooseRandomPath(unitSettings.getTempUnits());
 
         if (redPlayer.getTurn()) {
             // Switch turn to the blue player
@@ -303,7 +303,6 @@ public class GameScreen implements Screen {
             unitSettings.endTurnBluePlayerSetUp(bluePlayer, pathSettings);
         }
         // Clearing the temporary unit array to Add new ones Next Turn
-        unitSettings.clearTempUnits();
         pathSettings.setIsPathChosen(false);
         pathSettings.setChosenPath(null);
         pathSettings.resetColorsOfPaths();

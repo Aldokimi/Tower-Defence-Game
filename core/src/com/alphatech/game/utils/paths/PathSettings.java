@@ -2,6 +2,8 @@ package com.alphatech.game.utils.paths;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
+import com.alphatech.game.utils.towers.Placeholder;
+import com.alphatech.game.utils.units.NormalSoldier;
 import com.alphatech.game.utils.units.Unit;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,15 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
+import java.awt.geom.Point2D;
+import java.util.*;
 
 public class PathSettings {
     /// Store the coordinates of the corners of the paths
-    private HashMap<Constants.PathNum, ArrayList<Point>> paths;
+    private HashMap<Constants.PathNum, ArrayList<Point2D.Float>> paths;
 
     /// To decide if a path is chosen
     private Boolean isPathChosen;
@@ -65,6 +64,11 @@ public class PathSettings {
     private TextureRegionDrawable PathArrowRed4RegionDraw;
     private ImageButton PathArrowRed4;
 
+
+    //Closest points to barracks
+    private ArrayList<BarrackCorner> closestCorners;
+
+
     public PathSettings() {
         // Paths
         isPathChosen = false;
@@ -72,11 +76,16 @@ public class PathSettings {
         paths = new HashMap<>();
         fillPaths();
 
+
+        //Closest points to barracks
+         closestCorners =new ArrayList<>();
+
+
         // Near Blue Castle
         PathArrowBlue1Region = new TextureRegion(Textures.PathArrowB);
         PathArrowBlue1RegionDraw = new TextureRegionDrawable(PathArrowBlue1Region);
         PathArrowBlue1 = new ImageButton(PathArrowBlue1RegionDraw);
-        PathArrowBlue1.setPosition(136, 712);
+        PathArrowBlue1.setPosition(137, 712);
         PathArrowBlue1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -95,8 +104,7 @@ public class PathSettings {
         PathArrowBlue2Region = new TextureRegion(Textures.PathArrowB);
         PathArrowBlue2RegionDraw = new TextureRegionDrawable(PathArrowBlue2Region);
         PathArrowBlue2 = new ImageButton(PathArrowBlue2RegionDraw);
-        PathArrowBlue2.setPosition(paths.get(Constants.PathNum.SECOND).get(0).x * Constants.PLACEHOLDER_SIZE + 9,
-                paths.get(Constants.PathNum.SECOND).get(0).y * Constants.PLACEHOLDER_SIZE + 9);
+        PathArrowBlue2.setPosition(137, 647);
         PathArrowBlue2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -115,8 +123,7 @@ public class PathSettings {
         PathArrowBlue3Region = new TextureRegion(Textures.PathArrowB);
         PathArrowBlue3RegionDraw = new TextureRegionDrawable(PathArrowBlue3Region);
         PathArrowBlue3 = new ImageButton(PathArrowBlue3RegionDraw);
-        PathArrowBlue3.setPosition(paths.get(Constants.PathNum.THIRD).get(0).x * Constants.PLACEHOLDER_SIZE + 9,
-                paths.get(Constants.PathNum.THIRD).get(0).y * Constants.PLACEHOLDER_SIZE + 9);
+        PathArrowBlue3.setPosition(105, 618);
         PathArrowBlue3.setTransform(true);
         PathArrowBlue3.setRotation(270f);
         PathArrowBlue3.setColor(255, 50, 40, 100);
@@ -139,10 +146,8 @@ public class PathSettings {
         PathArrowBlue4Region = new TextureRegion(Textures.PathArrowB);
         PathArrowBlue4RegionDraw = new TextureRegionDrawable(PathArrowBlue4Region);
         PathArrowBlue4 = new ImageButton(PathArrowBlue4RegionDraw);
-        PathArrowBlue4.setPosition(paths.get(Constants.PathNum.FORTH).get(0).x * Constants.PLACEHOLDER_SIZE + 9,
-                paths.get(Constants.PathNum.FORTH).get(0).y * Constants.PLACEHOLDER_SIZE + 9);
+        PathArrowBlue4.setPosition(40, 618);
         PathArrowBlue4.setTransform(true);
-        ;
         PathArrowBlue4.setRotation(270f);
         PathArrowBlue4.addListener(new ClickListener() {
             @Override
@@ -186,11 +191,7 @@ public class PathSettings {
         PathArrowRed2Region = new TextureRegion(Textures.PathArrowR);
         PathArrowRed2RegionDraw = new TextureRegionDrawable(PathArrowRed2Region);
         PathArrowRed2 = new ImageButton(PathArrowRed2RegionDraw);
-        PathArrowRed2.setPosition(
-                paths.get(Constants.PathNum.SECOND).get(paths.get(Constants.PathNum.SECOND).size() - 1).x
-                        * Constants.PLACEHOLDER_SIZE - 10,
-                paths.get(Constants.PathNum.SECOND).get(paths.get(Constants.PathNum.SECOND).size() - 1).y
-                        * Constants.PLACEHOLDER_SIZE + 10);
+        PathArrowRed2.setPosition(855, 266);
         PathArrowRed2.setTransform(true);
         PathArrowRed2.setRotation(90);
         PathArrowRed2.addListener(new ClickListener() {
@@ -211,11 +212,7 @@ public class PathSettings {
         PathArrowRed3Region = new TextureRegion(Textures.PathArrowR);
         PathArrowRed3RegionDraw = new TextureRegionDrawable(PathArrowRed3Region);
         PathArrowRed3 = new ImageButton(PathArrowRed3RegionDraw);
-        PathArrowRed3.setPosition(
-                paths.get(Constants.PathNum.THIRD).get(paths.get(Constants.PathNum.THIRD).size() - 1).x
-                        * Constants.PLACEHOLDER_SIZE + 19,
-                paths.get(Constants.PathNum.THIRD).get(paths.get(Constants.PathNum.THIRD).size() - 1).y
-                        * Constants.PLACEHOLDER_SIZE + 25);
+        PathArrowRed3.setPosition(819, 249);
         PathArrowRed3.setTransform(true);
         PathArrowRed3.setRotation(180);
         PathArrowRed3.addListener(new ClickListener() {
@@ -237,11 +234,7 @@ public class PathSettings {
         PathArrowRed4Region = new TextureRegion(Textures.PathArrowR);
         PathArrowRed4RegionDraw = new TextureRegionDrawable(PathArrowRed4Region);
         PathArrowRed4 = new ImageButton(PathArrowRed4RegionDraw);
-        PathArrowRed4.setPosition(
-                paths.get(Constants.PathNum.FORTH).get(paths.get(Constants.PathNum.FORTH).size() - 1).x
-                        * Constants.PLACEHOLDER_SIZE + 19,
-                paths.get(Constants.PathNum.FORTH).get(paths.get(Constants.PathNum.FORTH).size() - 1).y
-                        * Constants.PLACEHOLDER_SIZE - 9);
+        PathArrowRed4.setPosition(819, 183);
         PathArrowRed4.setTransform(true);
         PathArrowRed4.setRotation(180);
         PathArrowRed4.addListener(new ClickListener() {
@@ -261,7 +254,7 @@ public class PathSettings {
         resetColorsOfPaths();
     }
 
-    public void setPaths(HashMap<Constants.PathNum, ArrayList<Point>> paths) {
+    public void setPaths(HashMap<Constants.PathNum, ArrayList<Point2D.Float>> paths) {
         this.paths = paths;
     }
 
@@ -281,7 +274,7 @@ public class PathSettings {
         return isPathChosen;
     }
 
-    public HashMap<Constants.PathNum, ArrayList<Point>> getPaths() {
+    public HashMap<Constants.PathNum, ArrayList<Point2D.Float>> getPaths() {
         return paths;
     }
 
@@ -292,42 +285,52 @@ public class PathSettings {
     public void fillPaths() {
         // First Path
         paths.put(Constants.PathNum.FIRST, new ArrayList<>(Arrays.asList(
-                new Point(85, 705),
-                new Point(753, 705),
-                new Point(753, 512),
-                new Point(883, 512),
-                new Point(883, 230))));
+                new Point2D.Float(85, 705),
+                new Point2D.Float(753, 705),
+                new Point2D.Float(753, 512),
+                new Point2D.Float(883, 512),
+                new Point2D.Float(883, 230))));
         // Second path
         paths.put(Constants.PathNum.SECOND, new ArrayList<>(Arrays.asList(
-                new Point(4, 20),
-                new Point(12, 20),
-                new Point(12, 14),
-                new Point(18, 14),
-                new Point(18, 16),
-                new Point(22, 16),
-                new Point(22, 9),
-                new Point(27, 9),
-                new Point(27, 8))));
+                new Point2D.Float(85, 705),
+                new Point2D.Float(85, 640),
+                new Point2D.Float(368, 640),
+                new Point2D.Float(368, 445),
+                new Point2D.Float(562, 445),
+                new Point2D.Float(562, 512),
+                new Point2D.Float(688, 512),
+                new Point2D.Float(688, 288),
+                new Point2D.Float(820, 288),
+                new Point2D.Float(820, 217))));
         // Third path
         paths.put(Constants.PathNum.THIRD, new ArrayList<>(Arrays.asList(
-                new Point(3, 19),
-                new Point(3, 11),
-                new Point(14, 11),
-                new Point(14, 9),
-                new Point(20, 9),
-                new Point(20, 7),
-                new Point(25, 7))));
+                new Point2D.Float(80, 705),
+                new Point2D.Float(80, 640),
+                new Point2D.Float(80, 352),
+                new Point2D.Float(427, 352),
+                new Point2D.Float(427, 288),
+                new Point2D.Float(621, 288),
+                new Point2D.Float(621, 218),
+                new Point2D.Float(820, 218))));
 
         // Forth path
         paths.put(Constants.PathNum.FORTH, new ArrayList<>(Arrays.asList(
-                new Point(1, 19),
-                new Point(1, 9),
-                new Point(6, 9),
-                new Point(6, 7),
-                new Point(17, 7),
-                new Point(17, 6),
-                new Point(25, 6))));
+                new Point2D.Float(20, 640),
+                new Point2D.Float(20, 288),
+                new Point2D.Float(175, 288),
+                new Point2D.Float(175, 199),
+                new Point2D.Float(530, 199),
+                new Point2D.Float(530, 162),
+                new Point2D.Float(820, 162))));
 
+        // Crazy path
+        paths.put(Constants.PathNum.CRAZY, new ArrayList<>(Arrays.asList(
+                new Point2D.Float(85, 640),
+                new Point2D.Float(470, 288),
+                new Point2D.Float(561, 288),
+                new Point2D.Float(621, 218),
+                new Point2D.Float(750, 218),
+                new Point2D.Float(820, 200))));
     }
 
     /**
@@ -407,7 +410,7 @@ public class PathSettings {
 
     /**
      * Sets arrows visibility for each players' turn
-     * 
+     *
      * @param playerTurn
      */
     public void setArrowsVisibility(boolean playerTurn) {
@@ -436,7 +439,7 @@ public class PathSettings {
 
     /**
      * Add arrows as actors in gameStage
-     * 
+     *
      * @param gameStage
      */
     public void addArrowsToGameStage(Stage gameStage) {
@@ -455,16 +458,85 @@ public class PathSettings {
      * Choosing a random path for each Unit if the player did not select a path
      */
     public void chooseRandomPath(ArrayList<Unit> TempUnits) {
+
         if (!getIsPathChosen()) {
+            Random rand = new Random();
             for (Unit unit : TempUnits) {
-                Random rand = new Random();
-                int num = rand.nextInt(4);
-                unit.setPath(Constants.PathNum.values()[num]);
+                if (unit instanceof NormalSoldier) {
+                    if(1 == rand.nextInt(2)) {
+                        int num = rand.nextInt(4);
+                        unit.setPath(Constants.PathNum.values()[num]);
+                    }
+                    else
+                    {
+                        unit.setFromBarrack(true);
+                        int ind ;
+                        if(unit.getColor() == "blue")
+                        {
+                            ind = rand.nextInt(2);
+                        }
+                        else {
+                            ind = rand.nextInt(2)+2;
+                        }
+                        unit.setPath(closestCorners.get(ind).getPath());
+                        unit.setPosition(closestCorners.get(ind).getPoint());
+                        unit.setNextPathLevel(closestCorners.get(ind).getNextLevel());
+
+                    }
+                }
             }
         } else {
             for (Unit u : TempUnits) {
-                u.setPath(getChosenPath());
+                if (u instanceof NormalSoldier)
+                    u.setPath(getChosenPath());
+
             }
         }
     }
+
+
+    public ArrayList<BarrackCorner> getClosestCorners() {
+        return closestCorners;
+    }
+
+    public void setClosestCorners(ArrayList<BarrackCorner> closestCorners) {
+        this.closestCorners = closestCorners;
+    }
+
+
+    /**
+     * This fuction collect the closest path corners to the barracks where the
+     * unit will be trained from and store them in the closestCorners
+     * @param barracks
+     */
+   public void fillClosestCorners( ArrayList<Placeholder> barracks) {
+       BarrackCorner nearest = null ;
+       double min;
+
+       for(Placeholder bpoint :barracks)
+       {
+            min = Float.MAX_VALUE;
+            nearest = null;
+           for (Map.Entry<Constants.PathNum,ArrayList<Point2D.Float>> set : this.paths.entrySet())
+           {
+               if(set.getKey() == Constants.PathNum.CRAZY)
+                   continue;
+               for(Point2D.Float pp : set.getValue())
+               {
+                   if(Point2D.distance(pp.x,pp.y,bpoint.getX()*32,bpoint.getY()*32) < min  )
+                   {
+                       min = Point2D.distance(pp.x,pp.y,bpoint.getX()*32,bpoint.getY()*32) ;
+                       nearest = new BarrackCorner(set.getKey(),pp,set.getValue().indexOf(pp));
+
+                   }
+               }
+           }
+
+           closestCorners.add(nearest);
+
+       }
+   }
+
+
+
 }

@@ -1,6 +1,6 @@
 package com.alphatech.game.helpers;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class Constants {
 
@@ -13,7 +13,7 @@ public class Constants {
     public static final float TIMER_CAPACITY = 174f;
 
     // Units
-    public static final Point UNIT_SIZE = new Point(60, 45);// width,heigth
+    public static final Point2D.Float UNIT_SIZE = new Point2D.Float(60, 45);// width,heigth
     public static final int UNIT_SPEED = 20;
     public static final int FULL_UNIT_HEALTH_POINTS = 1000;
 
@@ -39,6 +39,7 @@ public class Constants {
         FIRST,
         SECOND,
         THIRD,
-        FORTH
+        FORTH,
+        CRAZY
     }
 }

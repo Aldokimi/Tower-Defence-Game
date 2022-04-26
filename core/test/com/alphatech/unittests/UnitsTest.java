@@ -9,18 +9,18 @@ import com.alphatech.game.utils.units.CrazySoldier;
 import com.alphatech.game.utils.units.NormalSoldier;
 import com.alphatech.game.utils.units.Unit;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class UnitsTest {
 
     Unit soldier;
     NormalSoldier normal;
     CrazySoldier crazy;
-    Point position;
+    Point2D.Float position;
 
     @BeforeEach
     void setUp() {
-        position = new Point(100, 50);
+        position = new Point2D.Float(100, 50);
 
         soldier = new Unit(position);
         normal = new NormalSoldier(position);
@@ -38,11 +38,11 @@ public class UnitsTest {
         assertEquals(position, normal.getPosition());
         assertEquals(position, crazy.getPosition());
 
-        position = new Point(40, 15);
+        position = new Point2D.Float(40, 15);
         normal.setPosition(position);
         assertEquals(position, normal.getPosition());
 
-        position = new Point(84, 72);
+        position = new Point2D.Float(84, 72);
         crazy.setPosition(position);
         assertEquals(position, crazy.getPosition());
 
