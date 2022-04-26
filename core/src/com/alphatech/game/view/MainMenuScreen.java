@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
 
 public class MainMenuScreen implements Screen {
 
@@ -42,9 +44,13 @@ public class MainMenuScreen implements Screen {
     private TextureRegionDrawable loadButtonDraw;
     private ImageButton loadButton;
     // Settings button
-    private TextureRegion settingsButtonRegion;
+    /*private TextureRegion settingsButtonRegion;
     private TextureRegionDrawable settingsButtonDraw;
-    private ImageButton settingsButton;
+    private ImageButton settingsButton;*/
+    // Instructions Button
+    private TextureRegion instructionsButtonRegion;
+    private TextureRegionDrawable instructionsButtonDraw;
+    private ImageButton instructionsButton;
     // Exit Button
     private TextureRegion exitButtonRegion;
     private TextureRegionDrawable exitButtonDraw;
@@ -82,11 +88,19 @@ public class MainMenuScreen implements Screen {
         loadButton.setSize(210, 114);
         loadButton.setPosition(370, 430);
 
+        /*
         settingsButtonRegion = new TextureRegion(Textures.MAIN_MENU_SETTINGS_TEXT);
         settingsButtonDraw = new TextureRegionDrawable(settingsButtonRegion);
         settingsButton = new ImageButton(settingsButtonDraw);
         settingsButton.setSize(160, 90);
         settingsButton.setPosition(392, 348);
+        */
+
+        instructionsButtonRegion = new TextureRegion(Textures.MAIN_MENU_INSTRUCTIONS_TEXT);
+        instructionsButtonDraw = new TextureRegionDrawable(instructionsButtonRegion);
+        instructionsButton = new ImageButton(instructionsButtonDraw);
+        instructionsButton.setSize(222, 125);
+        instructionsButton.setPosition(367, 334);
 
         exitButtonRegion = new TextureRegion(Textures.MAIN_MENU_EXIT_TEXT);
         exitButtonDraw = new TextureRegionDrawable(exitButtonRegion);
@@ -100,6 +114,12 @@ public class MainMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 ((Game) Gdx.app.getApplicationListener()).setScreen(gameScreen);
             }
+        });
+        instructionsButton.addListener(new ClickListener() {
+           @Override
+           public void clicked(InputEvent event, float x, float y) {
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new InstructionsScreen());
+           } 
         });
         exitButton.addListener(new ClickListener() {
             @Override
@@ -135,7 +155,8 @@ public class MainMenuScreen implements Screen {
 
         mainmenuScreenButtons.addActor(startButton);
         mainmenuScreenButtons.addActor(loadButton);
-        mainmenuScreenButtons.addActor(settingsButton);
+        //mainmenuScreenButtons.addActor(settingsButton);
+        mainmenuScreenButtons.addActor(instructionsButton);
         mainmenuScreenButtons.addActor(exitButton);
         // Stage should controll input:
         Gdx.input.setInputProcessor(mainmenuScreenButtons);
