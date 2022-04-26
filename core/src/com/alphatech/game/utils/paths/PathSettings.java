@@ -289,7 +289,6 @@ public class PathSettings {
      * Used to store the 4 paths inside paths hash map.
      * NOTE: Path starts from BLUE castle and ends in the RED castle
      */
-
     public void fillPaths() {
         // First Path
         paths.put(Constants.PathNum.FIRST, new ArrayList<>(Arrays.asList(

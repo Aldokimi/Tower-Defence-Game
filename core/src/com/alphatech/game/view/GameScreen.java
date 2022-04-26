@@ -6,7 +6,9 @@ import com.alphatech.game.utils.Player;
 import com.alphatech.game.utils.paths.PathSettings;
 import com.alphatech.game.utils.towers.*;
 import com.alphatech.game.utils.units.UnitSettings;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -35,11 +37,12 @@ public class GameScreen implements Screen {
     private OrthoCachedTiledMapRenderer renderer;
     private OrthographicCamera camera;
     private SpriteBatch batch;
+    private MainMenuScreen menuScreen;
     private Stage gameScreenButtons;
 
     // Players
-    private Player redPlayer;
-    private Player bluePlayer;
+    public Player redPlayer;
+    public Player bluePlayer;
 
     // Timer bar
     private ProgressBar timerBar;
@@ -54,6 +57,14 @@ public class GameScreen implements Screen {
     private TextureRegion endTurnRegion;
     private TextureRegionDrawable endTurnRegionDraw;
     private ImageButton endTurn;
+
+    // Options and Save
+    private TextureRegion optionsRegion;
+    private TextureRegionDrawable optionsRegionDraw;
+    private ImageButton optionsButton;
+    private TextureRegion saveRegion;
+    private TextureRegionDrawable saveRegionDraw;
+    private ImageButton saveButton;
 
     // Towers
     private TowerSettings towerSettings;
@@ -76,6 +87,7 @@ public class GameScreen implements Screen {
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
         batch = new SpriteBatch();
+        menuScreen = new MainMenuScreen();
         gameScreenButtons = new Stage(new ScreenViewport());
 
         // Stage should control input.
@@ -131,6 +143,59 @@ public class GameScreen implements Screen {
         });
 
         gameScreenButtons.addActor(endTurn);
+
+        // Options and Save
+        optionsRegion = new TextureRegion(Textures.OPTIONS);
+        optionsRegionDraw = new TextureRegionDrawable(optionsRegion);
+        optionsButton = new ImageButton(optionsRegionDraw);
+
+        optionsButton.setSize(45, 45);
+        optionsButton.setPosition(55, 52);
+
+        optionsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game) Gdx.app.getApplicationListener()).setScreen(menuScreen);
+            }
+        });
+
+        saveRegion = new TextureRegion(Textures.SAVE);
+        saveRegionDraw = new TextureRegionDrawable(saveRegion);
+        saveButton = new ImageButton(saveRegionDraw);
+
+        saveButton.setSize(49, 49);
+        saveButton.setPosition(95, 52);
+
+        saveButton.addListener(new ClickListener() {
+            Preferences prefs = Gdx.app.getPreferences("tower-defense");
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // overwrite data
+
+                // gold
+                prefs.putInteger("Rgold", redPlayer.getGold());
+                prefs.putInteger("Bgold", bluePlayer.getGold());
+
+                // turn
+                prefs.putBoolean("Rturn", redPlayer.getTurn());
+                prefs.putBoolean("Bturn", bluePlayer.getTurn());
+
+                // health
+                prefs.putInteger("Rhealth", redPlayer.getHealth());
+                prefs.putInteger("Bhealth", bluePlayer.getHealth());
+
+                // timer
+                prefs.putFloat("Rtimer", redPlayer.getTimer());
+                prefs.putFloat("Btimer", bluePlayer.getTimer());
+
+                // save changes to storage
+                prefs.flush();
+            }
+        });
+
+        gameScreenButtons.addActor(optionsButton);
+        gameScreenButtons.addActor(saveButton);
 
         unitSettings.setUnitsAsActors(gameScreenButtons);
 

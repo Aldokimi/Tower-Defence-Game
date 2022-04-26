@@ -17,6 +17,8 @@ public class Textures {
         public static final Texture HIGHLIGHTED_PLACE_HOLDER = new Texture("GroundTiles/highlight.png");
         public static final Texture RED_HIGHLIGHTED_PLACE_HOLDER = new Texture("GroundTiles/redPlaceholder.png");
         public static final Texture ENDTURN_TEXT = new Texture("Texts/EndTurn.png");
+        public static final Texture OPTIONS = new Texture("Extras/options.png");
+        public static final Texture SAVE = new Texture("Extras/save.png");
 
         // Timer Bar
         public static final Texture TIMER_BAR = new Texture("GUI/TimerBar.png");
@@ -101,8 +103,11 @@ public class Textures {
 
                 PLACE_HOLDER.dispose();
                 HIGHLIGHTED_PLACE_HOLDER.dispose();
+                RED_HIGHLIGHTED_PLACE_HOLDER.dispose();
                 ENDTURN_TEXT.dispose();
                 TIMER_BAR.dispose();
+                OPTIONS.dispose();
+                SAVE.dispose();
 
                 SOLDIER1.dispose();
                 SOLDIER3.dispose();

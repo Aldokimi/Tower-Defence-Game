@@ -4,16 +4,12 @@ import com.alphatech.game.view.MainMenuScreen;
 import com.badlogic.gdx.Game;
 
 public class AlphaTech extends Game {
-	private MainMenuScreen MainMenuScreen;
-
-	public AlphaTech() {
-
-		MainMenuScreen = new MainMenuScreen();
-	}
+	private MainMenuScreen mainMenuScreen;
 
 	@Override
 	public void create() {
-		setScreen(MainMenuScreen);
+		mainMenuScreen = new MainMenuScreen();
+		setScreen(mainMenuScreen);
 	}
 
 	@Override
