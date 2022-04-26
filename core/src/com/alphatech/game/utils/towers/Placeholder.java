@@ -5,8 +5,6 @@ public class Placeholder {
     private float y;
     private boolean isFree;
 
-
-
     public Placeholder(float x, float y) {
         this.x = x;
         this.y = y;
@@ -35,6 +33,21 @@ public class Placeholder {
      */
     public boolean isFreePlace() {
         return this.isFree;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Placeholder)) {
+            return false;
+        }
+
+        Placeholder c = (Placeholder) other;
+
+        return (this.x == c.x) && (this.y == c.y);
     }
 
     @Override

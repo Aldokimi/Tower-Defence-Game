@@ -115,7 +115,7 @@ public class GameScreen implements Screen {
         towerSettings = new TowerSettings(bluePlayer, redPlayer, gameScreenButtons);
 
         // Units init
-        unitSettings = new UnitSettings(bluePlayer, redPlayer, towerSettings,pathSettings);
+        unitSettings = new UnitSettings(bluePlayer, redPlayer, towerSettings, pathSettings);
 
         // Timer
         timerBarStyle = new ProgressBar.ProgressBarStyle();
@@ -241,11 +241,11 @@ public class GameScreen implements Screen {
         // rendering Paths arrows by turn
         pathSettings.setArrowsVisibility(bluePlayer.getTurn());
 
-        // Rendering Towers
-        towerSettings.renderTowers(batch);
-
         // rendering random barracks
         towerSettings.renderBarracks(batch);
+
+        // Rendering Towers
+        towerSettings.renderTowers(batch);
 
         // Rendering Gold Mines
         towerSettings.renderGoldMines(batch);
@@ -283,9 +283,6 @@ public class GameScreen implements Screen {
 
         // Resetting highlights
         towerSettings.removeHighlight(gameScreenButtons);
-
-        // Choosing a random path for each Unit if the player did not select a path
-        //pathSettings.chooseRandomPath(unitSettings.getTempUnits());
 
         if (redPlayer.getTurn()) {
             // Switch turn to the blue player

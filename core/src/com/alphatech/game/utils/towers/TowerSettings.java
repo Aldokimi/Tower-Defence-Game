@@ -82,24 +82,17 @@ public class TowerSettings {
                 new Placeholder(25, 22),
                 new Placeholder(12, 21),
                 new Placeholder(11, 19),
-                new Placeholder(28, 17),
-                new Placeholder(25, 17),
                 new Placeholder(22, 17),
                 new Placeholder(18, 17),
                 new Placeholder(29, 16),
-                new Placeholder(17, 16),
-                new Placeholder(13, 15),
+                new Placeholder(11, 14),
                 new Placeholder(3, 10),
                 new Placeholder(1, 8),
                 new Placeholder(6, 10),
-                new Placeholder(23, 16),
                 new Placeholder(5, 8)));
         placeHoldersNearRedCastle = new ArrayList<>(Arrays.asList(
                 new Placeholder(19, 14),
                 new Placeholder(17, 16),
-                new Placeholder(13, 15),
-                new Placeholder(6, 10),
-                new Placeholder(5, 8),
                 new Placeholder(6, 5),
                 new Placeholder(16, 5),
                 new Placeholder(17, 7),
@@ -108,9 +101,9 @@ public class TowerSettings {
                 new Placeholder(20, 6),
                 new Placeholder(28, 17),
                 new Placeholder(25, 17),
-                new Placeholder(22, 17),
                 new Placeholder(23, 16),
                 new Placeholder(23, 10)));
+
         fillPlaceHolders(); // Filling the placeholders once
         placeHolderSprite = new Sprite(Textures.PLACE_HOLDER);
 
@@ -125,6 +118,7 @@ public class TowerSettings {
                     placeholderToAdd = placeHoldersNearRedCastle
                             .get(new Random().nextInt(placeHoldersNearRedCastle.size()));
                 }
+                placeholderToAdd.takePlace();
                 barrackPlaceholders.add(placeholderToAdd);
             } else {
                 Placeholder placeholderToAdd = placeHoldersNearBlueCastle
@@ -133,6 +127,8 @@ public class TowerSettings {
                     placeholderToAdd = placeHoldersNearBlueCastle
                             .get(new Random().nextInt(placeHoldersNearBlueCastle.size()));
                 }
+
+                placeholderToAdd.takePlace();
                 barrackPlaceholders.add(placeholderToAdd);
             }
         }
@@ -239,7 +235,8 @@ public class TowerSettings {
                         bluePlayer.goldMine.build();
 
                         for (Placeholder p : bluePlayer.goldMine.getAvailablePlaces()) {
-                            if (p.isFreePlace() && !getPlaceholdersNearCastle(redPlayer).contains(p))
+                            if (p.isFreePlace() && !getPlaceholdersNearCastle(redPlayer).contains(p)
+                                    && !barrackPlaceholders.contains(p))
                                 goldMineHighlights.addActor(highlightPlaceforGoldMine(bluePlayer, redPlayer, p,
                                         bluePlayer.goldMine, gameScreenButtons));
                         }
@@ -248,7 +245,8 @@ public class TowerSettings {
                         redPlayer.goldMine.build();
 
                         for (Placeholder p : redPlayer.goldMine.getAvailablePlaces()) {
-                            if (p.isFreePlace() && !getPlaceholdersNearCastle(redPlayer).contains(p))
+                            if (p.isFreePlace() && !getPlaceholdersNearCastle(redPlayer).contains(p)
+                                    && !barrackPlaceholders.contains(p))
                                 goldMineHighlights.addActor(highlightPlaceforGoldMine(bluePlayer, redPlayer, p,
                                         redPlayer.goldMine, gameScreenButtons));
                         }
@@ -479,7 +477,7 @@ public class TowerSettings {
                         || (y == 10 && (x == 3 || x == 4 || x == 6)) ||
                         (x == 17 && (y == 21) || (x == 19 && y == 21) || (y == 23 && x == 24))
                         || (y == 21 && x == 15) ||
-                        ((y == 15 || y == 19 || y == 17) && (x == 11 || x == 13))
+                        ((y == 19 || y == 17) && (x == 11 || x == 13)) || (x == 13 && y == 15) || (x == 11 && y == 14)
                         || (y == 10 && (x == 8 || x == 10)) || (y == 8 && (x == 1 || x == 5))
                         || (y == 5 && x == 6) ||
                         // near red castle
