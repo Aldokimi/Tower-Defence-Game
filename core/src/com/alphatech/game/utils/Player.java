@@ -157,12 +157,12 @@ public class Player {
         this.gold += goldGained;
     }
 
+    /**
+     * Check if the player has won
+     * @return true if he is still alive (health > 0)
+     */
     public boolean hasWon() {
-        if (this.health == 0) {
-
-            return false;
-        }
-        return true;
+        return this.health != 0;
     }
 
     /**
@@ -195,4 +195,9 @@ public class Player {
         }
     }
 
+
+    public  void decreaseHealthBy(int x)
+    {
+        this.health = this.health-x;
+    }
 }

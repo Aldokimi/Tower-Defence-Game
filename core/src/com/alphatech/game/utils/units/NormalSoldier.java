@@ -1,10 +1,10 @@
 package com.alphatech.game.utils.units;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class NormalSoldier extends Unit {
 
-    public NormalSoldier(Point position) {
+    public NormalSoldier(Point2D.Float position) {
         super(position);
     }
 

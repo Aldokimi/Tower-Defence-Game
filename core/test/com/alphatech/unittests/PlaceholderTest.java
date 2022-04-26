@@ -21,8 +21,8 @@ public class PlaceholderTest {
     @Test
     @DisplayName("Coordinates")
     void testCoordinates() {
-        assertEquals(p.getX(), 15);
-        assertEquals(p.getY(), 10);
+        assertEquals(15, p.getX());
+        assertEquals(10, p.getY());
     }
 
     @Test

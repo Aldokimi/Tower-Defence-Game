@@ -84,19 +84,19 @@ public class TowerSettings {
                 new Placeholder(11, 19),
                 new Placeholder(28, 17),
                 new Placeholder(25, 17),
-                new Placeholder(23, 17),
+                new Placeholder(22, 17),
                 new Placeholder(18, 17),
                 new Placeholder(29, 16),
-                new Placeholder(19, 15),
-                new Placeholder(17, 15),
+                new Placeholder(17, 16),
                 new Placeholder(13, 15),
-                new Placeholder(2, 10),
+                new Placeholder(3, 10),
                 new Placeholder(1, 8),
                 new Placeholder(6, 10),
+                new Placeholder(23, 16),
                 new Placeholder(5, 8)));
         placeHoldersNearRedCastle = new ArrayList<>(Arrays.asList(
-                new Placeholder(19, 15),
-                new Placeholder(17, 15),
+                new Placeholder(19, 14),
+                new Placeholder(17, 16),
                 new Placeholder(13, 15),
                 new Placeholder(6, 10),
                 new Placeholder(5, 8),
@@ -108,7 +108,8 @@ public class TowerSettings {
                 new Placeholder(20, 6),
                 new Placeholder(28, 17),
                 new Placeholder(25, 17),
-                new Placeholder(23, 17),
+                new Placeholder(22, 17),
+                new Placeholder(23, 16),
                 new Placeholder(23, 10)));
         fillPlaceHolders(); // Filling the placeholders once
         placeHolderSprite = new Sprite(Textures.PLACE_HOLDER);
@@ -475,7 +476,7 @@ public class TowerSettings {
                         (y == 19 && x == 8)
                         || (y == 14 && (x == 2 || x == 0) || (x == 21 && y == 23)) ||
                         (y == 21 && x == 12) || (y == 12 && (x == 2 || x == 0))
-                        || (y == 10 && (x == 2 || x == 4 || x == 6)) ||
+                        || (y == 10 && (x == 3 || x == 4 || x == 6)) ||
                         (x == 17 && (y == 21) || (x == 19 && y == 21) || (y == 23 && x == 24))
                         || (y == 21 && x == 15) ||
                         ((y == 15 || y == 19 || y == 17) && (x == 11 || x == 13))
@@ -488,11 +489,11 @@ public class TowerSettings {
                         (y == 6 && x == 20) || (y == 12 && (x == 14 || x == 10 || x == 8 || x == 23))
                         || (y == 13 && (x == 27 || x == 29)) ||
                         ((y == 4 || y == 6) && x == 18) || (y == 8 && (x == 16 || x == 25 || x == 27 || x == 29))
-                        || (y == 15 && (x == 23 || x == 17)) || (y == 16 && x == 29) ||
-                        (y == 10 && x == 20) || (y == 17 && x == 28) || (y == 5 && x == 16) || (x == 19 && y == 15) ||
+                        || (y == 16 && x == 17) || (y == 16 && x == 29) || (x == 23 && y == 16) ||
+                        (y == 10 && x == 20) || (y == 17 && x == 28) || (y == 5 && x == 16) || (x == 19 && y == 14) ||
                         (y == 5 && (x == 8 || x == 13 || x == 11)) || (y == 8 && (x == 3 || x == 14))
                         || (y == 13 && (x == 12 || x == 15 || x == 17)) ||
-                        (y == 17 && (x == 18 || x == 21 || x == 23)) || ((y == 22 || y == 17) && x == 25)
+                        (y == 17 && (x == 18 || x == 21 || x == 22)) || ((y == 22 || y == 17) && x == 25)
                         || ((x == 7 || x == 13 || x == 17) && y == 7)) {
                     placeHolders.add(new Placeholder(x, y));
                 }
@@ -616,7 +617,7 @@ public class TowerSettings {
     public void renderBarracks(SpriteBatch batch) {
         Sprite sprite = new Sprite(Textures.BLUE_BARRACK);
         for (int i = 0; i < barrackPlaceholders.size(); ++i) {
-            if (i == barrackPlaceholders.size() / 2)
+            if (i > barrackPlaceholders.size() / 2 - 1)
                 sprite = new Sprite(Textures.RED_BARRACK);
             final int x = Constants.PLACEHOLDER_SIZE + Constants.PLACEHOLDER_SIZE / 3;
             final int y = Constants.PLACEHOLDER_SIZE + Constants.PLACEHOLDER_SIZE - Constants.PLACEHOLDER_SIZE / 3;
@@ -654,6 +655,10 @@ public class TowerSettings {
             }
 
         }
+    }
+
+    public ArrayList<Placeholder> getBarrackPlaceholders() {
+        return barrackPlaceholders;
     }
 
 }

@@ -42,19 +42,38 @@ public class Textures {
         // Walking Red Soldiers
         public static final TextureAtlas SOLDIER1_WALKING_RED = new TextureAtlas(
                         Gdx.files.internal("Enemy1/Red/Walking/Soldier.atlas"));
+        public static final TextureAtlas SOLDIER3_WALKING_RED = new TextureAtlas(
+                        Gdx.files.internal("Enemy3/Red/Walking/Soldier.atlas"));
 
         // Walking Blue Soldiers
         public static final TextureAtlas SOLDIER1_WALKING_BLUE = new TextureAtlas(
                         Gdx.files.internal("Enemy1/Blue/Walking/Soldier.atlas"));
+        public static final TextureAtlas SOLDIER3_WALKING_BLUE = new TextureAtlas(
+                        Gdx.files.internal("Enemy3/Blue/Walking/Soldier.atlas"));
 
         // Attacking Red Soldiers
         public static final TextureAtlas SOLDIER1_ATTACKING_RED = new TextureAtlas(
                         Gdx.files.internal("Enemy1/Red/Attacking/Soldier.atlas"));
+        public static final TextureAtlas SOLDIER3_ATTACKING_RED = new TextureAtlas(
+                        Gdx.files.internal("Enemy3/Red/Attacking/Soldier.atlas"));
 
-        // Attacking Red Soldiers
+        // Attacking Blue Soldiers
         public static final TextureAtlas SOLDIER1_ATTACKING_BLUE = new TextureAtlas(
                         Gdx.files.internal("Enemy1/Blue/Attacking/Soldier.atlas"));
+        public static final TextureAtlas SOLDIER3_ATTACKING_BLUE = new TextureAtlas(
+                        Gdx.files.internal("Enemy3/Blue/Attacking/Soldier.atlas"));
 
+        // Dying Red Soldiers
+        public static final TextureAtlas SOLDIER1_DYING_RED = new TextureAtlas(
+                        Gdx.files.internal("Enemy1/Red/Dying/Soldier.atlas"));
+        public static final TextureAtlas SOLDIER3_DYING_RED = new TextureAtlas(
+                        Gdx.files.internal("Enemy3/Red/Dying/Soldier.atlas"));
+
+        // Dying Red Soldiers
+        public static final TextureAtlas SOLDIER1_DYING_BLUE = new TextureAtlas(
+                        Gdx.files.internal("Enemy1/Blue/Dying/Soldier.atlas"));
+        public static final TextureAtlas SOLDIER3_DYING_BLUE = new TextureAtlas(
+                        Gdx.files.internal("Enemy3/Blue/Dying/Soldier.atlas"));
         // Path Arrow
         public static final Texture PathArrowB = new Texture("Extras/pathArrowB.png");
         public static final Texture PathArrowR = new Texture("Extras/pathArrowR.png");
@@ -111,14 +130,26 @@ public class Textures {
 
                 SOLDIER1.dispose();
                 SOLDIER3.dispose();
+
                 SOLDIER1_IDLE_RED.dispose();
                 SOLDIER1_WALKING_RED.dispose();
                 SOLDIER1_ATTACKING_RED.dispose();
-                SOLDIER3_IDLE_RED.dispose();
+                SOLDIER1_DYING_RED.dispose();
+
                 SOLDIER1_IDLE_BLUE.dispose();
                 SOLDIER1_WALKING_BLUE.dispose();
                 SOLDIER1_ATTACKING_BLUE.dispose();
+                SOLDIER1_DYING_BLUE.dispose();
+
+                SOLDIER3_IDLE_RED.dispose();
+                SOLDIER3_WALKING_RED.dispose();
+                SOLDIER3_ATTACKING_RED.dispose();
+                SOLDIER3_DYING_RED.dispose();
+
                 SOLDIER3_IDLE_BLUE.dispose();
+                SOLDIER3_WALKING_BLUE.dispose();
+                SOLDIER3_ATTACKING_BLUE.dispose();
+                SOLDIER3_DYING_BLUE.dispose();
 
                 RED_BARRACK.dispose();
                 BLUE_BARRACK.dispose();
