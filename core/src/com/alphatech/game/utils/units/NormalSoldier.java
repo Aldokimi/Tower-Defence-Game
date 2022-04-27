@@ -8,5 +8,8 @@ public class NormalSoldier extends Unit {
         super(position);
     }
 
-
+    @Override
+    public String getClassName() {
+        return "NormalSoldier";
+    }
 }

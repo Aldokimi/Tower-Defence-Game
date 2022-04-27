@@ -10,7 +10,12 @@ public class NormalTower extends Tower {
         super(placeholders);
     }
 
-    public NormalTower(Texture texture, ArrayList<Placeholder> placeholders) {
-        super(texture, placeholders);
+    public NormalTower(Texture texture, ArrayList<Placeholder> placeholders, String parentName) {
+        super(texture, placeholders, parentName);
+    }
+
+    @Override
+    public String getClassName() {
+        return "NormalTower";
     }
 }

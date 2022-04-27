@@ -2,9 +2,9 @@ package com.alphatech.game.view;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
+import com.alphatech.game.persistance.LoadGame;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -22,7 +21,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
 
 public class MainMenuScreen implements Screen {
 
@@ -43,10 +41,6 @@ public class MainMenuScreen implements Screen {
     private TextureRegion loadButtonRegion;
     private TextureRegionDrawable loadButtonDraw;
     private ImageButton loadButton;
-    // Settings button
-    /*private TextureRegion settingsButtonRegion;
-    private TextureRegionDrawable settingsButtonDraw;
-    private ImageButton settingsButton;*/
     // Instructions Button
     private TextureRegion instructionsButtonRegion;
     private TextureRegionDrawable instructionsButtonDraw;
@@ -88,14 +82,6 @@ public class MainMenuScreen implements Screen {
         loadButton.setSize(210, 114);
         loadButton.setPosition(370, 430);
 
-        /*
-        settingsButtonRegion = new TextureRegion(Textures.MAIN_MENU_SETTINGS_TEXT);
-        settingsButtonDraw = new TextureRegionDrawable(settingsButtonRegion);
-        settingsButton = new ImageButton(settingsButtonDraw);
-        settingsButton.setSize(160, 90);
-        settingsButton.setPosition(392, 348);
-        */
-
         instructionsButtonRegion = new TextureRegion(Textures.MAIN_MENU_INSTRUCTIONS_TEXT);
         instructionsButtonDraw = new TextureRegionDrawable(instructionsButtonRegion);
         instructionsButton = new ImageButton(instructionsButtonDraw);
@@ -116,10 +102,10 @@ public class MainMenuScreen implements Screen {
             }
         });
         instructionsButton.addListener(new ClickListener() {
-           @Override
-           public void clicked(InputEvent event, float x, float y) {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new InstructionsScreen());
-           } 
+            }
         });
         exitButton.addListener(new ClickListener() {
             @Override
@@ -130,34 +116,15 @@ public class MainMenuScreen implements Screen {
         loadButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Preferences prefs = Gdx.app.getPreferences("tower-defense");
-                ((Game) Gdx.app.getApplicationListener()).setScreen(gameScreen);
-
-                // setting the stored data
-                // gold
-                gameScreen.redPlayer.setGold(prefs.getInteger("Rgold", Constants.INIT_GOLD_COUNT));
-                gameScreen.bluePlayer.setGold(prefs.getInteger("Bgold", Constants.INIT_GOLD_COUNT));
-
-                // turn
-                gameScreen.redPlayer.setTurn(prefs.getBoolean("Rturn", false));
-                gameScreen.bluePlayer.setTurn(prefs.getBoolean("Bturn", false));
-
-                // health
-                gameScreen.redPlayer.setHealth(prefs.getInteger("Rhealth", Constants.INIT_HEALTH));
-                gameScreen.bluePlayer.setHealth(prefs.getInteger("Bhealth", Constants.INIT_HEALTH));
-
-                // timer
-                gameScreen.redPlayer.setTimer(prefs.getFloat("Rtimer", 0));
-                gameScreen.bluePlayer.setTimer(prefs.getFloat("Btimer", 0));
-
+                new LoadGame(gameScreen);
             }
         });
 
         mainmenuScreenButtons.addActor(startButton);
         mainmenuScreenButtons.addActor(loadButton);
-        //mainmenuScreenButtons.addActor(settingsButton);
         mainmenuScreenButtons.addActor(instructionsButton);
         mainmenuScreenButtons.addActor(exitButton);
+
         // Stage should controll input:
         Gdx.input.setInputProcessor(mainmenuScreenButtons);
     }

@@ -38,25 +38,25 @@ public class UnitSettings {
     private int turnToRedMove;
 
     // Units animation
-    private Animation<TextureRegion> idleRedSoldier1Animation;
-    private Animation<TextureRegion> walkingRedSoldier1Animation;
-    private Animation<TextureRegion> attackingRedSoldier1Animation;
-    private Animation<TextureRegion> dyingRedSoldier1Animation;
+    public Animation<TextureRegion> idleRedSoldier1Animation;
+    public Animation<TextureRegion> walkingRedSoldier1Animation;
+    public Animation<TextureRegion> attackingRedSoldier1Animation;
+    public Animation<TextureRegion> dyingRedSoldier1Animation;
 
-    private Animation<TextureRegion> idleRedSoldier3Animation;
-    private Animation<TextureRegion> walkingRedSoldier3Animation;
-    private Animation<TextureRegion> attackingRedSoldier3Animation;
-    private Animation<TextureRegion> dyingRedSoldier3Animation;
+    public Animation<TextureRegion> idleRedSoldier3Animation;
+    public Animation<TextureRegion> walkingRedSoldier3Animation;
+    public Animation<TextureRegion> attackingRedSoldier3Animation;
+    public Animation<TextureRegion> dyingRedSoldier3Animation;
 
-    private Animation<TextureRegion> idleBlueSoldier1Animation;
-    private Animation<TextureRegion> walkingBlueSoldier1Animation;
-    private Animation<TextureRegion> attackingBlueSoldier1Animation;
-    private Animation<TextureRegion> dyingBlueSoldier1Animation;
+    public Animation<TextureRegion> idleBlueSoldier1Animation;
+    public Animation<TextureRegion> walkingBlueSoldier1Animation;
+    public Animation<TextureRegion> attackingBlueSoldier1Animation;
+    public Animation<TextureRegion> dyingBlueSoldier1Animation;
 
-    private Animation<TextureRegion> idleBlueSoldier3Animation;
-    private Animation<TextureRegion> walkingBlueSoldier3Animation;
-    private Animation<TextureRegion> attackingBlueSoldier3Animation;
-    private Animation<TextureRegion> dyingBlueSoldier3Animation;
+    public Animation<TextureRegion> idleBlueSoldier3Animation;
+    public Animation<TextureRegion> walkingBlueSoldier3Animation;
+    public Animation<TextureRegion> attackingBlueSoldier3Animation;
+    public Animation<TextureRegion> dyingBlueSoldier3Animation;
 
     // Units counter
     private int unitCountSoldier1;
@@ -70,11 +70,17 @@ public class UnitSettings {
     private ProgressBarStyle healthBarBStyle;
     private ProgressBarStyle healthBarRStyle;
 
-    public UnitSettings(final Player bluePlayer, final Player redPlayer, final TowerSettings towerSettings ,final  PathSettings pathSettings) {
+    // saving purposed
+    public UnitSettings() {
+        initializeAnimations();
+    }
+
+    public UnitSettings(final Player bluePlayer, final Player redPlayer, final TowerSettings towerSettings,
+            final PathSettings pathSettings) {
         // Unit counter
         unitCounter = new BitmapFont();
 
-        //fill nearest corners array
+        // fill nearest corners array
         pathSettings.fillClosestCorners(towerSettings.getBarrackPlaceholders());
 
         // Health bar for castles
@@ -89,57 +95,7 @@ public class UnitSettings {
         healthBarRStyle.background = new TextureRegionDrawable(new TextureRegion(Textures.VERTICAL_HEALTH_BAR));
 
         // Animations
-        idleRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER1_IDLE_RED.findRegions("idle"),
-                PlayMode.LOOP);
-        walkingRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER1_WALKING_RED.findRegions("walk"),
-                PlayMode.LOOP);
-        attackingRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER1_ATTACKING_RED.findRegions("attack"),
-                PlayMode.LOOP);
-        dyingRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER1_DYING_RED.findRegions("die"),
-                PlayMode.LOOP);
-
-        idleRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER3_IDLE_RED.findRegions("idle"),
-                PlayMode.LOOP);
-        walkingRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER3_WALKING_RED.findRegions("walk"),
-                PlayMode.LOOP);
-        attackingRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER3_ATTACKING_RED.findRegions("attack"),
-                PlayMode.LOOP);
-        dyingRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER3_DYING_RED.findRegions("die"),
-                PlayMode.LOOP);
-
-        idleBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER1_IDLE_BLUE.findRegions("idle"),
-                PlayMode.LOOP);
-        walkingBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER1_WALKING_BLUE.findRegions("walk"),
-                PlayMode.LOOP);
-        attackingBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER1_ATTACKING_BLUE.findRegions("attack"),
-                PlayMode.LOOP);
-        dyingBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER1_DYING_BLUE.findRegions("die"),
-                PlayMode.LOOP);
-
-        idleBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER3_IDLE_BLUE.findRegions("idle"),
-                PlayMode.LOOP);
-        walkingBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER3_WALKING_BLUE.findRegions("walk"),
-                PlayMode.LOOP);
-        attackingBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER3_ATTACKING_BLUE.findRegions("attack"),
-                PlayMode.LOOP);
-        dyingBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER3_DYING_BLUE.findRegions("die"),
-                PlayMode.LOOP);
+        initializeAnimations();
 
         // Move in path
         turnToBlueMove = 0;
@@ -262,6 +218,64 @@ public class UnitSettings {
     }
 
     /**
+     * Initializes the animations of all soldiers
+     */
+    public void initializeAnimations() {
+        // Animations
+        idleRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER1_IDLE_RED.findRegions("idle"),
+                PlayMode.LOOP);
+        walkingRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER1_WALKING_RED.findRegions("walk"),
+                PlayMode.LOOP);
+        attackingRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER1_ATTACKING_RED.findRegions("attack"),
+                PlayMode.LOOP);
+        dyingRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER1_DYING_RED.findRegions("die"),
+                PlayMode.LOOP);
+
+        idleRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER3_IDLE_RED.findRegions("idle"),
+                PlayMode.LOOP);
+        walkingRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER3_WALKING_RED.findRegions("walk"),
+                PlayMode.LOOP);
+        attackingRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER3_ATTACKING_RED.findRegions("attack"),
+                PlayMode.LOOP);
+        dyingRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER3_DYING_RED.findRegions("die"),
+                PlayMode.LOOP);
+
+        idleBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER1_IDLE_BLUE.findRegions("idle"),
+                PlayMode.LOOP);
+        walkingBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER1_WALKING_BLUE.findRegions("walk"),
+                PlayMode.LOOP);
+        attackingBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER1_ATTACKING_BLUE.findRegions("attack"),
+                PlayMode.LOOP);
+        dyingBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER1_DYING_BLUE.findRegions("die"),
+                PlayMode.LOOP);
+
+        idleBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER3_IDLE_BLUE.findRegions("idle"),
+                PlayMode.LOOP);
+        walkingBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER3_WALKING_BLUE.findRegions("walk"),
+                PlayMode.LOOP);
+        attackingBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER3_ATTACKING_BLUE.findRegions("attack"),
+                PlayMode.LOOP);
+        dyingBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
+                Textures.SOLDIER3_DYING_BLUE.findRegions("die"),
+                PlayMode.LOOP);
+    }
+
+    /**
      * Render blue/red castle healthbars in the gamescreen
      *
      * @param batch
@@ -328,7 +342,7 @@ public class UnitSettings {
                 }
 
                 unit.setState("WALK");
-                if(!unit.getFromBarrack()) {
+                if (!unit.getFromBarrack()) {
                     unit.setNextPathLevel(pathSettings.getPaths().get(unit.getPath()).size() - 2);
                     unit.setPosition(
                             pathSettings.getPaths().get(unit.getPath())
@@ -366,7 +380,7 @@ public class UnitSettings {
                 }
 
                 unit.setState("WALK");
-                if(!unit.getFromBarrack()) {
+                if (!unit.getFromBarrack()) {
                     unit.setNextPathLevel(1);
                     unit.setPosition(pathSettings.getPaths().get(unit.getPath()).get(0));
                 }
@@ -419,16 +433,14 @@ public class UnitSettings {
     public void renderPlayersUnits(Player bluePlayer, Player redPlayer, PathSettings pathSettings, Float elapsedTime,
             SpriteBatch batch) {
 
-
-
         for (Unit unit : redPlayer.units) {
             if (!unit.isAlive())
                 continue;
 
             // one by one in the path (bigger array means bigger gaps) -> more stranght for
             // the units
-            unit.moveInPath(turnToRedMove, 120);
-            if (turnToRedMove >= 130) {
+            unit.moveInPath(turnToRedMove, 130);
+            if (turnToRedMove >= 140) {
                 turnToRedMove = 0;
             } else {
                 turnToRedMove++;
@@ -600,7 +612,7 @@ public class UnitSettings {
                             60,
                             45, 1, 1, 0);
 
-                    unit.setHealth(unit.getHealth() - 5);
+                    unit.setHealth(unit.getHealth() - 3);
                     break;
                 default:
                     batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true),
@@ -619,8 +631,8 @@ public class UnitSettings {
                 continue;
             // one by one in the path (bigger array means bigger gaps) -> more stranght for
             // the units
-            unit.moveInPath(turnToBlueMove, 120);
-            if (turnToBlueMove >= 130) {
+            unit.moveInPath(turnToBlueMove, 130);
+            if (turnToBlueMove >= 140) {
                 turnToBlueMove = 0;
             } else {
                 turnToBlueMove++;
@@ -799,7 +811,7 @@ public class UnitSettings {
                             60,
                             45, 1, 1, 0);
 
-                    unit.setHealth(unit.getHealth() - 2);
+                    unit.setHealth(unit.getHealth() - 3);
                     break;
 
                 default:
@@ -815,15 +827,15 @@ public class UnitSettings {
         }
 
         // Clearing dead units
-         clearDeadUnits(redPlayer);
-         clearDeadUnits(bluePlayer);
+        clearDeadUnits(redPlayer);
+        clearDeadUnits(bluePlayer);
 
     }
 
     /**
      * Clearing the units from the players `Unit` array lists
      */
-   public void clearDeadUnits(Player player) {
+    public void clearDeadUnits(Player player) {
         player.units.removeIf(element -> !element.isAlive());
     }
 
@@ -1144,7 +1156,8 @@ public class UnitSettings {
      */
     private boolean isACornerOfPath1ForRed(Unit unit, PathSettings pathSettings, Float elapsedTime,
             SpriteBatch batch) {
-        if (unit.getPosition().equals(pathSettings.getPaths().get(Constants.PathNum.FIRST).get(3))) {
+        if (unit.getPosition().y >= pathSettings.getPaths().get(Constants.PathNum.FIRST).get(3).y
+                && unit.getNextPathLevel() == 3) {
 
             batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
                     unit.getPosition().y,
@@ -1153,7 +1166,8 @@ public class UnitSettings {
                     45, 1, 1, 0);
             unit.setPosition(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y));
             return true;
-        } else if (unit.getPosition().equals(pathSettings.getPaths().get(Constants.PathNum.FIRST).get(2))) {
+        } else if (unit.getPosition().x <= pathSettings.getPaths().get(Constants.PathNum.FIRST).get(2).x
+                && unit.getNextPathLevel() == 2) {
 
             batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true),
                     unit.getPosition().x, unit.getPosition().y, 50, 1, 60, 45, 1, 1, 0);
@@ -1161,7 +1175,8 @@ public class UnitSettings {
             unit.setPosition(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1));// Increasing the Y axis
 
             return true;
-        } else if (unit.getPosition().equals(pathSettings.getPaths().get(Constants.PathNum.FIRST).get(1))) {
+        } else if (unit.getPosition().y >= pathSettings.getPaths().get(Constants.PathNum.FIRST).get(1).y
+                && unit.getNextPathLevel() == 1) {
             batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true),
                     unit.getPosition().x, unit.getPosition().y, 50, 1, 60, 45, 1, 1, 0);
 
@@ -1888,10 +1903,5 @@ public class UnitSettings {
         healthBar.draw(batch, 1);
 
     }
-
-
-
-
-
 
 }

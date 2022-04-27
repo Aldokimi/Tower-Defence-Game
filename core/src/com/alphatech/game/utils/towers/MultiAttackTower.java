@@ -10,7 +10,12 @@ public class MultiAttackTower extends Tower {
         super(placeholders);
     }
 
-    public MultiAttackTower(Texture texture, ArrayList<Placeholder> placeholders) {
-        super(texture, placeholders);
+    public MultiAttackTower(Texture texture, ArrayList<Placeholder> placeholders, String parentName) {
+        super(texture, placeholders, parentName);
+    }
+
+    @Override
+    public String getClassName() {
+        return "MultiAttackTower";
     }
 }

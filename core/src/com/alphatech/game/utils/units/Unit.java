@@ -1,4 +1,5 @@
 package com.alphatech.game.utils.units;
+
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.utils.Player;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -66,6 +67,10 @@ public class Unit {
         this.animation = animation;
     }
 
+    public String getClassName() {
+        return "Unit";
+    }
+
     public boolean getIsXaxis() {
         return isXaxis;
     }
@@ -114,7 +119,7 @@ public class Unit {
         return this.animation;
     }
 
-    public void attackCastle(Player p,int damage) {
+    public void attackCastle(Player p, int damage) {
         p.decreaseHealthBy(damage);
     }
 

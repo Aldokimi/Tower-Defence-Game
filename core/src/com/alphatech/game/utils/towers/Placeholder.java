@@ -26,6 +26,14 @@ public class Placeholder {
         this.isFree = false;
     }
 
+    public void setIsFree(boolean isFree) {
+        this.isFree = isFree;
+    }
+
+    public boolean getIsFree() {
+        return this.isFree;
+    }
+
     /**
      * Check if the placeholder is not occupied
      * 

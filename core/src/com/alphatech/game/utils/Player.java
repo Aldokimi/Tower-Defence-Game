@@ -14,7 +14,7 @@ public class Player {
     private int gold;
     private boolean turn;
     private int health;
-    public int goldMineCounter;
+    private int goldMineCounter;
     public ArrayList<Unit> units;
     private float timer;
 
@@ -47,6 +47,10 @@ public class Player {
         this.turnTime = time;
     }
 
+    public void setGoldMineCounter(int goldMineCounter) {
+        this.goldMineCounter = goldMineCounter;
+    }
+
     public void setGold(int gold) {
         this.gold = gold;
     }
@@ -66,6 +70,10 @@ public class Player {
     // Getters
     public int getTurnTime() {
         return this.turnTime;
+    }
+
+    public int getGoldMineCounter() {
+        return goldMineCounter;
     }
 
     public int getGold() {
@@ -159,6 +167,7 @@ public class Player {
 
     /**
      * Check if the player has won
+     * 
      * @return true if he is still alive (health > 0)
      */
     public boolean hasWon() {
@@ -195,9 +204,7 @@ public class Player {
         }
     }
 
-
-    public  void decreaseHealthBy(int x)
-    {
-        this.health = this.health-x;
+    public void decreaseHealthBy(int x) {
+        this.health = this.health - x;
     }
 }

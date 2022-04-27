@@ -2,13 +2,13 @@ package com.alphatech.game.view;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
+import com.alphatech.game.persistance.SaveGame;
 import com.alphatech.game.utils.Player;
 import com.alphatech.game.utils.paths.PathSettings;
 import com.alphatech.game.utils.towers.*;
 import com.alphatech.game.utils.units.UnitSettings;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -47,7 +47,7 @@ public class GameScreen implements Screen {
     // Timer bar
     private ProgressBar timerBar;
     private ProgressBarStyle timerBarStyle;
-    private float width = 174f;
+    public float width = 174f;
     private float elapsedTime = 0;// Time span between the current frame and the last frame in seconds.
 
     // Units
@@ -67,10 +67,10 @@ public class GameScreen implements Screen {
     private ImageButton saveButton;
 
     // Towers
-    private TowerSettings towerSettings;
+    public TowerSettings towerSettings;
 
     // Paths
-    private PathSettings pathSettings;
+    public PathSettings pathSettings;
 
     @Override
     public void show() {
@@ -167,30 +167,10 @@ public class GameScreen implements Screen {
         saveButton.setPosition(95, 52);
 
         saveButton.addListener(new ClickListener() {
-            Preferences prefs = Gdx.app.getPreferences("tower-defense");
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // overwrite data
-
-                // gold
-                prefs.putInteger("Rgold", redPlayer.getGold());
-                prefs.putInteger("Bgold", bluePlayer.getGold());
-
-                // turn
-                prefs.putBoolean("Rturn", redPlayer.getTurn());
-                prefs.putBoolean("Bturn", bluePlayer.getTurn());
-
-                // health
-                prefs.putInteger("Rhealth", redPlayer.getHealth());
-                prefs.putInteger("Bhealth", bluePlayer.getHealth());
-
-                // timer
-                prefs.putFloat("Rtimer", redPlayer.getTimer());
-                prefs.putFloat("Btimer", bluePlayer.getTimer());
-
-                // save changes to storage
-                prefs.flush();
+                new SaveGame(GameScreen.this);
             }
         });
 
@@ -253,6 +233,7 @@ public class GameScreen implements Screen {
         // Goldmines making gold
         redPlayer.makeGold(Gdx.graphics.getDeltaTime());
         towerSettings.setRedPlayerGoldCounter(redPlayer.getGold());
+
         bluePlayer.makeGold(Gdx.graphics.getDeltaTime());
         towerSettings.setBluePlayerGoldCounter(bluePlayer.getGold());
 
@@ -265,6 +246,7 @@ public class GameScreen implements Screen {
         // Rendering the temporary created units before choosing their path and add
         // them to Player units
         unitSettings.renderTempUnits(bluePlayer, elapsedTime, batch);
+
         batch.end();
     }
 
