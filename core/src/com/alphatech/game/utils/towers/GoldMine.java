@@ -9,6 +9,7 @@ public class GoldMine {
     protected ArrayList<Placeholder> placeholders;
     protected ArrayList<Placeholder> availablePlaces;
     protected ArrayList<Placeholder> takenPlaces;
+    protected String parentName; // BLUE or RED
     protected Player player;
 
     // For testing
@@ -18,15 +19,24 @@ public class GoldMine {
         takenPlaces = new ArrayList<>();
     }
 
-    public GoldMine(Texture texture, ArrayList<Placeholder> placeholders) {
+    public GoldMine(Texture texture, ArrayList<Placeholder> placeholders, String parentName) {
         goldMineTexture = texture;
         this.placeholders = placeholders;
+        this.parentName = parentName;
         availablePlaces = new ArrayList<>();
         takenPlaces = new ArrayList<>();
     }
 
+    public void setTakenPlaces(ArrayList<Placeholder> takenPlaces) {
+        this.takenPlaces = takenPlaces;
+    }
+
     public Texture getGoldMineTexture() {
         return goldMineTexture;
+    }
+
+    public String getParentName() {
+        return parentName;
     }
 
     /**
@@ -85,7 +95,7 @@ public class GoldMine {
      * @return occupied placeholders
      */
     public ArrayList<Placeholder> getTakenPlaces() {
-        return takenPlaces;
+        return this.takenPlaces;
     }
 
     /**

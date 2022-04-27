@@ -46,7 +46,7 @@ public class TowerSettings {
 
     // Towers
     private boolean isHighlighted;
-    private ArrayList<Tower> towers;
+    public ArrayList<Tower> towers;
 
     // Normal
     private ImageButton normalTowerButton;
@@ -71,7 +71,7 @@ public class TowerSettings {
     private TextureRegion goldMineRegion;
     private TextureRegionDrawable goldMineRegionDrawable;
     private Group goldMineHighlights;
-    private ArrayList<GoldMine> goldMines;
+    public ArrayList<GoldMine> goldMines;
 
     public TowerSettings(final Player bluePlayer, final Player redPlayer, final Stage gameScreenButtons) {
 
@@ -144,8 +144,8 @@ public class TowerSettings {
         normalTowerButton.setSize(Constants.UNIT_SIZE.x * 2, (float) (Constants.UNIT_SIZE.y * 2.3));
         normalTowerButton.setPosition(Constants.UNIT_SIZE.x * 3, (Constants.UNIT_SIZE.y - 11));
 
-        bluePlayer.normalTower = new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders);
-        redPlayer.normalTower = new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders);
+        bluePlayer.normalTower = new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders, "BLUE");
+        redPlayer.normalTower = new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders, "RED");
 
         // Towers -- Multi-Attack
         multiAttackTowerRegion = new TextureRegion(Textures.MULTI_ATTACK_TOWER);
@@ -154,8 +154,8 @@ public class TowerSettings {
         multiAttackTowerButton.setSize((float) (Constants.UNIT_SIZE.x * 1.4), (float) (Constants.UNIT_SIZE.y * 2.3));
         multiAttackTowerButton.setPosition((float) (Constants.UNIT_SIZE.x * 4.9), (Constants.UNIT_SIZE.y - 14));
 
-        bluePlayer.multiAttackTower = new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER, placeHolders);
-        redPlayer.multiAttackTower = new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER, placeHolders);
+        bluePlayer.multiAttackTower = new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER, placeHolders, "BLUE");
+        redPlayer.multiAttackTower = new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER, placeHolders, "RED");
 
         // Towers -- Magic
         magicTowerRegion = new TextureRegion(Textures.MAGIC_TOWER);
@@ -164,8 +164,8 @@ public class TowerSettings {
         magicTowerButton.setSize(Constants.UNIT_SIZE.x * 1.9f, (float) (Constants.UNIT_SIZE.y * 1.8));
         magicTowerButton.setPosition(376, 38);
 
-        bluePlayer.magicTower = new MagicTower(Textures.BLUE_MAGIC_TOWER, placeHolders);
-        redPlayer.magicTower = new MagicTower(Textures.RED_MAGIC_TOWER, placeHolders);
+        bluePlayer.magicTower = new MagicTower(Textures.BLUE_MAGIC_TOWER, placeHolders, "BLUE");
+        redPlayer.magicTower = new MagicTower(Textures.RED_MAGIC_TOWER, placeHolders, "RED");
 
         // Prepare all towers for rendering
         towers = new ArrayList<>(
@@ -220,8 +220,8 @@ public class TowerSettings {
         goldMineButton.setSize(110, 90);
         goldMineButton.setPosition(473, 38);
 
-        bluePlayer.goldMine = new GoldMine(Textures.BLUE_GOLD_MINE, placeHolders);
-        redPlayer.goldMine = new GoldMine(Textures.RED_GOLD_MINE, placeHolders);
+        bluePlayer.goldMine = new GoldMine(Textures.BLUE_GOLD_MINE, placeHolders, "BLUE");
+        redPlayer.goldMine = new GoldMine(Textures.RED_GOLD_MINE, placeHolders, "RED");
         goldMines = new ArrayList<>(Arrays.asList(bluePlayer.goldMine, redPlayer.goldMine));
         // Gold Mine's button listener
         goldMineButton.addListener(new ClickListener() {
@@ -265,6 +265,10 @@ public class TowerSettings {
         this.redPlayerGoldCounter = redPlayerGoldCounter;
     }
 
+    public void setGoldMines(ArrayList<GoldMine> goldMines) {
+        this.goldMines = goldMines;
+    }
+
     public void setBluePlayerGoldCounter(int bluePlayerGoldCounter) {
         this.bluePlayerGoldCounter = bluePlayerGoldCounter;
     }
@@ -275,6 +279,10 @@ public class TowerSettings {
 
     public int getBluePlayerGoldCounter() {
         return bluePlayerGoldCounter;
+    }
+
+    public ArrayList<Placeholder> getPlaceHolders() {
+        return placeHolders;
     }
 
     /**
@@ -655,8 +663,16 @@ public class TowerSettings {
         }
     }
 
+    public void setBarrackPlaceholders(ArrayList<Placeholder> barrackPlaceholders) {
+        this.barrackPlaceholders = barrackPlaceholders;
+    }
+
     public ArrayList<Placeholder> getBarrackPlaceholders() {
         return barrackPlaceholders;
+    }
+
+    public void setTowers(ArrayList<Tower> towers) {
+        this.towers = towers;
     }
 
 }

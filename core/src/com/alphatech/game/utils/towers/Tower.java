@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Tower {
     protected Texture towerTexture;
+    protected String parentName;
     protected ArrayList<Placeholder> placeholders;
     protected ArrayList<Placeholder> availablePlaces;
     protected ArrayList<Placeholder> takenPlaces;
@@ -18,15 +19,36 @@ public class Tower {
 
     }
 
-    public Tower(Texture texture, ArrayList<Placeholder> placeholders) {
+    public Tower(Texture texture, ArrayList<Placeholder> placeholders, String parentName) {
         this.towerTexture = texture;
         this.placeholders = placeholders;
         this.availablePlaces = new ArrayList<>();
         this.takenPlaces = new ArrayList<>();
+        this.parentName = parentName;
+    }
+
+    public void setAvailablePlaces(ArrayList<Placeholder> availablePlaces) {
+        this.availablePlaces = availablePlaces;
+    }
+
+    public void setPlaceholders(ArrayList<Placeholder> placeholders) {
+        this.placeholders = placeholders;
+    }
+
+    public void setTakenPlaces(ArrayList<Placeholder> takenPlaces) {
+        this.takenPlaces = takenPlaces;
+    }
+
+    public ArrayList<Placeholder> getPlaceholders() {
+        return placeholders;
     }
 
     public Texture getTowerTexture() {
         return towerTexture;
+    }
+
+    public String getParentName() {
+        return parentName;
     }
 
     /**
@@ -36,6 +58,15 @@ public class Tower {
      */
     public void setTowerTexture(Texture towerTexture) {
         this.towerTexture = towerTexture;
+    }
+
+    /**
+     * get the name of the class
+     * 
+     * @return string representation of class name
+     */
+    public String getClassName() {
+        return "Tower";
     }
 
     /**
@@ -91,7 +122,7 @@ public class Tower {
      * @return occupied placeholders
      */
     public ArrayList<Placeholder> getTakenPlaces() {
-        return takenPlaces;
+        return this.takenPlaces;
     }
 
     /**
@@ -102,6 +133,19 @@ public class Tower {
      */
     public void initializeCenterofMeasurement(Placeholder placeholder) {
         this.takenPlaces.add(placeholder);
+    }
+
+    /**
+     * get the first point(placeholder) which we measure from (checking
+     * avaliability to build)
+     * requirement of usage: if (this.takenPlaces.size() > 0)
+     * 
+     * @return placeholder
+     */
+    public Placeholder getCenterofMeasurement() {
+
+        return this.takenPlaces.get(0);
+
     }
 
     /**
