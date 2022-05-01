@@ -19,7 +19,7 @@ public class TowerSprite {
     // Credentials 
     private int healthToBeDecreased;
     private float fireRate;
-    private int fireRange;
+    private double fireRange;
     private boolean multiAttack;
     private String towerType;
 
@@ -42,14 +42,14 @@ public class TowerSprite {
                 this.healthToBeDecreased = 80;
                 this.fireRate = 2.0f;
                 this.multiAttack = false;
-                this.fireRange = 4;
+                this.fireRange = 4.5;
                 break;
 
             case Constants.MULTIATTACK_TOWER:
                 this.healthToBeDecreased = 100;
                 this.fireRate = 2.0f;
                 this.multiAttack = true;
-                this.fireRange = 3;
+                this.fireRange = 4;
                 break;
 
             case Constants.MAGIC_TOWER:
