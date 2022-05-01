@@ -137,9 +137,14 @@ public class Unit {
      * 
      * @param timeToMove
      */
-    public void moveInPath(int timeToMove, int unitsArraySize) {
-        if (timeToMove == unitsArraySize && !getMovedInPath()) {
+    public void moveInPath(int timeToMove, int unitsArraySize, UnitSettings setting, String PlayerColor) {
+        if (timeToMove >= unitsArraySize && !getMovedInPath() && PlayerColor.equals("RED")) {
             setMovedInPath(true);
+            setting.setTurnToRedMove(0);
+        }
+        if (timeToMove >= unitsArraySize && !getMovedInPath() && PlayerColor.equals("BLUE")) {
+            setMovedInPath(true);
+            setting.setTurnToBlueMove(0);
         }
 
     }

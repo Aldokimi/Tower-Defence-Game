@@ -144,6 +144,7 @@ public class Textures {
                 TIMER_BAR.dispose();
                 OPTIONS.dispose();
                 SAVE.dispose();
+                GROUND.dispose();
 
                 SOLDIER1.dispose();
                 SOLDIER3.dispose();
