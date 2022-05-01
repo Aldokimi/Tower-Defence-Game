@@ -19,7 +19,7 @@ public class Unit {
     protected boolean movedInPath;
     protected int timeToDie;
     protected Boolean fromBarrack;
-    protected String color;
+    protected String color; // Red, Blue
 
     public Unit(Point2D.Float position) {
         this.position = position;

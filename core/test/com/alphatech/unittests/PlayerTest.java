@@ -34,7 +34,7 @@ public class PlayerTest {
     @Test
     @DisplayName("Player's turn")
     void startTurn() {
-        
+
         player.startTurn();
         assertTrue(player.getTurn());
     }
@@ -69,7 +69,7 @@ public class PlayerTest {
         player.setGold(Constants.INIT_GOLD_COUNT);
         assertTrue(player.hasEnoughGold(100));
     }
-    
+
     @Test
     @DisplayName("Building a Normal Tower - cost")
     void buildNormalTower() {
@@ -89,6 +89,15 @@ public class PlayerTest {
     }
 
     @Test
+    @DisplayName("Building a Magic Tower - cost")
+    void buildMagicTower() {
+
+        player.setGold(Constants.INIT_GOLD_COUNT);
+        player.buildTower(new MagicTower(placeholders));
+        assertEquals(player.getGold(), Constants.INIT_GOLD_COUNT - Constants.BUILD_MAGIC_TOWER);
+    }
+
+    @Test
     @DisplayName("Training a normal soldier - cost")
     void trainNormalSoldier() {
 
@@ -96,7 +105,7 @@ public class PlayerTest {
         player.trainUnit(new NormalSoldier(new Point2D.Float(3, 3)));
         assertEquals(player.getGold(), Constants.INIT_GOLD_COUNT - Constants.TRAIN_NORMAL_SOLDIER);
     }
-    
+
     @Test
     @DisplayName("Training a crazy soldier - cost")
     void trainCrazySoldier() {
@@ -139,4 +148,4 @@ public class PlayerTest {
         player.collectTreasureChest();
         assertEquals(player.getGold(), Constants.INIT_GOLD_COUNT + Constants.TREASURE_CHEST);
     }
-}   
+}

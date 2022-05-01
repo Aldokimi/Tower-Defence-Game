@@ -122,15 +122,116 @@ public class SaveGame {
                         // tower taken places
                         prefs.putInteger("TowersTakenPlacesSize_" + i,
                                         gameScreen.towerSettings.towers.get(i).getTakenPlaces().size());
-                        // iterate over the placeholders in the array
+                        // iterate over the tower sprites in the array
                         for (int j = 0; j < gameScreen.towerSettings.towers.get(i).getTakenPlaces().size(); j++) {
+
+                                prefs.putString(i + "TowerSpriteType_" + j, gameScreen.towerSettings.towers.get(i)
+                                                .getTakenPlaces().get(j).getTowerType());
+                                // target units
+                                prefs.putInteger(i + "TargetUnitsSize_" + j, gameScreen.towerSettings.towers.get(i)
+                                                .getTakenPlaces().get(j).getTargets().size());
+                                for (int k = 0; k < gameScreen.towerSettings.towers.get(i)
+                                                .getTakenPlaces().get(j).getTargets().size(); k++) {
+
+                                        prefs.putString(i + "" + j + "TargetUnitsType_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getClassName());
+                                        prefs.putString(i + "" + j + "TargetUnitsState_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getCurrentState());
+
+                                        prefs.putInteger(i + "" + j + "TargetUnitsHealth_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getHealth());
+                                        prefs.putInteger(i + "" + j + "TargetUnitsNextPathLevel_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getNextPathLevel());
+                                        prefs.putString(i + "" + j + "TargetUnitsPath_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getPath().name());
+
+                                        prefs.putString(i + "" + j + "TargetUnitsColor_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getColor());
+                                        prefs.putBoolean(i + "" + j + "TargetUnitsFromBarrack_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getFromBarrack());
+                                        prefs.putBoolean(i + "" + j + "TargetUnitsMovedInPath_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getMovedInPath());
+                                        prefs.putBoolean(i + "" + j + "TargetUnitsIsXaxis_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getIsXaxis());
+
+                                        prefs.putFloat(i + "" + j + "TargetUnitsPosX_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getPosition().x);
+                                        prefs.putFloat(i + "" + j + "TargetUnitsPosY_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getTargets().get(k)
+                                                                        .getPosition().y);
+                                }
+
+                                // Fireball
+                                prefs.putInteger(i + "FireballSize_" + j, gameScreen.towerSettings.towers.get(i)
+                                                .getTakenPlaces().get(j).getFires().size());
+                                for (int k = 0; k < gameScreen.towerSettings.towers.get(i)
+                                                .getTakenPlaces().get(j).getFires().size(); k++) {
+                                        // position
+                                        prefs.putFloat(i + "" + j + "FireballPosX_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getFires().get(k)
+                                                                        .getPosition().x);
+                                        prefs.putFloat(i + "" + j + "FireballPosY_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getFires().get(k)
+                                                                        .getPosition().y);
+                                        // target
+                                        prefs.putFloat(i + "" + j + "FireballTargetPosX_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getFires().get(k)
+                                                                        .getTarget().x);
+                                        prefs.putFloat(i + "" + j + "FireballTargetPosY_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getFires().get(k)
+                                                                        .getTarget().y);
+                                        // firerate
+                                        prefs.putFloat(i + "" + j + "FireballFireRate_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getFires().get(k)
+                                                                        .getFireRate());
+
+                                        // towertype
+                                        prefs.putString(i + "" + j + "FireballTowerType_" + k,
+                                                        gameScreen.towerSettings.towers.get(i)
+                                                                        .getTakenPlaces().get(j).getFires().get(k)
+                                                                        .getTowerType());
+                                }
+                                // updateRate
+                                prefs.putInteger(i + "UpdateRate_" + j, gameScreen.towerSettings.towers.get(i)
+                                                .getTakenPlaces().get(j).getUpdateRate());
+                                // position
                                 prefs.putFloat(i + "towerTakenPlacesX_" + j,
-                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j).getPosition().getX());
+                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j)
+                                                                .getPosition().getX());
                                 prefs.putFloat(i + "towerTakenPlacesY_" + j,
-                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j).getPosition().getY());
+                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j)
+                                                                .getPosition().getY());
                                 prefs.putBoolean(i + "towerTakenPlacesIsFree_" + j,
-                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j).getPosition()
+                                                gameScreen.towerSettings.towers.get(i).getTakenPlaces().get(j)
+                                                                .getPosition()
                                                                 .getIsFree());
+
                         }
                 }
 

@@ -40,15 +40,15 @@ public class Tower {
     }
 
     public ArrayList<Placeholder> getPlaceholders() {
-        return placeholders;
+        return this.placeholders;
     }
 
     public Texture getTowerTexture() {
-        return towerTexture;
+        return this.towerTexture;
     }
 
     public String getParentName() {
-        return parentName;
+        return this.parentName;
     }
 
     /**

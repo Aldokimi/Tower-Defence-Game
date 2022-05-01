@@ -105,10 +105,8 @@ public class GameScreen implements Screen {
         int randomInt = rand.nextInt(2);
         if (randomInt == 0) {
             redPlayer.setTurn(true);
-            System.out.println("Red turn");
         } else {
             bluePlayer.setTurn(true);
-            System.out.println("Blue turn");
         }
 
         // Towers Init
@@ -220,7 +218,7 @@ public class GameScreen implements Screen {
 
         // rendering Paths arrows by turn
         pathSettings.setArrowsVisibility(bluePlayer.getTurn());
-        
+
         // Set enemies for towers
         towerSettings.setEnemies(this.redPlayer, this.bluePlayer);
 

@@ -117,7 +117,7 @@ public class Player {
         } else if (tower instanceof MultiAttackTower) {
             this.spendGold(Constants.BUILD_MULTIATTACK_TOWER);
         } else if (tower instanceof MagicTower) {
-            this.spendGold(Constants.BUILD_CRAZY_TOWER);
+            this.spendGold(Constants.BUILD_MAGIC_TOWER);
         }
     }
 

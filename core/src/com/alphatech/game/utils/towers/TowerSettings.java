@@ -37,7 +37,7 @@ public class TowerSettings {
     private BitmapFont prices;
     private int normalTowerPrice = Constants.BUILD_NORMAL_TOWER;
     private int multiAttackTowerPrice = Constants.BUILD_MULTIATTACK_TOWER;
-    private int crazyTowerPrice = Constants.BUILD_CRAZY_TOWER;
+    private int magicTowerPrice = Constants.BUILD_MAGIC_TOWER;
     private int goldMinePrice = Constants.BUILD_GOLDMINE;
     private int normalSoldierPrice = Constants.TRAIN_NORMAL_SOLDIER;
     private int crazySoldierPrice = Constants.TRAIN_CRAZY_SOLDIER;
@@ -209,6 +209,7 @@ public class TowerSettings {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 magicTowerHighlights = new Group();
+
                 buildTowers(bluePlayer, redPlayer, bluePlayer.magicTower, redPlayer.magicTower, gameScreenButtons,
                         magicTowerHighlights);
             }
@@ -298,9 +299,9 @@ public class TowerSettings {
         highlights.setName("highlight");
         if (!isHighlighted) {// Checking if the button has been clicked (double click gives the same state)
 
-            if (bluePlayer.getTurn()) {
+            if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(integerPrice(blueTower))) {
                 buildBlueTowers(bluePlayer, redPlayer, blueTower, highlights, gameScreenButtons);
-            } else {
+            } else if (redPlayer.getTurn() && redPlayer.hasEnoughGold(integerPrice(redTower))) {
                 buildRedTowers(bluePlayer, redPlayer, redTower, highlights, gameScreenButtons);
             }
             isHighlighted = true;
@@ -308,6 +309,24 @@ public class TowerSettings {
         } else {
             removeHighlight(gameScreenButtons);
         }
+    }
+
+    /**
+     * Gives the corresponding price of a specific tower
+     * 
+     * @param tower
+     * @return
+     */
+    private int integerPrice(Tower tower) {
+        int price;
+        if (tower instanceof NormalTower) {
+            price = Constants.BUILD_NORMAL_TOWER;
+        } else if (tower instanceof MagicTower) {
+            price = Constants.BUILD_MAGIC_TOWER;
+        } else {
+            price = Constants.BUILD_MULTIATTACK_TOWER;
+        }
+        return price;
     }
 
     /**
@@ -394,27 +413,19 @@ public class TowerSettings {
         btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                int price;
-                if (type instanceof NormalTower) {
-                    price = Constants.BUILD_NORMAL_TOWER;
-                } else {
-                    price = Constants.BUILD_MULTIATTACK_TOWER;
-                }
 
                 // decide the type of the tower
                 String towerType = Constants.NORMAL_TOWER;
-                if (type instanceof MultiAttackTower){
+                if (type instanceof MultiAttackTower) {
                     towerType = Constants.MULTIATTACK_TOWER;
-                }else if(type instanceof MagicTower){
+                } else if (type instanceof MagicTower) {
                     towerType = Constants.MAGIC_TOWER;
                 }
 
-                if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(price)) {
+                if (bluePlayer.getTurn()) {
                     if (!getPlaceholdersNearCastle(redPlayer).contains(placeholder)) {
                         type.addTower(placeholder, towerType);
                         bluePlayer.buildTower(type);
-
-                        //type.addTower(placeholder);
 
                         placeholder.takePlace();
 
@@ -422,12 +433,10 @@ public class TowerSettings {
 
                         bluePlayerGoldCounter = bluePlayer.getGold();
                     }
-                } else if (redPlayer.getTurn() && redPlayer.hasEnoughGold(price)) {
+                } else if (redPlayer.getTurn()) {
                     if (!getPlaceholdersNearCastle(redPlayer).contains(placeholder)) {
                         type.addTower(placeholder, towerType);
                         redPlayer.buildTower(type);
-
-                        //type.addTower(placeholder);
 
                         placeholder.takePlace();
 
@@ -600,7 +609,7 @@ public class TowerSettings {
         prices.setColor(Color.YELLOW);
         prices.draw(batch, String.valueOf(normalTowerPrice), 230, 22);
         prices.draw(batch, String.valueOf(multiAttackTowerPrice), 325, 22);
-        prices.draw(batch, String.valueOf(crazyTowerPrice), 424, 22);
+        prices.draw(batch, String.valueOf(magicTowerPrice), 424, 22);
         prices.draw(batch, String.valueOf(goldMinePrice), 520, 22);
         prices.draw(batch, String.valueOf(normalSoldierPrice), 617, 22);
         prices.draw(batch, String.valueOf(crazySoldierPrice), 714, 22);
@@ -673,24 +682,26 @@ public class TowerSettings {
                 towerSprite.draw(batch);
 
                 // calling the update method of the tower sprite (to attack)
-                if(tower.getTakenPlaces().get(i).getTowerType() != "NONE")
+                if (!tower.getTakenPlaces().get(i).getTowerType().equals("NONE"))
                     tower.getTakenPlaces().get(i).update(batch);
             }
 
         }
     }
 
-
     /**
-     * Sets the target enemies for every tower sprite (the red tower attacks the blue units and the opposite is correct).
+     * Sets the target enemies for every tower sprite (the red tower attacks the
+     * blue units and the opposite is correct).
      * 
      * @param redPlayer
      * @param bluePlayer
      */
-    public void setEnemies(Player redPlayer, Player bluePlayer){
-        ArrayList<Tower> redTowers = new ArrayList<>(Arrays.asList(redPlayer.normalTower, redPlayer.multiAttackTower, redPlayer.magicTower));
-        ArrayList<Tower> blueTowers = new ArrayList<>(Arrays.asList(bluePlayer.normalTower, bluePlayer.multiAttackTower, bluePlayer.magicTower));
-        
+    public void setEnemies(Player redPlayer, Player bluePlayer) {
+        ArrayList<Tower> redTowers = new ArrayList<>(
+                Arrays.asList(redPlayer.normalTower, redPlayer.multiAttackTower, redPlayer.magicTower));
+        ArrayList<Tower> blueTowers = new ArrayList<>(
+                Arrays.asList(bluePlayer.normalTower, bluePlayer.multiAttackTower, bluePlayer.magicTower));
+
         for (Tower tower : redTowers) {
             for (TowerSprite towerSprite : tower.getTakenPlaces()) {
                 towerSprite.setEnemies(bluePlayer.units);

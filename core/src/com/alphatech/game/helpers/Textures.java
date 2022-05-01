@@ -9,10 +9,9 @@ public class Textures {
         // Main menu
         public static final Texture MAIN_MENU_START_TEXT = new Texture("Texts/StartGame.png");
         public static final Texture MAIN_MENU_LOAD_TEXT = new Texture("Texts/LoadGame.png");
-       // public static final Texture MAIN_MENU_SETTINGS_TEXT = new Texture("Texts/Settings.png");
         public static final Texture MAIN_MENU_INSTRUCTIONS_TEXT = new Texture("Texts/Instructions.png");
         public static final Texture MAIN_MENU_EXIT_TEXT = new Texture("Texts/ExitGame.png");
-        
+
         // Instructions Screen Buttons
         public static final Texture INSTRUCTIONS_START_BUTTON = new Texture("Texts/play.png");
         public static final Texture INSTRUCTIONS_EXIT_BUTTON = new Texture("Texts/exit.png");
@@ -129,7 +128,6 @@ public class Textures {
 
                 MAIN_MENU_START_TEXT.dispose();
                 MAIN_MENU_LOAD_TEXT.dispose();
-                //MAIN_MENU_SETTINGS_TEXT.dispose();
                 MAIN_MENU_INSTRUCTIONS_TEXT.dispose();
                 MAIN_MENU_EXIT_TEXT.dispose();
 
@@ -190,6 +188,9 @@ public class Textures {
                 HEALTH_BAR.dispose();
                 CASTLE_HEALTH_BAR_FRAME.dispose();
                 VERTICAL_HEALTH_BAR.dispose();
+                NORMAL_FIRE_BALL.dispose();
+                MULTIATTACK_FIRE_BALL.dispose();
+                MAGIC_FIRE_BALL.dispose();
 
         }
 

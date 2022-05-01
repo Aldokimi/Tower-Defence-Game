@@ -629,7 +629,7 @@ public class UnitSettings {
         for (Unit unit : bluePlayer.units) {
             if (!unit.isAlive())
                 continue;
-            // one by one in the path 
+            // one by one in the path
             // the units
             unit.moveInPath(turnToBlueMove, bluePlayer.units.size() * 75, this, "BLUE");
 
