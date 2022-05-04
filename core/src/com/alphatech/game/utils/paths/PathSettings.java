@@ -558,10 +558,10 @@ public class PathSettings {
         Sprite sprite = new Sprite(Textures.TREASURE_CHEST);
         if (appearingTime <= 10) {
             if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
-                sprite.setPosition((float) treasurePlace.getX() - 5, (float) treasurePlace.getY() - 5);
+                sprite.setPosition((float) treasurePlace.getX() + 16, (float) treasurePlace.getY() + 5);
             } else {
-                sprite.setPosition((float) treasurePlace.getX() * Constants.PLACEHOLDER_SIZE,
-                        (float) treasurePlace.getY() * Constants.PLACEHOLDER_SIZE);
+                sprite.setPosition((float) treasurePlace.getX() * Constants.PLACEHOLDER_SIZE + 16,
+                        (float) treasurePlace.getY() * Constants.PLACEHOLDER_SIZE + 5);
             }
             sprite.setSize(30, 32);
             sprite.draw(batch);
