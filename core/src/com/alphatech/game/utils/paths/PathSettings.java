@@ -2,10 +2,13 @@ package com.alphatech.game.utils.paths;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
+import com.alphatech.game.utils.Player;
 import com.alphatech.game.utils.towers.Placeholder;
 import com.alphatech.game.utils.units.NormalSoldier;
 import com.alphatech.game.utils.units.Unit;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,7 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.awt.geom.Point2D;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class PathSettings {
     /// Store the coordinates of the corners of the paths
@@ -64,10 +71,14 @@ public class PathSettings {
     private TextureRegionDrawable PathArrowRed4RegionDraw;
     private ImageButton PathArrowRed4;
 
-
-    //Closest points to barracks
+    // Closest points to barracks
     private ArrayList<BarrackCorner> closestCorners;
 
+    // treasure chest place
+    private Point2D.Float treasurePlace;
+    private float appearingTime = Constants.INIT_APPEARING_TIME;
+    private float disapearingTime = Constants.INIT_DISAPPEARING_TIME;
+    private ArrayList<Point2D.Float> tPoints;
 
     public PathSettings() {
         // Paths
@@ -76,10 +87,8 @@ public class PathSettings {
         paths = new HashMap<>();
         fillPaths();
 
-
-        //Closest points to barracks
-         closestCorners =new ArrayList<>();
-
+        // Closest points to barracks
+        closestCorners = new ArrayList<>();
 
         // Near Blue Castle
         PathArrowBlue1Region = new TextureRegion(Textures.PathArrowB);
@@ -252,6 +261,17 @@ public class PathSettings {
             }
         });
         resetColorsOfPaths();
+
+
+        //treasure
+        tPoints = new ArrayList<>();
+        for (Map.Entry<Constants.PathNum, ArrayList<Point2D.Float>> entry : this.paths.entrySet()) {
+            for (int i = 1; i < entry.getValue().size(); i++) {
+                tPoints.add(entry.getValue().get(i));
+            }
+        }
+        System.out.println(tPoints.size());
+        chooseRandomPlaceForTreasureChest();
     }
 
     public void setPaths(HashMap<Constants.PathNum, ArrayList<Point2D.Float>> paths) {
@@ -463,20 +483,16 @@ public class PathSettings {
             Random rand = new Random();
             for (Unit unit : TempUnits) {
                 if (unit instanceof NormalSoldier) {
-                    if(1 == rand.nextInt(2)) {
+                    if (1 == rand.nextInt(2)) {
                         int num = rand.nextInt(4);
                         unit.setPath(Constants.PathNum.values()[num]);
-                    }
-                    else
-                    {
+                    } else {
                         unit.setFromBarrack(true);
-                        int ind ;
-                        if(unit.getColor() == "blue")
-                        {
+                        int ind;
+                        if (unit.getColor() == "blue") {
                             ind = rand.nextInt(2);
-                        }
-                        else {
-                            ind = rand.nextInt(2)+2;
+                        } else {
+                            ind = rand.nextInt(2) + 2;
                         }
                         unit.setPath(closestCorners.get(ind).getPath());
                         unit.setPosition(closestCorners.get(ind).getPoint());
@@ -494,7 +510,6 @@ public class PathSettings {
         }
     }
 
-
     public ArrayList<BarrackCorner> getClosestCorners() {
         return closestCorners;
     }
@@ -503,40 +518,74 @@ public class PathSettings {
         this.closestCorners = closestCorners;
     }
 
-
     /**
      * This fuction collect the closest path corners to the barracks where the
      * unit will be trained from and store them in the closestCorners
+     * 
      * @param barracks
      */
-   public void fillClosestCorners( ArrayList<Placeholder> barracks) {
-       BarrackCorner nearest = null ;
-       double min;
+    public void fillClosestCorners(ArrayList<Placeholder> barracks) {
+        BarrackCorner nearest = null;
+        double min;
 
-       for(Placeholder bpoint :barracks)
-       {
+        for (Placeholder bpoint : barracks) {
             min = Float.MAX_VALUE;
             nearest = null;
-           for (Map.Entry<Constants.PathNum,ArrayList<Point2D.Float>> set : this.paths.entrySet())
-           {
-               if(set.getKey() == Constants.PathNum.CRAZY)
-                   continue;
-               for(Point2D.Float pp : set.getValue())
-               {
-                   if(Point2D.distance(pp.x,pp.y,bpoint.getX()*32,bpoint.getY()*32) < min  )
-                   {
-                       min = Point2D.distance(pp.x,pp.y,bpoint.getX()*32,bpoint.getY()*32) ;
-                       nearest = new BarrackCorner(set.getKey(),pp,set.getValue().indexOf(pp));
+            for (Map.Entry<Constants.PathNum, ArrayList<Point2D.Float>> set : this.paths.entrySet()) {
+                if (set.getKey() == Constants.PathNum.CRAZY)
+                    continue;
+                for (Point2D.Float pp : set.getValue()) {
+                    if (Point2D.distance(pp.x, pp.y, bpoint.getX() * 32, bpoint.getY() * 32) < min) {
+                        min = Point2D.distance(pp.x, pp.y, bpoint.getX() * 32, bpoint.getY() * 32);
+                        nearest = new BarrackCorner(set.getKey(), pp, set.getValue().indexOf(pp));
 
-                   }
-               }
-           }
+                    }
+                }
+            }
 
-           closestCorners.add(nearest);
+            closestCorners.add(nearest);
 
-       }
-   }
+        }
+    }
 
+    private void chooseRandomPlaceForTreasureChest() {
+        Point2D.Float newSpotForTreasure = tPoints.get(new Random().nextInt(tPoints.size() ));
+        this.treasurePlace = new Point2D.Float(newSpotForTreasure.x, newSpotForTreasure.y);
+    }
 
+    public void placeTreasureChests(SpriteBatch batch, float deltaTime, Player redPlayer, Player bluePlayer) {
 
+        Sprite sprite = new Sprite(Textures.TREASURE_CHEST);
+        if (appearingTime <= 10) {
+            if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
+                sprite.setPosition((float) treasurePlace.getX() + 16, (float) treasurePlace.getY() + 5);
+            } else {
+                sprite.setPosition((float) treasurePlace.getX() * Constants.PLACEHOLDER_SIZE + 16,
+                        (float) treasurePlace.getY() * Constants.PLACEHOLDER_SIZE + 5);
+            }
+            sprite.setSize(30, 32);
+            sprite.draw(batch);
+            appearingTime += deltaTime;
+        } else {
+            disapearingTime -= deltaTime;
+            if (disapearingTime <= 0.0) {
+                appearingTime = 0;
+                disapearingTime =Constants.INIT_DISAPPEARING_TIME;
+                chooseRandomPlaceForTreasureChest();
+                if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
+                    sprite.setPosition((float) treasurePlace.getX() - 5, (float) treasurePlace.getY() - 5);
+                } else {
+                    sprite.setPosition((float) treasurePlace.getX() * Constants.PLACEHOLDER_SIZE,
+                            (float) treasurePlace.getY() * Constants.PLACEHOLDER_SIZE);
+                }
+            }
+        }
+    }
+
+    public Point2D.Float getTreasurePlace() {
+        return treasurePlace;
+    }
+
+    public void refreshTreasure(){appearingTime = Constants.MAX_APPEARING_TIME+1;}
+    public Boolean canTakeTreasure(){return  appearingTime <= Constants.MAX_APPEARING_TIME;}
 }

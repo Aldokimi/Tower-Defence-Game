@@ -239,6 +239,9 @@ public class GameScreen implements Screen {
 
         // Rendering player's gold and towers prices
         towerSettings.renderPlayersGoldAndGoldMines(batch);
+        
+        // pleacing a treasure chest
+        pathSettings.placeTreasureChests(batch, Gdx.graphics.getDeltaTime(), redPlayer, bluePlayer);
 
         towerSettings.hideFireBallesInCorner(batch);
 

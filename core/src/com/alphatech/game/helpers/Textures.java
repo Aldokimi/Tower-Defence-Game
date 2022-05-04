@@ -121,6 +121,9 @@ public class Textures {
         public static final Texture MULTIATTACK_FIRE_BALL = new Texture("Extras/Rock 05.png");
         public static final Texture MAGIC_FIRE_BALL = new Texture("Extras/heart.png");
 
+        // Treasure Chest
+        public static final Texture TREASURE_CHEST = new Texture("Extras/treasureChest.png");
+
         /**
          * Dispose the constants in the game screen
          */
@@ -138,6 +141,7 @@ public class Textures {
                 PLACE_HOLDER.dispose();
                 HIGHLIGHTED_PLACE_HOLDER.dispose();
                 RED_HIGHLIGHTED_PLACE_HOLDER.dispose();
+                TREASURE_CHEST.dispose();
                 ENDTURN_TEXT.dispose();
                 TIMER_BAR.dispose();
                 OPTIONS.dispose();
@@ -173,6 +177,7 @@ public class Textures {
                 NORMAL_TOWER.dispose();
                 MULTI_ATTACK_TOWER.dispose();
                 MAGIC_TOWER.dispose();
+
                 RED_NORMAL_TOWER.dispose();
                 BLUE_NORMAL_TOWER.dispose();
                 RED_MULTI_ATTACK_TOWER.dispose();
@@ -188,6 +193,7 @@ public class Textures {
                 HEALTH_BAR.dispose();
                 CASTLE_HEALTH_BAR_FRAME.dispose();
                 VERTICAL_HEALTH_BAR.dispose();
+                
                 NORMAL_FIRE_BALL.dispose();
                 MULTIATTACK_FIRE_BALL.dispose();
                 MAGIC_FIRE_BALL.dispose();
