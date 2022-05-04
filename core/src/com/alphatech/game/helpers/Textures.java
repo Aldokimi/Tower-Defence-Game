@@ -9,10 +9,9 @@ public class Textures {
         // Main menu
         public static final Texture MAIN_MENU_START_TEXT = new Texture("Texts/StartGame.png");
         public static final Texture MAIN_MENU_LOAD_TEXT = new Texture("Texts/LoadGame.png");
-       // public static final Texture MAIN_MENU_SETTINGS_TEXT = new Texture("Texts/Settings.png");
         public static final Texture MAIN_MENU_INSTRUCTIONS_TEXT = new Texture("Texts/Instructions.png");
         public static final Texture MAIN_MENU_EXIT_TEXT = new Texture("Texts/ExitGame.png");
-        
+
         // Instructions Screen Buttons
         public static final Texture INSTRUCTIONS_START_BUTTON = new Texture("Texts/play.png");
         public static final Texture INSTRUCTIONS_EXIT_BUTTON = new Texture("Texts/exit.png");
@@ -25,6 +24,7 @@ public class Textures {
         public static final Texture ENDTURN_TEXT = new Texture("Texts/EndTurn.png");
         public static final Texture OPTIONS = new Texture("Extras/options.png");
         public static final Texture SAVE = new Texture("Extras/save.png");
+        public static final Texture GROUND = new Texture("GroundTiles/GrassGround.png");
 
         // Timer Bar
         public static final Texture TIMER_BAR = new Texture("GUI/TimerBar.png");
@@ -116,6 +116,11 @@ public class Textures {
         public static final Texture CASTLE_HEALTH_BAR_FRAME = new Texture("Extras/Castle_Health_Frame.png");
         public static final Texture VERTICAL_HEALTH_BAR = new Texture("Extras/health_bar_Vertical.png");
 
+        // Fire ball
+        public static final Texture NORMAL_FIRE_BALL = new Texture("Extras/fireBall.png");
+        public static final Texture MULTIATTACK_FIRE_BALL = new Texture("Extras/Rock 05.png");
+        public static final Texture MAGIC_FIRE_BALL = new Texture("Extras/heart.png");
+
         /**
          * Dispose the constants in the game screen
          */
@@ -123,7 +128,6 @@ public class Textures {
 
                 MAIN_MENU_START_TEXT.dispose();
                 MAIN_MENU_LOAD_TEXT.dispose();
-                //MAIN_MENU_SETTINGS_TEXT.dispose();
                 MAIN_MENU_INSTRUCTIONS_TEXT.dispose();
                 MAIN_MENU_EXIT_TEXT.dispose();
 
@@ -138,6 +142,7 @@ public class Textures {
                 TIMER_BAR.dispose();
                 OPTIONS.dispose();
                 SAVE.dispose();
+                GROUND.dispose();
 
                 SOLDIER1.dispose();
                 SOLDIER3.dispose();
@@ -183,6 +188,9 @@ public class Textures {
                 HEALTH_BAR.dispose();
                 CASTLE_HEALTH_BAR_FRAME.dispose();
                 VERTICAL_HEALTH_BAR.dispose();
+                NORMAL_FIRE_BALL.dispose();
+                MULTIATTACK_FIRE_BALL.dispose();
+                MAGIC_FIRE_BALL.dispose();
 
         }
 

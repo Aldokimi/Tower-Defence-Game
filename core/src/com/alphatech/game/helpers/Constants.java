@@ -17,20 +17,25 @@ public class Constants {
     public static final int UNIT_SPEED = 20;
     public static final int FULL_UNIT_HEALTH_POINTS = 1000;
 
+    // Towers
+    public static final String NORMAL_TOWER = "NormalTower";
+    public static final String MULTIATTACK_TOWER = "MultiAttackTower";
+    public static final String MAGIC_TOWER = "MagicTower";
+
     // Player
     public static final int TURN_TIME = 30;
     public static final int INIT_HEALTH = 1000;
-    public static final int INIT_GOLD_COUNT = 10000;
+    public static final int INIT_GOLD_COUNT = 25000;
 
     // Gaining gold
-    public static final int GOLDMINE_GAIN = 50;
+    public static final int GOLDMINE_GAIN = 100;
     public static final int TREASURE_CHEST = 500;
 
     // Spending gold
     public static final int BUILD_NORMAL_TOWER = 1000;
     public static final int BUILD_GOLDMINE = 3000;
     public static final int BUILD_MULTIATTACK_TOWER = 1300;
-    public static final int BUILD_CRAZY_TOWER = 1500;
+    public static final int BUILD_MAGIC_TOWER = 1500;
     public static final int TRAIN_NORMAL_SOLDIER = 500;
     public static final int TRAIN_CRAZY_SOLDIER = 800;
 
@@ -42,4 +47,7 @@ public class Constants {
         FORTH,
         CRAZY
     }
+
+    // Fire shooting
+    public static final float PROXIMITY_RANGE = PLACEHOLDER_SIZE;
 }

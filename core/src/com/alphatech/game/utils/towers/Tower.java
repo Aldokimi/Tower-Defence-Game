@@ -9,7 +9,7 @@ public class Tower {
     protected String parentName;
     protected ArrayList<Placeholder> placeholders;
     protected ArrayList<Placeholder> availablePlaces;
-    protected ArrayList<Placeholder> takenPlaces;
+    protected ArrayList<TowerSprite> takenPlaces;
 
     // For Testing
     public Tower(ArrayList<Placeholder> placeholders) {
@@ -35,20 +35,20 @@ public class Tower {
         this.placeholders = placeholders;
     }
 
-    public void setTakenPlaces(ArrayList<Placeholder> takenPlaces) {
+    public void setTakenPlaces(ArrayList<TowerSprite> takenPlaces) {
         this.takenPlaces = takenPlaces;
     }
 
     public ArrayList<Placeholder> getPlaceholders() {
-        return placeholders;
+        return this.placeholders;
     }
 
     public Texture getTowerTexture() {
-        return towerTexture;
+        return this.towerTexture;
     }
 
     public String getParentName() {
-        return parentName;
+        return this.parentName;
     }
 
     /**
@@ -87,17 +87,30 @@ public class Tower {
     /**
      * Measures/Checks the avaliability of building on the placeholders.
      * By checking the distance (~three squares), not taken placeholder(either by
-     * the
-     * player himself or the enemy)
+     * the  player himself or the enemy)
      */
     public void build() {
-        for (Placeholder currentPlace : takenPlaces) {
+        for (TowerSprite currentPlace : takenPlaces) {
             for (Placeholder newPlace : placeholders) {
-                if (canBuild(currentPlace, newPlace) && !takenPlaces.contains(newPlace)) {
+                if (canBuild(currentPlace.getPosition(), newPlace) && !contains(takenPlaces , newPlace)) {
                     availablePlaces.add(newPlace);
                 }
             }
         }
+    }
+
+    /**
+     * Check wheather a list contains a specific placeholder or not.
+     * 
+     * @param towers
+     * @param checkPlace
+     * @return wheather a list of towers contain the place holder or not.
+     */
+    private boolean contains(ArrayList<TowerSprite> towers, Placeholder checkPlace){
+        for (TowerSprite towerSprite : towers) {
+            if(towerSprite.getPosition().equals(checkPlace)) return true;
+        }
+        return false;
     }
 
     /**
@@ -121,8 +134,8 @@ public class Tower {
      *
      * @return occupied placeholders
      */
-    public ArrayList<Placeholder> getTakenPlaces() {
-        return this.takenPlaces;
+    public ArrayList<TowerSprite> getTakenPlaces() {
+        return takenPlaces;
     }
 
     /**
@@ -132,7 +145,7 @@ public class Tower {
      * @param placeholder
      */
     public void initializeCenterofMeasurement(Placeholder placeholder) {
-        this.takenPlaces.add(placeholder);
+        this.takenPlaces.add(new TowerSprite(placeholder, "NONE"));
     }
 
     /**
@@ -144,7 +157,7 @@ public class Tower {
      */
     public Placeholder getCenterofMeasurement() {
 
-        return this.takenPlaces.get(0);
+        return this.takenPlaces.get(0).getPosition();
 
     }
 
@@ -153,11 +166,11 @@ public class Tower {
      *
      * @param placeholder
      */
-    public void addTower(Placeholder placeholder) {
-        this.takenPlaces.add(placeholder);
+    public void addTower(Placeholder placeholder, String towerType) {
+        TowerSprite towerSprite = new TowerSprite(placeholder, towerType);
+        this.takenPlaces.add(towerSprite);
     }
 
-    protected void attack() {
-    }
+    protected void attack(java.awt.Point target) { }
 
 }

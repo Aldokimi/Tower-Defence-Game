@@ -421,6 +421,14 @@ public class UnitSettings {
 
     }
 
+    public void setTurnToRedMove(int turnToRedMove) {
+        this.turnToRedMove = turnToRedMove;
+    }
+
+    public void setTurnToBlueMove(int turnToBlueMove) {
+        this.turnToBlueMove = turnToBlueMove;
+    }
+
     /**
      * Render each player units to the gamescreen
      *
@@ -439,12 +447,10 @@ public class UnitSettings {
 
             // one by one in the path (bigger array means bigger gaps) -> more stranght for
             // the units
-            unit.moveInPath(turnToRedMove, 130);
-            if (turnToRedMove >= 140) {
-                turnToRedMove = 0;
-            } else {
-                turnToRedMove++;
-            }
+            unit.moveInPath(turnToRedMove, redPlayer.units.size() * 75, this, "RED");
+
+            turnToRedMove++;
+
             if (!unit.getMovedInPath())
                 continue;
 
@@ -462,9 +468,7 @@ public class UnitSettings {
 
                                     unit.setState("ATTACK");
                                     unit.attackCastle(bluePlayer, 10);
-                                    unit.setAnimation(attackingRedSoldier1Animation);//////// HERE should if-else for to
-                                                                                     //////// assign animation for diff
-                                                                                     //////// solidiers
+                                    unit.setAnimation(attackingRedSoldier1Animation);
                                 } else {
                                     if (isACornerOfPath1ForRed(unit, pathSettings, elapsedTime, batch)) {
                                         unit.setNextPathLevel(unit.getNextPathLevel() - 1);
@@ -527,9 +531,7 @@ public class UnitSettings {
 
                                     unit.setState("ATTACK");
                                     unit.attackCastle(bluePlayer, 10);
-                                    unit.setAnimation(attackingRedSoldier1Animation);//////// HERE should if-else for to
-                                                                                     //////// assign animation for diff
-                                                                                     //////// solidiers
+                                    unit.setAnimation(attackingRedSoldier1Animation);
 
                                 } else {
                                     if (isACornerOfPath3ForRed(unit, pathSettings, elapsedTime, batch)) {
@@ -557,9 +559,7 @@ public class UnitSettings {
 
                                     unit.setState("ATTACK");
                                     unit.attackCastle(bluePlayer, 10);
-                                    unit.setAnimation(attackingRedSoldier1Animation);//////// HERE should if-else for to
-                                                                                     //////// assign animation for diff
-                                                                                     //////// solidiers
+                                    unit.setAnimation(attackingRedSoldier1Animation);
 
                                 } else {
                                     if (isACornerOfPath4ForRed(unit, pathSettings, elapsedTime, batch)) {
@@ -629,14 +629,12 @@ public class UnitSettings {
         for (Unit unit : bluePlayer.units) {
             if (!unit.isAlive())
                 continue;
-            // one by one in the path (bigger array means bigger gaps) -> more stranght for
+            // one by one in the path
             // the units
-            unit.moveInPath(turnToBlueMove, 130);
-            if (turnToBlueMove >= 140) {
-                turnToBlueMove = 0;
-            } else {
-                turnToBlueMove++;
-            }
+            unit.moveInPath(turnToBlueMove, bluePlayer.units.size() * 75, this, "BLUE");
+
+            turnToBlueMove++;
+
             if (!unit.getMovedInPath())
                 continue;
             // current state
@@ -655,10 +653,7 @@ public class UnitSettings {
 
                                     unit.setState("ATTACK");
                                     unit.attackCastle(redPlayer, 10);
-                                    unit.setAnimation(attackingBlueSoldier1Animation);//////// HERE should if-else for
-                                                                                      //////// to
-                                                                                      //////// assign animation for diff
-                                                                                      //////// solidiers
+                                    unit.setAnimation(attackingBlueSoldier1Animation);
 
                                 } else {
                                     if (isACornerOfPath1ForBlue(unit, pathSettings, elapsedTime, batch)) {
@@ -683,10 +678,7 @@ public class UnitSettings {
 
                                     unit.setState("ATTACK");
                                     unit.attackCastle(redPlayer, 10);
-                                    unit.setAnimation(attackingBlueSoldier1Animation);//////// HERE should if-else for
-                                                                                      //////// to
-                                                                                      //////// assign animation for diff
-                                                                                      //////// solidiers
+                                    unit.setAnimation(attackingBlueSoldier1Animation);
 
                                 } else {
                                     if (isACornerOfPath2ForBlue(unit, pathSettings, elapsedTime, batch)) {
@@ -720,10 +712,7 @@ public class UnitSettings {
 
                                     unit.setState("ATTACK");
                                     unit.attackCastle(redPlayer, 10);
-                                    unit.setAnimation(attackingBlueSoldier1Animation);//////// HERE should if-else for
-                                                                                      //////// to
-                                                                                      //////// assign animation for diff
-                                                                                      //////// solidiers
+                                    unit.setAnimation(attackingBlueSoldier1Animation);
 
                                 } else {
 
@@ -753,10 +742,7 @@ public class UnitSettings {
 
                                     unit.setState("ATTACK");
                                     unit.attackCastle(redPlayer, 10);
-                                    unit.setAnimation(attackingBlueSoldier1Animation);//////// HERE should if-else for
-                                                                                      //////// to
-                                                                                      //////// assign animation for diff
-                                                                                      //////// solidiers
+                                    unit.setAnimation(attackingBlueSoldier1Animation);
 
                                 } else {
 

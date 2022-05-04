@@ -3,6 +3,7 @@ package com.alphatech.game.utils.towers;
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
 import com.alphatech.game.utils.Player;
+import com.alphatech.game.utils.units.Unit;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -36,7 +37,7 @@ public class TowerSettings {
     private BitmapFont prices;
     private int normalTowerPrice = Constants.BUILD_NORMAL_TOWER;
     private int multiAttackTowerPrice = Constants.BUILD_MULTIATTACK_TOWER;
-    private int crazyTowerPrice = Constants.BUILD_CRAZY_TOWER;
+    private int magicTowerPrice = Constants.BUILD_MAGIC_TOWER;
     private int goldMinePrice = Constants.BUILD_GOLDMINE;
     private int normalSoldierPrice = Constants.TRAIN_NORMAL_SOLDIER;
     private int crazySoldierPrice = Constants.TRAIN_CRAZY_SOLDIER;
@@ -208,6 +209,7 @@ public class TowerSettings {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 magicTowerHighlights = new Group();
+
                 buildTowers(bluePlayer, redPlayer, bluePlayer.magicTower, redPlayer.magicTower, gameScreenButtons,
                         magicTowerHighlights);
             }
@@ -297,9 +299,9 @@ public class TowerSettings {
         highlights.setName("highlight");
         if (!isHighlighted) {// Checking if the button has been clicked (double click gives the same state)
 
-            if (bluePlayer.getTurn()) {
+            if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(integerPrice(blueTower))) {
                 buildBlueTowers(bluePlayer, redPlayer, blueTower, highlights, gameScreenButtons);
-            } else {
+            } else if (redPlayer.getTurn() && redPlayer.hasEnoughGold(integerPrice(redTower))) {
                 buildRedTowers(bluePlayer, redPlayer, redTower, highlights, gameScreenButtons);
             }
             isHighlighted = true;
@@ -307,6 +309,24 @@ public class TowerSettings {
         } else {
             removeHighlight(gameScreenButtons);
         }
+    }
+
+    /**
+     * Gives the corresponding price of a specific tower
+     * 
+     * @param tower
+     * @return
+     */
+    private int integerPrice(Tower tower) {
+        int price;
+        if (tower instanceof NormalTower) {
+            price = Constants.BUILD_NORMAL_TOWER;
+        } else if (tower instanceof MagicTower) {
+            price = Constants.BUILD_MAGIC_TOWER;
+        } else {
+            price = Constants.BUILD_MULTIATTACK_TOWER;
+        }
+        return price;
     }
 
     /**
@@ -393,18 +413,19 @@ public class TowerSettings {
         btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                int price;
-                if (type instanceof NormalTower) {
-                    price = Constants.BUILD_NORMAL_TOWER;
-                } else {
-                    price = Constants.BUILD_MULTIATTACK_TOWER;
-                }
-                if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(price)) {
-                    if (!getPlaceholdersNearCastle(redPlayer).contains(placeholder)) {
-                        type.addTower(placeholder);
-                        bluePlayer.buildTower(type);
 
-                        type.addTower(placeholder);
+                // decide the type of the tower
+                String towerType = Constants.NORMAL_TOWER;
+                if (type instanceof MultiAttackTower) {
+                    towerType = Constants.MULTIATTACK_TOWER;
+                } else if (type instanceof MagicTower) {
+                    towerType = Constants.MAGIC_TOWER;
+                }
+
+                if (bluePlayer.getTurn()) {
+                    if (!getPlaceholdersNearCastle(redPlayer).contains(placeholder)) {
+                        type.addTower(placeholder, towerType);
+                        bluePlayer.buildTower(type);
 
                         placeholder.takePlace();
 
@@ -412,12 +433,10 @@ public class TowerSettings {
 
                         bluePlayerGoldCounter = bluePlayer.getGold();
                     }
-                } else if (redPlayer.getTurn() && redPlayer.hasEnoughGold(price)) {
+                } else if (redPlayer.getTurn()) {
                     if (!getPlaceholdersNearCastle(redPlayer).contains(placeholder)) {
-                        type.addTower(placeholder);
+                        type.addTower(placeholder, towerType);
                         redPlayer.buildTower(type);
-
-                        type.addTower(placeholder);
 
                         placeholder.takePlace();
 
@@ -590,7 +609,7 @@ public class TowerSettings {
         prices.setColor(Color.YELLOW);
         prices.draw(batch, String.valueOf(normalTowerPrice), 230, 22);
         prices.draw(batch, String.valueOf(multiAttackTowerPrice), 325, 22);
-        prices.draw(batch, String.valueOf(crazyTowerPrice), 424, 22);
+        prices.draw(batch, String.valueOf(magicTowerPrice), 424, 22);
         prices.draw(batch, String.valueOf(goldMinePrice), 520, 22);
         prices.draw(batch, String.valueOf(normalSoldierPrice), 617, 22);
         prices.draw(batch, String.valueOf(crazySoldierPrice), 714, 22);
@@ -639,7 +658,10 @@ public class TowerSettings {
      * 
      * @param batch
      */
-    public void renderTowers(SpriteBatch batch) {
+    public void renderTowers(SpriteBatch batch, Player redPlayer, Player bluePlayer) {
+        ArrayList<Unit> units = new ArrayList<>();
+        units.addAll(bluePlayer.units);
+        units.addAll(redPlayer.units);
         for (Tower tower : towers) {
             Sprite towerSprite = new Sprite(tower.getTowerTexture());
             for (int i = 1; i < tower.getTakenPlaces().size(); i++) {
@@ -647,22 +669,57 @@ public class TowerSettings {
                 if (tower.getTowerTexture() == Textures.RED_MAGIC_TOWER
                         || tower.getTowerTexture() == Textures.BLUE_MAGIC_TOWER) {
                     towerSprite.setPosition(
-                            (float) (tower.getTakenPlaces().get(i).getX() * 32 - 1),
-                            tower.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE);
+                            (float) (tower.getTakenPlaces().get(i).getPosition().getX() * 32 - 1),
+                            tower.getTakenPlaces().get(i).getPosition().getY() * Constants.PLACEHOLDER_SIZE);
                     towerSprite.setSize(35, 58);
                 } else {
                     towerSprite.setPosition(
-                            (float) (tower.getTakenPlaces().get(i).getX() * Constants.PLACEHOLDER_SIZE + 3
+                            (float) (tower.getTakenPlaces().get(i).getPosition().getX() * Constants.PLACEHOLDER_SIZE + 3
                                     - Constants.UNIT_SIZE.x * 0.30),
-                            tower.getTakenPlaces().get(i).getY() * Constants.PLACEHOLDER_SIZE - 2);
+                            tower.getTakenPlaces().get(i).getPosition().getY() * Constants.PLACEHOLDER_SIZE - 2);
                     towerSprite.setSize(61, 63);
                 }
                 towerSprite.draw(batch);
+
+                // calling the update method of the tower sprite (to attack)
+                if (!tower.getTakenPlaces().get(i).getTowerType().equals("NONE"))
+                    tower.getTakenPlaces().get(i).update(batch);
             }
 
         }
     }
 
+    /**
+     * Sets the target enemies for every tower sprite (the red tower attacks the
+     * blue units and the opposite is correct).
+     * 
+     * @param redPlayer
+     * @param bluePlayer
+     */
+    public void setEnemies(Player redPlayer, Player bluePlayer) {
+        ArrayList<Tower> redTowers = new ArrayList<>(
+                Arrays.asList(redPlayer.normalTower, redPlayer.multiAttackTower, redPlayer.magicTower));
+        ArrayList<Tower> blueTowers = new ArrayList<>(
+                Arrays.asList(bluePlayer.normalTower, bluePlayer.multiAttackTower, bluePlayer.magicTower));
+
+        for (Tower tower : redTowers) {
+            for (TowerSprite towerSprite : tower.getTakenPlaces()) {
+                towerSprite.setEnemies(bluePlayer.units);
+            }
+        }
+
+        for (Tower tower : blueTowers) {
+            for (TowerSprite towerSprite : tower.getTakenPlaces()) {
+                towerSprite.setEnemies(redPlayer.units);
+            }
+        }
+    }
+
+    /**
+     * Set a place holder to place a barrack on!
+     * 
+     * @param barrackPlaceholders
+     */
     public void setBarrackPlaceholders(ArrayList<Placeholder> barrackPlaceholders) {
         this.barrackPlaceholders = barrackPlaceholders;
     }
@@ -673,6 +730,13 @@ public class TowerSettings {
 
     public void setTowers(ArrayList<Tower> towers) {
         this.towers = towers;
+    }
+
+    public void hideFireBallesInCorner(SpriteBatch batch) {
+        Sprite sprite = new Sprite(Textures.GROUND);
+        sprite.setPosition(0, 0);
+        sprite.setSize(15, 15);
+        sprite.draw(batch);
     }
 
 }

@@ -1,12 +1,14 @@
 package com.alphatech.game.persistance;
 
 import com.alphatech.game.utils.paths.BarrackCorner;
+import com.alphatech.game.utils.towers.FireBall;
 import com.alphatech.game.utils.towers.GoldMine;
 import com.alphatech.game.utils.towers.MagicTower;
 import com.alphatech.game.utils.towers.MultiAttackTower;
 import com.alphatech.game.utils.towers.NormalTower;
 import com.alphatech.game.utils.towers.Placeholder;
 import com.alphatech.game.utils.towers.Tower;
+import com.alphatech.game.utils.towers.TowerSprite;
 import com.alphatech.game.utils.units.CrazySoldier;
 import com.alphatech.game.utils.units.NormalSoldier;
 import com.alphatech.game.utils.units.Unit;
@@ -21,6 +23,7 @@ import com.badlogic.gdx.Preferences;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class LoadGame {
     public LoadGame(GameScreen gameScreen) {
@@ -142,13 +145,13 @@ public class LoadGame {
                 tempBlueUnit.setState(prefs.getString("BunitsState_" + i, "IDLE"));
 
                 if (tempBlueUnit.getCurrentState().equals("WALK")) {
-                    tempBlueUnit.setAnimation(unitControl.walkingBlueSoldier1Animation);
+                    tempBlueUnit.setAnimation(unitControl.walkingBlueSoldier3Animation);
                 } else if (tempBlueUnit.getCurrentState().equals("ATTACK")) {
-                    tempBlueUnit.setAnimation(unitControl.attackingBlueSoldier1Animation);
+                    tempBlueUnit.setAnimation(unitControl.attackingBlueSoldier3Animation);
                 } else if (tempBlueUnit.getCurrentState().equals("DEAD")) {
-                    tempBlueUnit.setAnimation(unitControl.dyingBlueSoldier1Animation);
+                    tempBlueUnit.setAnimation(unitControl.dyingBlueSoldier3Animation);
                 } else {
-                    tempBlueUnit.setAnimation(unitControl.idleBlueSoldier1Animation);
+                    tempBlueUnit.setAnimation(unitControl.idleBlueSoldier3Animation);
                 }
 
             } else {// (tempUnitType.equals("Unit")) rare case
@@ -209,13 +212,24 @@ public class LoadGame {
         Tower tower;
 
         ArrayList<Tower> totalTowers = new ArrayList<>();
+        CopyOnWriteArrayList<Unit> totalTargets = new CopyOnWriteArrayList<>();
+        CopyOnWriteArrayList<FireBall> fireballs = new CopyOnWriteArrayList<>();
+        ArrayList<TowerSprite> takenPlaces;
 
         String towerName;
         String parentName;
 
         int takenPlacesArraySize;
+        int targetUnitsArraySize;
+        int fireBallArraySize;
 
-        ArrayList<Placeholder> takenPlaces;
+        Unit tempTargetUnit;
+        FireBall tempFireBall;
+        TowerSprite towerSprite;
+
+        String tempTargetUnitType;
+        Point2D.Float tempTargetUnitPosition;
+
         for (int i = 0; i < towersArraySize; i++) {
             // parent name
             parentName = prefs.getString("ParentName_" + i, "");
@@ -285,15 +299,127 @@ public class LoadGame {
             }
 
             // set center of measurement
-            tower.initializeCenterofMeasurement(towerPlaceholder);
-            // tower taken places
             takenPlaces = new ArrayList<>();
+
+            tower.initializeCenterofMeasurement(towerPlaceholder);
+
+            // tower taken places
             takenPlacesArraySize = prefs.getInteger("TowersTakenPlacesSize_" + i, 0);
             for (int j = 0; j < takenPlacesArraySize; j++) {
+                totalTargets.clear();
+                // tower position
                 towerPlaceholder = new Placeholder(prefs.getFloat(i + "towerTakenPlacesX_" + j, 0),
                         prefs.getFloat(i + "towerTakenPlacesY_" + j, 0));
                 towerPlaceholder.setIsFree(prefs.getBoolean(i + "towerTakenPlacesIsFree_" + j, false));
-                takenPlaces.add(towerPlaceholder);
+
+                towerSprite = new TowerSprite(towerPlaceholder,
+                        prefs.getString(i + "TowerSpriteType_" + j, "NormalTower"));
+
+                // target units
+                targetUnitsArraySize = prefs.getInteger(i + "TargetUnitsSize_" + j, 0);
+                for (int k = 0; k < targetUnitsArraySize; k++) {
+                    // Type
+                    tempTargetUnitType = prefs.getString(i + "" + j + "TargetUnitsType_" + k, "Unit");
+
+                    // Position
+                    tempTargetUnitPosition = new Point2D.Float(prefs.getFloat(i + "" + j + "TargetUnitsPosX_" + k, 0),
+                            prefs.getFloat(i + "" + j + "TargetUnitsPosY_" + k, 0));
+
+                    // Initializing the class
+                    // Setting current unit state
+                    if (tempTargetUnitType.equals("NormalSoldier")) {
+
+                        tempTargetUnit = new NormalSoldier(tempTargetUnitPosition);
+                        tempTargetUnit.setState(prefs.getString(i + "" + j + "TargetUnitsState_" + k, "IDLE"));
+                        tempTargetUnit.setColor(prefs.getString(i + "" + j + "TargetUnitsColor_" + k, ""));
+
+                        if (tempTargetUnit.getColor().equals("blue")) {
+                            if (tempTargetUnit.getCurrentState().equals("WALK")) {
+                                tempTargetUnit.setAnimation(unitControl.walkingBlueSoldier1Animation);
+                            } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
+                                tempTargetUnit.setAnimation(unitControl.attackingBlueSoldier1Animation);
+                            } else if (tempTargetUnit.getCurrentState().equals("DEAD")) {
+                                tempTargetUnit.setAnimation(unitControl.dyingBlueSoldier1Animation);
+                            } else {
+                                tempTargetUnit.setAnimation(unitControl.idleBlueSoldier1Animation);
+                            }
+                        } else {// red
+                            if (tempTargetUnit.getCurrentState().equals("WALK")) {
+                                tempTargetUnit.setAnimation(unitControl.walkingRedSoldier1Animation);
+                            } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
+                                tempTargetUnit.setAnimation(unitControl.attackingRedSoldier1Animation);
+                            } else if (tempTargetUnit.getCurrentState().equals("DEAD")) {
+                                tempTargetUnit.setAnimation(unitControl.dyingRedSoldier1Animation);
+                            } else {
+                                tempTargetUnit.setAnimation(unitControl.idleRedSoldier1Animation);
+                            }
+                        }
+                    } else if (tempTargetUnitType.equals("CrazySoldier")) {
+                        tempTargetUnit = new CrazySoldier(tempTargetUnitPosition);
+                        tempTargetUnit.setState(prefs.getString(i + "" + j + "TargetUnitsState_" + k, "IDLE"));
+                        tempTargetUnit.setColor(prefs.getString(i + "" + j + "TargetUnitsColor_" + k, ""));
+
+                        if (tempTargetUnit.getColor().equals("blue")) {
+                            if (tempTargetUnit.getCurrentState().equals("WALK")) {
+                                tempTargetUnit.setAnimation(unitControl.walkingBlueSoldier3Animation);
+                            } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
+                                tempTargetUnit.setAnimation(unitControl.attackingBlueSoldier3Animation);
+                            } else if (tempTargetUnit.getCurrentState().equals("DEAD")) {
+                                tempTargetUnit.setAnimation(unitControl.dyingBlueSoldier3Animation);
+                            } else {
+                                tempTargetUnit.setAnimation(unitControl.idleBlueSoldier3Animation);
+                            }
+                        } else {// red
+                            if (tempTargetUnit.getCurrentState().equals("WALK")) {
+                                tempTargetUnit.setAnimation(unitControl.walkingRedSoldier3Animation);
+                            } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
+                                tempTargetUnit.setAnimation(unitControl.attackingRedSoldier3Animation);
+                            } else if (tempTargetUnit.getCurrentState().equals("DEAD")) {
+                                tempTargetUnit.setAnimation(unitControl.dyingRedSoldier3Animation);
+                            } else {
+                                tempTargetUnit.setAnimation(unitControl.idleRedSoldier3Animation);
+                            }
+                        }
+
+                    } else {// (tempUnitType.equals("Unit")) rare case
+                        tempTargetUnit = new Unit(tempTargetUnitPosition);
+                    }
+                    tempTargetUnit.setFromBarrack(prefs.getBoolean(i + "" + j + "TargetUnitsFromBarrack_" + k, false));
+                    tempTargetUnit.setMovedInPath(prefs.getBoolean(i + "" + j + "TargetUnitsMovedInPath_" + k, false));
+                    tempTargetUnit.setIsXaxis(prefs.getBoolean(i + "" + j + "TargetUnitsIsXaxis_" + k, false));
+
+                    // Health
+                    tempTargetUnit.setHealth(prefs.getInteger(i + "" + j + "TargetUnitsHealth_" + k, 1000));
+
+                    // paths
+                    tempTargetUnit.setNextPathLevel(prefs.getInteger(i + "" + j + "TargetUnitsNextPathLevel_" + k, 1));
+                    tempTargetUnit
+                            .setPath(PathNum.valueOf(prefs.getString(i + "" + j + "TargetUnitsPath_" + k, "FIRST")));
+
+                    totalTargets.add(tempTargetUnit);
+                }
+
+                // Fireball
+                fireBallArraySize = prefs.getInteger(i + "FireballSize_" + j, 0);
+                fireballs = new CopyOnWriteArrayList<>();
+                for (int k = 0; k < fireBallArraySize; k++) {
+                    tempFireBall = new FireBall(new Point2D.Float(prefs.getFloat(i + "" + j + "FireballPosX_" + k),
+                            prefs.getFloat(i + "" + j + "FireballPosY_" + k)),
+                            new Point2D.Float(prefs.getFloat(i + "" + j + "FireballTargetPosX_" + k),
+                                    prefs.getFloat(i + "" + j + "FireballTargetPosY_" + k)),
+                            prefs.getFloat(i + "" + j + "FireballFireRate_" + k, 0),
+                            prefs.getString(i + "" + j + "FireballTowerType_" + k));
+
+                    fireballs.add(tempFireBall);
+                }
+                // setting targets
+                towerSprite.setTargets(totalTargets);
+                // setting fireballs
+                towerSprite.setFires(fireballs);
+                // setting update rate
+                towerSprite.setUpdateRate(prefs.getInteger(i + "UpdateRate_" + j, 0));
+
+                takenPlaces.add(towerSprite);
             }
             tower.setTakenPlaces(takenPlaces);
 
