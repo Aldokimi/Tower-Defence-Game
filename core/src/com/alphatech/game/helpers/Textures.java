@@ -177,7 +177,6 @@ public class Textures {
                 NORMAL_TOWER.dispose();
                 MULTI_ATTACK_TOWER.dispose();
                 MAGIC_TOWER.dispose();
-                FIRE_BALL.dispose();
 
                 RED_NORMAL_TOWER.dispose();
                 BLUE_NORMAL_TOWER.dispose();
@@ -194,6 +193,7 @@ public class Textures {
                 HEALTH_BAR.dispose();
                 CASTLE_HEALTH_BAR_FRAME.dispose();
                 VERTICAL_HEALTH_BAR.dispose();
+                
                 NORMAL_FIRE_BALL.dispose();
                 MULTIATTACK_FIRE_BALL.dispose();
                 MAGIC_FIRE_BALL.dispose();

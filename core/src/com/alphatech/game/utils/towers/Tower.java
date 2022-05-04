@@ -1,7 +1,5 @@
 package com.alphatech.game.utils.towers;
 
-import com.alphatech.game.helpers.Constants;
-import com.alphatech.game.helpers.Position;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
