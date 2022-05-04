@@ -75,8 +75,9 @@ public class PathSettings {
 
     // treasure chest place
     private Point2D.Float treasurePlace;
-    private float appearingTime = 0;
-    private float disapearingTime = 20;
+    private float appearingTime = Constants.INIT_APPEARING_TIME;
+    private float disapearingTime = Constants.INIT_DISAPPEARING_TIME;
+    private ArrayList<Point2D.Float> tPoints;
 
     public PathSettings() {
         // Paths
@@ -259,6 +260,16 @@ public class PathSettings {
             }
         });
         resetColorsOfPaths();
+
+
+        //treasure
+        tPoints = new ArrayList<>();
+        for (Map.Entry<Constants.PathNum, ArrayList<Point2D.Float>> entry : this.paths.entrySet()) {
+            for (int i = 1; i < entry.getValue().size(); i++) {
+                tPoints.add(entry.getValue().get(i));
+            }
+        }
+        System.out.println(tPoints.size());
         chooseRandomPlaceForTreasureChest();
     }
 
@@ -537,39 +548,29 @@ public class PathSettings {
     }
 
     private void chooseRandomPlaceForTreasureChest() {
-        ArrayList<Point2D.Float> tPoints = new ArrayList<>();
-        for (Map.Entry<Constants.PathNum, ArrayList<Point2D.Float>> entry : this.paths.entrySet()) {
-            for (int i = 1; i < entry.getValue().size(); i++) {
-                tPoints.add(entry.getValue().get(i));
-            }
-        }
-        this.treasurePlace = tPoints.get(new Random().nextInt(tPoints.size() - 1));
-        // Relocate the treasures on average
-        this.treasurePlace.x += 18;
-        this.treasurePlace.y += 5;
+        Point2D.Float newSpotForTreasure = tPoints.get(new Random().nextInt(tPoints.size() ));
+        this.treasurePlace = new Point2D.Float(newSpotForTreasure.x, newSpotForTreasure.y);
     }
 
     public void placeTreasureChests(SpriteBatch batch, float deltaTime) {
 
         Sprite sprite = new Sprite(Textures.TREASURE_CHEST);
 
-        if (appearingTime <= 10) {
-            if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
-                sprite.setPosition((float) treasurePlace.getX() - 5, (float) treasurePlace.getY() - 5);
-            } else {
-                sprite.setPosition((float) treasurePlace.getX() * Constants.PLACEHOLDER_SIZE,
-                        (float) treasurePlace.getY() * Constants.PLACEHOLDER_SIZE);
-            }
+        if (appearingTime <= Constants.MAX_APPEARING_TIME) {
+           // if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
+                sprite.setPosition((float) treasurePlace.getX()+15 , (float) treasurePlace.getY() );
+          //  } else {
+//                sprite.setPosition((float) treasurePlace.getX() * Constants.PLACEHOLDER_SIZE,
+//                        (float) treasurePlace.getY() * Constants.PLACEHOLDER_SIZE);
+          //  }
             sprite.setSize(30, 32);
             sprite.draw(batch);
             appearingTime += deltaTime;
-            // Gdx.app.log("Appearing time", "" + appearingTime);
-            // Gdx.app.log("Disappearing time", "" + (appearingTime <= 10));
-        } else {
+           } else {
             disapearingTime -= deltaTime;
             if (disapearingTime <= 0.0) {
                 appearingTime = 0;
-                disapearingTime = 20;
+                disapearingTime =Constants.INIT_DISAPPEARING_TIME;
                 chooseRandomPlaceForTreasureChest();
                 if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
                     sprite.setPosition((float) treasurePlace.getX() - 15,
@@ -582,4 +583,11 @@ public class PathSettings {
         }
 
     }
+
+    public Point2D.Float getTreasurePlace() {
+        return treasurePlace;
+    }
+
+    public void refreshTreasure(){appearingTime = Constants.MAX_APPEARING_TIME+1;}
+    public Boolean canTakeTreasure(){return  appearingTime <= Constants.MAX_APPEARING_TIME;}
 }

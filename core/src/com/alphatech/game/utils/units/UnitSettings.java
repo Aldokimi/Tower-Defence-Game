@@ -445,6 +445,14 @@ public class UnitSettings {
             if (!unit.isAlive())
                 continue;
 
+            // Check if the unit passes by treasure
+            if(pathSettings.canTakeTreasure()&&Point2D.distance(pathSettings.getTreasurePlace().x,pathSettings.getTreasurePlace().y,unit.getPosition().x,unit.getPosition().y)<5)
+            {
+                redPlayer.gainGold(Constants.TREASURE_CHEST);
+                pathSettings.refreshTreasure();
+            }
+
+
             // one by one in the path (bigger array means bigger gaps) -> more stranght for
             // the units
             unit.moveInPath(turnToRedMove, redPlayer.units.size() * 75, this, "RED");
@@ -629,7 +637,15 @@ public class UnitSettings {
         for (Unit unit : bluePlayer.units) {
             if (!unit.isAlive())
                 continue;
-            // one by one in the path
+
+
+
+            // one by one in the path (bigger array means bigger gaps) -> more stranght for
+            if(pathSettings.canTakeTreasure()&&Point2D.distance(pathSettings.getTreasurePlace().x,pathSettings.getTreasurePlace().y,unit.getPosition().x,unit.getPosition().y)<5)
+            {
+                bluePlayer.gainGold(Constants.TREASURE_CHEST);
+                pathSettings.refreshTreasure();
+            }
             // the units
             unit.moveInPath(turnToBlueMove, bluePlayer.units.size() * 75, this, "BLUE");
 
@@ -658,6 +674,7 @@ public class UnitSettings {
                                 } else {
                                     if (isACornerOfPath1ForBlue(unit, pathSettings, elapsedTime, batch)) {
                                         unit.setNextPathLevel(unit.getNextPathLevel() + 1);
+
 
                                     } else {
                                         isACornerOfPath1XY("BLUE", unit, pathSettings);

@@ -206,6 +206,9 @@ public class GameScreen implements Screen {
             switchTurn();
         }
 
+        // pleacing a treasure chest
+        pathSettings.placeTreasureChests(batch, Gdx.graphics.getDeltaTime());
+
         // rendering castles healthbars
         unitSettings.renderCastleHealthBar(bluePlayer, redPlayer, batch);
 
