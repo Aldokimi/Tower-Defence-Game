@@ -22,8 +22,8 @@ public class Textures {
         public static final Texture HIGHLIGHTED_PLACE_HOLDER = new Texture("GroundTiles/highlight.png");
         public static final Texture RED_HIGHLIGHTED_PLACE_HOLDER = new Texture("GroundTiles/redPlaceholder.png");
         public static final Texture ENDTURN_TEXT = new Texture("Texts/EndTurn.png");
-        public static final Texture OPTIONS = new Texture("Extras/options.png");
-        public static final Texture SAVE = new Texture("Extras/save.png");
+        public static final Texture OPTIONS = new Texture("GUI/options.png");
+        public static final Texture SAVE = new Texture("GUI/save.png");
         public static final Texture GROUND = new Texture("GroundTiles/GrassGround.png");
 
         // Timer Bar
@@ -69,20 +69,9 @@ public class Textures {
         public static final TextureAtlas SOLDIER3_ATTACKING_BLUE = new TextureAtlas(
                         Gdx.files.internal("Enemy3/Blue/Attacking/Soldier.atlas"));
 
-        // Dying Red Soldiers
-        public static final TextureAtlas SOLDIER1_DYING_RED = new TextureAtlas(
-                        Gdx.files.internal("Enemy1/Red/Dying/Soldier.atlas"));
-        public static final TextureAtlas SOLDIER3_DYING_RED = new TextureAtlas(
-                        Gdx.files.internal("Enemy3/Red/Dying/Soldier.atlas"));
-
-        // Dying Red Soldiers
-        public static final TextureAtlas SOLDIER1_DYING_BLUE = new TextureAtlas(
-                        Gdx.files.internal("Enemy1/Blue/Dying/Soldier.atlas"));
-        public static final TextureAtlas SOLDIER3_DYING_BLUE = new TextureAtlas(
-                        Gdx.files.internal("Enemy3/Blue/Dying/Soldier.atlas"));
         // Path Arrow
-        public static final Texture PathArrowB = new Texture("Extras/pathArrowB.png");
-        public static final Texture PathArrowR = new Texture("Extras/pathArrowR.png");
+        public static final Texture PathArrowB = new Texture("GUI/pathArrowB.png");
+        public static final Texture PathArrowR = new Texture("GUI/pathArrowR.png");
 
         // Towers Buttons
         public static final Texture NORMAL_TOWER = new Texture("Towers/NormalTower.png");
@@ -111,18 +100,18 @@ public class Textures {
         public static final Texture BLUE_GOLD_MINE = new Texture("Towers/Blue/GoldMine.png");
 
         // Heath-bar
-        public static final Texture HEALTH_BAR_FRAME = new Texture("Extras/healthbar_frame.png");
-        public static final Texture HEALTH_BAR = new Texture("Extras/health_bar.png");
-        public static final Texture CASTLE_HEALTH_BAR_FRAME = new Texture("Extras/Castle_Health_Frame.png");
-        public static final Texture VERTICAL_HEALTH_BAR = new Texture("Extras/health_bar_Vertical.png");
+        public static final Texture HEALTH_BAR_FRAME = new Texture("GUI/healthbar_frame.png");
+        public static final Texture HEALTH_BAR = new Texture("GUI/health_bar.png");
+        public static final Texture CASTLE_HEALTH_BAR_FRAME = new Texture("GUI/Castle_Health_Frame.png");
+        public static final Texture VERTICAL_HEALTH_BAR = new Texture("GUI/health_bar_Vertical.png");
 
         // Fire ball
-        public static final Texture NORMAL_FIRE_BALL = new Texture("Extras/fireBall.png");
-        public static final Texture MULTIATTACK_FIRE_BALL = new Texture("Extras/Rock 05.png");
-        public static final Texture MAGIC_FIRE_BALL = new Texture("Extras/heart.png");
+        public static final Texture NORMAL_FIRE_BALL = new Texture("GUI/fireBall.png");
+        public static final Texture MULTIATTACK_FIRE_BALL = new Texture("GUI/Rock 05.png");
+        public static final Texture MAGIC_FIRE_BALL = new Texture("GUI/heart.png");
 
         // Treasure Chest
-        public static final Texture TREASURE_CHEST = new Texture("Extras/treasureChest.png");
+        public static final Texture TREASURE_CHEST = new Texture("GUI/treasureChest.png");
 
         /**
          * Dispose the constants in the game screen
@@ -154,22 +143,18 @@ public class Textures {
                 SOLDIER1_IDLE_RED.dispose();
                 SOLDIER1_WALKING_RED.dispose();
                 SOLDIER1_ATTACKING_RED.dispose();
-                SOLDIER1_DYING_RED.dispose();
 
                 SOLDIER1_IDLE_BLUE.dispose();
                 SOLDIER1_WALKING_BLUE.dispose();
                 SOLDIER1_ATTACKING_BLUE.dispose();
-                SOLDIER1_DYING_BLUE.dispose();
 
                 SOLDIER3_IDLE_RED.dispose();
                 SOLDIER3_WALKING_RED.dispose();
                 SOLDIER3_ATTACKING_RED.dispose();
-                SOLDIER3_DYING_RED.dispose();
 
                 SOLDIER3_IDLE_BLUE.dispose();
                 SOLDIER3_WALKING_BLUE.dispose();
                 SOLDIER3_ATTACKING_BLUE.dispose();
-                SOLDIER3_DYING_BLUE.dispose();
 
                 RED_BARRACK.dispose();
                 BLUE_BARRACK.dispose();
@@ -193,7 +178,7 @@ public class Textures {
                 HEALTH_BAR.dispose();
                 CASTLE_HEALTH_BAR_FRAME.dispose();
                 VERTICAL_HEALTH_BAR.dispose();
-                
+
                 NORMAL_FIRE_BALL.dispose();
                 MULTIATTACK_FIRE_BALL.dispose();
                 MAGIC_FIRE_BALL.dispose();

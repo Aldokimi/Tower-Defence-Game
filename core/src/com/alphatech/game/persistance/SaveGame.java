@@ -268,8 +268,7 @@ public class SaveGame {
                 // Treasures
                 prefs.putFloat("TreasureChestsPosX", gameScreen.pathSettings.getTreasurePlace().x);
                 prefs.putFloat("TreasureChestsPosY", gameScreen.pathSettings.getTreasurePlace().y);
-                
-                
+
                 // save changes to storage
                 prefs.flush();
         }
