@@ -500,5 +500,9 @@ public class LoadGame {
             goldMines.add(tmpGoldMine);
         }
         gameScreen.towerSettings.setGoldMines(goldMines);
+
+        // Treasures
+        gameScreen.pathSettings.setTreasurePlace(
+                new Point2D.Float(prefs.getFloat("TreasureChestsPosX"), prefs.getFloat("TreasureChestsPosY")));
     }
 }

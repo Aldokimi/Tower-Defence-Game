@@ -261,10 +261,15 @@ public class SaveGame {
 
                 }
 
-                // goldmine counter
+                // Goldmine counter
                 prefs.putInteger("redPlayerGoldMines", gameScreen.redPlayer.getGoldMineCounter());
                 prefs.putInteger("bluePlayerGoldMines", gameScreen.bluePlayer.getGoldMineCounter());
 
+                // Treasures
+                prefs.putFloat("TreasureChestsPosX", gameScreen.pathSettings.getTreasurePlace().x);
+                prefs.putFloat("TreasureChestsPosY", gameScreen.pathSettings.getTreasurePlace().y);
+                
+                
                 // save changes to storage
                 prefs.flush();
         }
