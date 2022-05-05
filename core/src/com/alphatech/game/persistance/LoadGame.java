@@ -73,8 +73,6 @@ public class LoadGame {
                     tempRedUnit.setAnimation(unitControl.walkingRedSoldier1Animation);
                 } else if (tempRedUnit.getCurrentState().equals("ATTACK")) {
                     tempRedUnit.setAnimation(unitControl.attackingRedSoldier1Animation);
-                } else if (tempRedUnit.getCurrentState().equals("DEAD")) {
-                    tempRedUnit.setAnimation(unitControl.dyingRedSoldier1Animation);
                 } else {
                     tempRedUnit.setAnimation(unitControl.idleRedSoldier1Animation);
                 }
@@ -86,8 +84,6 @@ public class LoadGame {
                     tempRedUnit.setAnimation(unitControl.walkingRedSoldier3Animation);
                 } else if (tempRedUnit.getCurrentState().equals("ATTACK")) {
                     tempRedUnit.setAnimation(unitControl.attackingRedSoldier3Animation);
-                } else if (tempRedUnit.getCurrentState().equals("DEAD")) {
-                    tempRedUnit.setAnimation(unitControl.dyingRedSoldier3Animation);
                 } else {
                     tempRedUnit.setAnimation(unitControl.idleRedSoldier3Animation);
                 }
@@ -135,8 +131,6 @@ public class LoadGame {
                     tempBlueUnit.setAnimation(unitControl.walkingBlueSoldier1Animation);
                 } else if (tempBlueUnit.getCurrentState().equals("ATTACK")) {
                     tempBlueUnit.setAnimation(unitControl.attackingBlueSoldier1Animation);
-                } else if (tempBlueUnit.getCurrentState().equals("DEAD")) {
-                    tempBlueUnit.setAnimation(unitControl.dyingBlueSoldier1Animation);
                 } else {
                     tempBlueUnit.setAnimation(unitControl.idleBlueSoldier1Animation);
                 }
@@ -148,8 +142,6 @@ public class LoadGame {
                     tempBlueUnit.setAnimation(unitControl.walkingBlueSoldier3Animation);
                 } else if (tempBlueUnit.getCurrentState().equals("ATTACK")) {
                     tempBlueUnit.setAnimation(unitControl.attackingBlueSoldier3Animation);
-                } else if (tempBlueUnit.getCurrentState().equals("DEAD")) {
-                    tempBlueUnit.setAnimation(unitControl.dyingBlueSoldier3Animation);
                 } else {
                     tempBlueUnit.setAnimation(unitControl.idleBlueSoldier3Animation);
                 }
@@ -338,8 +330,6 @@ public class LoadGame {
                                 tempTargetUnit.setAnimation(unitControl.walkingBlueSoldier1Animation);
                             } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
                                 tempTargetUnit.setAnimation(unitControl.attackingBlueSoldier1Animation);
-                            } else if (tempTargetUnit.getCurrentState().equals("DEAD")) {
-                                tempTargetUnit.setAnimation(unitControl.dyingBlueSoldier1Animation);
                             } else {
                                 tempTargetUnit.setAnimation(unitControl.idleBlueSoldier1Animation);
                             }
@@ -348,8 +338,6 @@ public class LoadGame {
                                 tempTargetUnit.setAnimation(unitControl.walkingRedSoldier1Animation);
                             } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
                                 tempTargetUnit.setAnimation(unitControl.attackingRedSoldier1Animation);
-                            } else if (tempTargetUnit.getCurrentState().equals("DEAD")) {
-                                tempTargetUnit.setAnimation(unitControl.dyingRedSoldier1Animation);
                             } else {
                                 tempTargetUnit.setAnimation(unitControl.idleRedSoldier1Animation);
                             }
@@ -364,8 +352,6 @@ public class LoadGame {
                                 tempTargetUnit.setAnimation(unitControl.walkingBlueSoldier3Animation);
                             } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
                                 tempTargetUnit.setAnimation(unitControl.attackingBlueSoldier3Animation);
-                            } else if (tempTargetUnit.getCurrentState().equals("DEAD")) {
-                                tempTargetUnit.setAnimation(unitControl.dyingBlueSoldier3Animation);
                             } else {
                                 tempTargetUnit.setAnimation(unitControl.idleBlueSoldier3Animation);
                             }
@@ -374,8 +360,6 @@ public class LoadGame {
                                 tempTargetUnit.setAnimation(unitControl.walkingRedSoldier3Animation);
                             } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
                                 tempTargetUnit.setAnimation(unitControl.attackingRedSoldier3Animation);
-                            } else if (tempTargetUnit.getCurrentState().equals("DEAD")) {
-                                tempTargetUnit.setAnimation(unitControl.dyingRedSoldier3Animation);
                             } else {
                                 tempTargetUnit.setAnimation(unitControl.idleRedSoldier3Animation);
                             }
@@ -500,5 +484,9 @@ public class LoadGame {
             goldMines.add(tmpGoldMine);
         }
         gameScreen.towerSettings.setGoldMines(goldMines);
+
+        // Treasures
+        gameScreen.pathSettings.setTreasurePlace(
+                new Point2D.Float(prefs.getFloat("TreasureChestsPosX"), prefs.getFloat("TreasureChestsPosY")));
     }
 }

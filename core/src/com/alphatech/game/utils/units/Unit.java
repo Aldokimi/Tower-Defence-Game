@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 
 public class Unit {
     protected int speed;
-    protected String currentState; // current unit state {IDLE, WALK, ATTACK, DEAD}
+    protected String currentState; // current unit state {IDLE, WALK, ATTACK}
     protected Point2D.Float position;
     protected Animation<TextureRegion> animation;
     protected int nextPathLevel; // index of the next element in `paths` array
@@ -17,7 +17,6 @@ public class Unit {
     protected Constants.PathNum path;
     protected int health;
     protected boolean movedInPath;
-    protected int timeToDie;
     protected Boolean fromBarrack;
     protected String color; // Red, Blue
 
@@ -147,14 +146,6 @@ public class Unit {
             setting.setTurnToBlueMove(0);
         }
 
-    }
-
-    public int getTimeToDie() {
-        return timeToDie;
-    }
-
-    public void setTimeToDie(int timeToDie) {
-        this.timeToDie = timeToDie;
     }
 
     public Boolean isAlive() {

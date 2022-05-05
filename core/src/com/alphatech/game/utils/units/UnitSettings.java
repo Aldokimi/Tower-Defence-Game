@@ -21,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.ArrayList;
 import java.awt.geom.Point2D;
-import java.util.HashMap;
 
 public class UnitSettings {
 
@@ -41,22 +40,18 @@ public class UnitSettings {
     public Animation<TextureRegion> idleRedSoldier1Animation;
     public Animation<TextureRegion> walkingRedSoldier1Animation;
     public Animation<TextureRegion> attackingRedSoldier1Animation;
-    public Animation<TextureRegion> dyingRedSoldier1Animation;
 
     public Animation<TextureRegion> idleRedSoldier3Animation;
     public Animation<TextureRegion> walkingRedSoldier3Animation;
     public Animation<TextureRegion> attackingRedSoldier3Animation;
-    public Animation<TextureRegion> dyingRedSoldier3Animation;
 
     public Animation<TextureRegion> idleBlueSoldier1Animation;
     public Animation<TextureRegion> walkingBlueSoldier1Animation;
     public Animation<TextureRegion> attackingBlueSoldier1Animation;
-    public Animation<TextureRegion> dyingBlueSoldier1Animation;
 
     public Animation<TextureRegion> idleBlueSoldier3Animation;
     public Animation<TextureRegion> walkingBlueSoldier3Animation;
     public Animation<TextureRegion> attackingBlueSoldier3Animation;
-    public Animation<TextureRegion> dyingBlueSoldier3Animation;
 
     // Units counter
     private int unitCountSoldier1;
@@ -231,10 +226,7 @@ public class UnitSettings {
         attackingRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER1_ATTACKING_RED.findRegions("attack"),
                 PlayMode.LOOP);
-        dyingRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER1_DYING_RED.findRegions("die"),
-                PlayMode.LOOP);
-
+        
         idleRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER3_IDLE_RED.findRegions("idle"),
                 PlayMode.LOOP);
@@ -244,10 +236,7 @@ public class UnitSettings {
         attackingRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER3_ATTACKING_RED.findRegions("attack"),
                 PlayMode.LOOP);
-        dyingRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER3_DYING_RED.findRegions("die"),
-                PlayMode.LOOP);
-
+       
         idleBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER1_IDLE_BLUE.findRegions("idle"),
                 PlayMode.LOOP);
@@ -257,10 +246,7 @@ public class UnitSettings {
         attackingBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER1_ATTACKING_BLUE.findRegions("attack"),
                 PlayMode.LOOP);
-        dyingBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER1_DYING_BLUE.findRegions("die"),
-                PlayMode.LOOP);
-
+        
         idleBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER3_IDLE_BLUE.findRegions("idle"),
                 PlayMode.LOOP);
@@ -269,9 +255,6 @@ public class UnitSettings {
                 PlayMode.LOOP);
         attackingBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER3_ATTACKING_BLUE.findRegions("attack"),
-                PlayMode.LOOP);
-        dyingBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
-                Textures.SOLDIER3_DYING_BLUE.findRegions("die"),
                 PlayMode.LOOP);
     }
 
@@ -446,12 +429,11 @@ public class UnitSettings {
                 continue;
 
             // Check if the unit passes by treasure
-            if(pathSettings.canTakeTreasure()&&Point2D.distance(pathSettings.getTreasurePlace().x,pathSettings.getTreasurePlace().y,unit.getPosition().x,unit.getPosition().y)<5)
-            {
+            if (pathSettings.canTakeTreasure() && Point2D.distance(pathSettings.getTreasurePlace().x,
+                    pathSettings.getTreasurePlace().y, unit.getPosition().x, unit.getPosition().y) < 5) {
                 redPlayer.gainGold(Constants.TREASURE_CHEST);
                 pathSettings.refreshTreasure();
             }
-
 
             // one by one in the path (bigger array means bigger gaps) -> more stranght for
             // the units
@@ -638,11 +620,9 @@ public class UnitSettings {
             if (!unit.isAlive())
                 continue;
 
-
-
             // one by one in the path (bigger array means bigger gaps) -> more stranght for
-            if(pathSettings.canTakeTreasure()&&Point2D.distance(pathSettings.getTreasurePlace().x,pathSettings.getTreasurePlace().y,unit.getPosition().x,unit.getPosition().y)<5)
-            {
+            if (pathSettings.canTakeTreasure() && Point2D.distance(pathSettings.getTreasurePlace().x,
+                    pathSettings.getTreasurePlace().y, unit.getPosition().x, unit.getPosition().y) < 5) {
                 bluePlayer.gainGold(Constants.TREASURE_CHEST);
                 pathSettings.refreshTreasure();
             }
@@ -674,7 +654,6 @@ public class UnitSettings {
                                 } else {
                                     if (isACornerOfPath1ForBlue(unit, pathSettings, elapsedTime, batch)) {
                                         unit.setNextPathLevel(unit.getNextPathLevel() + 1);
-
 
                                     } else {
                                         isACornerOfPath1XY("BLUE", unit, pathSettings);

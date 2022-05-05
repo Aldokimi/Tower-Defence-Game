@@ -262,15 +262,13 @@ public class PathSettings {
         });
         resetColorsOfPaths();
 
-
-        //treasure
+        // treasure
         tPoints = new ArrayList<>();
         for (Map.Entry<Constants.PathNum, ArrayList<Point2D.Float>> entry : this.paths.entrySet()) {
             for (int i = 1; i < entry.getValue().size(); i++) {
                 tPoints.add(entry.getValue().get(i));
             }
         }
-        System.out.println(tPoints.size());
         chooseRandomPlaceForTreasureChest();
     }
 
@@ -548,11 +546,26 @@ public class PathSettings {
         }
     }
 
+    /**
+     * Place the trasure chest randomly on the map
+     */
     private void chooseRandomPlaceForTreasureChest() {
-        Point2D.Float newSpotForTreasure = tPoints.get(new Random().nextInt(tPoints.size() ));
+        Point2D.Float newSpotForTreasure = tPoints.get(new Random().nextInt(tPoints.size()));
         this.treasurePlace = new Point2D.Float(newSpotForTreasure.x, newSpotForTreasure.y);
     }
 
+    public void setTreasurePlace(Point2D.Float treasurePlace) {
+        this.treasurePlace = treasurePlace;
+    }
+
+    /**
+     * Place and render the treasures on the map
+     * 
+     * @param batch
+     * @param deltaTime
+     * @param redPlayer
+     * @param bluePlayer
+     */
     public void placeTreasureChests(SpriteBatch batch, float deltaTime, Player redPlayer, Player bluePlayer) {
 
         Sprite sprite = new Sprite(Textures.TREASURE_CHEST);
@@ -570,7 +583,7 @@ public class PathSettings {
             disapearingTime -= deltaTime;
             if (disapearingTime <= 0.0) {
                 appearingTime = 0;
-                disapearingTime =Constants.INIT_DISAPPEARING_TIME;
+                disapearingTime = Constants.INIT_DISAPPEARING_TIME;
                 chooseRandomPlaceForTreasureChest();
                 if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
                     sprite.setPosition((float) treasurePlace.getX() - 5, (float) treasurePlace.getY() - 5);
@@ -586,6 +599,19 @@ public class PathSettings {
         return treasurePlace;
     }
 
-    public void refreshTreasure(){appearingTime = Constants.MAX_APPEARING_TIME+1;}
-    public Boolean canTakeTreasure(){return  appearingTime <= Constants.MAX_APPEARING_TIME;}
+    /**
+     * time interval between treasures appearance
+     */
+    public void refreshTreasure() {
+        appearingTime = Constants.MAX_APPEARING_TIME + 1;
+    }
+
+    /**
+     * Check if the treasure is still avaliable for collecting
+     * 
+     * @return boolean
+     */
+    public Boolean canTakeTreasure() {
+        return appearingTime <= Constants.MAX_APPEARING_TIME;
+    }
 }
