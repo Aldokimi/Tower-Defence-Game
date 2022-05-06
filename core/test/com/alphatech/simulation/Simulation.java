@@ -1,15 +1,15 @@
 package com.alphatech.simulation;
 
-import com.alphatech.game.utils.Player;
-import com.alphatech.game.utils.towers.GoldMine;
-import com.alphatech.game.utils.towers.MagicTower;
-import com.alphatech.game.utils.towers.MultiAttackTower;
-import com.alphatech.game.utils.towers.NormalTower;
-import com.alphatech.game.utils.towers.Placeholder;
-import com.alphatech.game.utils.towers.TowerSprite;
-import com.alphatech.game.utils.units.CrazySoldier;
-import com.alphatech.game.utils.units.NormalSoldier;
 import com.alphatech.game.helpers.Constants;
+import com.alphatech.game.model.Player;
+import com.alphatech.game.model.towers.GoldMine;
+import com.alphatech.game.model.towers.MagicTower;
+import com.alphatech.game.model.towers.MultiAttackTower;
+import com.alphatech.game.model.towers.NormalTower;
+import com.alphatech.game.model.towers.Placeholder;
+import com.alphatech.game.model.towers.TowerSprite;
+import com.alphatech.game.model.units.CrazySoldier;
+import com.alphatech.game.model.units.NormalSoldier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

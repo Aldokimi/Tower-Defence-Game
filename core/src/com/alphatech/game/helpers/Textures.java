@@ -137,6 +137,7 @@ public class Textures {
                 OPTIONS.dispose();
                 SAVE.dispose();
                 GROUND.dispose();
+                GAMEOVER_PLAY_AGAIN_BUTTON.dispose();
 
                 SOLDIER1.dispose();
                 SOLDIER3.dispose();

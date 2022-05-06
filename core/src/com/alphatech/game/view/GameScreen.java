@@ -2,11 +2,11 @@ package com.alphatech.game.view;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
-import com.alphatech.game.persistance.SaveGame;
-import com.alphatech.game.utils.Player;
-import com.alphatech.game.utils.paths.PathSettings;
-import com.alphatech.game.utils.towers.*;
-import com.alphatech.game.utils.units.UnitSettings;
+import com.alphatech.game.model.Player;
+import com.alphatech.game.model.paths.PathSettings;
+import com.alphatech.game.model.persistance.SaveGame;
+import com.alphatech.game.model.towers.*;
+import com.alphatech.game.model.units.UnitSettings;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

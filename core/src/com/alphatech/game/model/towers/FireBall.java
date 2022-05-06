@@ -1,4 +1,4 @@
-package com.alphatech.game.utils.towers;
+package com.alphatech.game.model.towers;
 
 import com.alphatech.game.helpers.Constants;
 import java.awt.geom.Point2D;

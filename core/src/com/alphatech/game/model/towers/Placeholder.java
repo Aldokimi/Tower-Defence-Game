@@ -1,4 +1,4 @@
-package com.alphatech.game.utils.towers;
+package com.alphatech.game.model.towers;
 
 public class Placeholder {
     private float x;

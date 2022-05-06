@@ -1,4 +1,4 @@
-package com.alphatech.game.utils.units;
+package com.alphatech.game.model.units;
 
 import java.awt.geom.Point2D;
 

@@ -32,12 +32,12 @@ public class Constants {
     public static final int TREASURE_CHEST = 500;
 
     // Spending gold
-    public static final int BUILD_NORMAL_TOWER = 1000;
+    public static final int BUILD_NORMAL_TOWER = 1200;
     public static final int BUILD_GOLDMINE = 3000;
-    public static final int BUILD_MULTIATTACK_TOWER = 1300;
+    public static final int BUILD_MULTIATTACK_TOWER = 1800;
     public static final int BUILD_MAGIC_TOWER = 1500;
-    public static final int TRAIN_NORMAL_SOLDIER = 500;
-    public static final int TRAIN_CRAZY_SOLDIER = 800;
+    public static final int TRAIN_NORMAL_SOLDIER = 400;
+    public static final int TRAIN_CRAZY_SOLDIER = 700;
 
     // Paths
     public enum PathNum {
@@ -48,14 +48,12 @@ public class Constants {
         CRAZY
     }
 
-    // Fire shooting 
+    // Fire shooting
     public static final float PROXIMITY_RANGE = PLACEHOLDER_SIZE;
 
-
-    //Treasure timing
+    // Treasure timing
     public static final int INIT_APPEARING_TIME = 0;
-    public static final int MAX_APPEARING_TIME = 20;
+    public static final int MAX_APPEARING_TIME = 25;
     public static final int INIT_DISAPPEARING_TIME = 10;
-
 
 }

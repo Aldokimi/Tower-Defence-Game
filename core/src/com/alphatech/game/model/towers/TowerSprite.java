@@ -1,11 +1,13 @@
-package com.alphatech.game.utils.towers;
+package com.alphatech.game.model.towers;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.alphatech.game.helpers.Constants;
+import com.alphatech.game.model.units.Unit;
+
 import java.awt.geom.Point2D;
-import com.alphatech.game.utils.units.Unit;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -38,22 +40,22 @@ public class TowerSprite {
     private void setCredentials() {
         switch (this.towerType) {
             case Constants.NORMAL_TOWER:
-                this.healthToBeDecreased = 25;
-                this.fireRate = 2.2f;
+                this.healthToBeDecreased = 10;
+                this.fireRate = 2.0f;
                 this.multiAttack = false;
                 this.fireRange = 4.0;
                 break;
 
             case Constants.MULTIATTACK_TOWER:
-                this.healthToBeDecreased = 40;
-                this.fireRate = 2.0f;
+                this.healthToBeDecreased = 15;
+                this.fireRate = 1.8f;
                 this.multiAttack = true;
                 this.fireRange = 4.0;
                 break;
 
             case Constants.MAGIC_TOWER:
-                this.healthToBeDecreased = 25;
-                this.fireRate = 3.0f;
+                this.healthToBeDecreased = 10;
+                this.fireRate = 2.8f;
                 this.multiAttack = false;
                 this.fireRange = 5.0;
                 break;
@@ -127,13 +129,13 @@ public class TowerSprite {
     public void update(SpriteBatch batch) {
 
         // adding a new ball every 25 frame updates
-        for (int i = 0; i < this.targets.size() && (updateRate % 25 == 0); i++) {
+        for (int i = 0; i < this.targets.size() && (updateRate % 25 == 0) && updateRate != 0; i++) {
 
             Unit target = this.targets.get(i);
             Point2D.Float targetPosition = new Point2D.Float(target.getPosition().x,
                     target.getPosition().y);
 
-            if (inRange(targetPosition)) {
+            if (inRange(targetPosition) && target.getMovedInPath()) {
                 if (this.targets.size() != 0 && !this.multiAttack) {
                     this.targets = new CopyOnWriteArrayList<>();
                     this.targets.add(target);

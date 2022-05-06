@@ -1,7 +1,7 @@
-package com.alphatech.game.utils.units;
+package com.alphatech.game.model.units;
 
 import com.alphatech.game.helpers.Constants;
-import com.alphatech.game.utils.Player;
+import com.alphatech.game.model.Player;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -24,7 +24,7 @@ public class Unit {
         this.position = position;
         this.speed = Constants.UNIT_SPEED;
         this.currentState = "IDLE";
-        this.health = 1000; // Constants.FULL_UNIT_HEALTH_POINTS;
+        this.health = Constants.FULL_UNIT_HEALTH_POINTS; // Constants.FULL_UNIT_HEALTH_POINTS;
         this.movedInPath = false;
         this.fromBarrack = false;
         this.color = null;

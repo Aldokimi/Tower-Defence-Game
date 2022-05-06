@@ -1,4 +1,4 @@
-package com.alphatech.game.utils.towers;
+package com.alphatech.game.model.towers;
 
 import com.badlogic.gdx.graphics.Texture;
 

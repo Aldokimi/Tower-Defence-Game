@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.*;
 
-import com.alphatech.game.utils.towers.GoldMine;
-import com.alphatech.game.utils.towers.Placeholder;
+import com.alphatech.game.model.towers.GoldMine;
+import com.alphatech.game.model.towers.Placeholder;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

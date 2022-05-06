@@ -5,14 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.*;
-
-import com.alphatech.game.utils.Player;
-import com.alphatech.game.utils.towers.*;
-import com.alphatech.game.utils.units.CrazySoldier;
-import com.alphatech.game.utils.units.NormalSoldier;
-
 import java.awt.geom.Point2D;
 import com.alphatech.game.helpers.Constants;
+import com.alphatech.game.model.Player;
+import com.alphatech.game.model.towers.*;
+import com.alphatech.game.model.units.CrazySoldier;
+import com.alphatech.game.model.units.NormalSoldier;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

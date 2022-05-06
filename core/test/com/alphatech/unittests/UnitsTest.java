@@ -5,11 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.alphatech.game.utils.units.CrazySoldier;
-import com.alphatech.game.utils.units.NormalSoldier;
-import com.alphatech.game.utils.units.Unit;
-
 import java.awt.geom.Point2D;
+
+import com.alphatech.game.model.units.CrazySoldier;
+import com.alphatech.game.model.units.NormalSoldier;
+import com.alphatech.game.model.units.Unit;
 
 public class UnitsTest {
 

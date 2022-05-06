@@ -1,4 +1,4 @@
-package com.alphatech.game.persistance;
+package com.alphatech.game.model.persistance;
 
 import com.alphatech.game.view.GameScreen;
 import com.badlogic.gdx.Gdx;
