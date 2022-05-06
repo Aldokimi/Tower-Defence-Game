@@ -166,12 +166,12 @@ public class Player {
     }
 
     /**
-     * Check if the player has won
+     * Check if a player has lost the game or not
      * 
-     * @return true if he is still alive (health > 0)
+     * @return true if the player has lost the game
      */
-    public boolean hasWon() {
-        return this.health != 0;
+    public boolean hasLost(){
+        return this.health <= 0;
     }
 
     /**
