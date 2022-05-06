@@ -1,9 +1,9 @@
-package com.alphatech.game.utils.towers;
+package com.alphatech.game.model.towers;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
-import com.alphatech.game.utils.Player;
-import com.alphatech.game.utils.units.Unit;
+import com.alphatech.game.model.Player;
+import com.alphatech.game.model.units.Unit;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;

@@ -1,10 +1,10 @@
 package com.alphatech.unittests;
 
-import com.alphatech.game.utils.towers.Placeholder;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import com.alphatech.game.model.towers.Placeholder;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

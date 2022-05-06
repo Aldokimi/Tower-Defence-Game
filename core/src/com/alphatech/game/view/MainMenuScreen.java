@@ -2,7 +2,7 @@ package com.alphatech.game.view;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
-import com.alphatech.game.persistance.LoadGame;
+import com.alphatech.game.model.persistance.LoadGame;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

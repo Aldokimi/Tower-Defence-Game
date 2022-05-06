@@ -1,11 +1,11 @@
-package com.alphatech.game.utils.paths;
+package com.alphatech.game.model.paths;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Textures;
-import com.alphatech.game.utils.Player;
-import com.alphatech.game.utils.towers.Placeholder;
-import com.alphatech.game.utils.units.NormalSoldier;
-import com.alphatech.game.utils.units.Unit;
+import com.alphatech.game.model.Player;
+import com.alphatech.game.model.towers.Placeholder;
+import com.alphatech.game.model.units.NormalSoldier;
+import com.alphatech.game.model.units.Unit;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -569,7 +569,7 @@ public class PathSettings {
     public void placeTreasureChests(SpriteBatch batch, float deltaTime, Player redPlayer, Player bluePlayer) {
 
         Sprite sprite = new Sprite(Textures.TREASURE_CHEST);
-        if (appearingTime <= 10) {
+        if (appearingTime <= 20) {
             if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
                 sprite.setPosition((float) treasurePlace.getX() + 16, (float) treasurePlace.getY() + 5);
             } else {

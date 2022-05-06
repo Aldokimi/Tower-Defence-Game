@@ -1,4 +1,4 @@
-package com.alphatech.game.utils.paths;
+package com.alphatech.game.model.paths;
 
 import com.alphatech.game.helpers.Constants;
 

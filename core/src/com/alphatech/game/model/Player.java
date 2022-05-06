@@ -1,12 +1,12 @@
-package com.alphatech.game.utils;
+package com.alphatech.game.model;
 
 import java.util.ArrayList;
 
 import com.alphatech.game.helpers.Constants;
-import com.alphatech.game.utils.towers.*;
-import com.alphatech.game.utils.units.CrazySoldier;
-import com.alphatech.game.utils.units.NormalSoldier;
-import com.alphatech.game.utils.units.Unit;
+import com.alphatech.game.model.towers.*;
+import com.alphatech.game.model.units.CrazySoldier;
+import com.alphatech.game.model.units.NormalSoldier;
+import com.alphatech.game.model.units.Unit;
 
 public class Player {
 

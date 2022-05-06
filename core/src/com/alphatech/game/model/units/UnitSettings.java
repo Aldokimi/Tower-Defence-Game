@@ -1,11 +1,11 @@
-package com.alphatech.game.utils.units;
+package com.alphatech.game.model.units;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Constants.PathNum;
+import com.alphatech.game.model.Player;
+import com.alphatech.game.model.paths.PathSettings;
+import com.alphatech.game.model.towers.TowerSettings;
 import com.alphatech.game.helpers.Textures;
-import com.alphatech.game.utils.Player;
-import com.alphatech.game.utils.paths.PathSettings;
-import com.alphatech.game.utils.towers.TowerSettings;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

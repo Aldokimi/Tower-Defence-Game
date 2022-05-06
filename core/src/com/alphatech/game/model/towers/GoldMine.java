@@ -1,6 +1,6 @@
-package com.alphatech.game.utils.towers;
+package com.alphatech.game.model.towers;
 
-import com.alphatech.game.utils.Player;
+import com.alphatech.game.model.Player;
 import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 

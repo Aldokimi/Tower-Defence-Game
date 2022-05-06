@@ -1,15 +1,15 @@
 package com.alphatech.unittests;
 
-import com.alphatech.game.utils.towers.MultiAttackTower;
-import com.alphatech.game.utils.towers.NormalTower;
-import com.alphatech.game.utils.towers.Placeholder;
-import com.alphatech.game.utils.towers.Tower;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+
+import com.alphatech.game.model.towers.MultiAttackTower;
+import com.alphatech.game.model.towers.NormalTower;
+import com.alphatech.game.model.towers.Placeholder;
+import com.alphatech.game.model.towers.Tower;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
