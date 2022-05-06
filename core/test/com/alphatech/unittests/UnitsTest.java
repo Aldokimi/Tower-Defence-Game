@@ -1,12 +1,16 @@
 package com.alphatech.unittests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.awt.geom.Point2D;
 
+import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.model.units.CrazySoldier;
 import com.alphatech.game.model.units.NormalSoldier;
 import com.alphatech.game.model.units.Unit;
@@ -59,6 +63,26 @@ public class UnitsTest {
         crazy.setSpeed(200);
         assertEquals(100, normal.getSpeed());
         assertEquals(200, crazy.getSpeed());
+    }
+
+    @Test
+    @DisplayName("Check soldier health")
+    void testHealth() {
+        assertEquals(Constants.FULL_UNIT_HEALTH_POINTS, soldier.getHealth());
+        assertEquals(Constants.FULL_UNIT_HEALTH_POINTS, normal.getHealth());
+        assertEquals(Constants.FULL_UNIT_HEALTH_POINTS, crazy.getHealth());
+
+        assertTrue(soldier.isAlive());
+        assertTrue(normal.isAlive());
+        assertTrue(crazy.isAlive());
+
+        soldier.setHealth(0);
+        normal.setHealth(0);
+        crazy.setHealth(0);
+
+        assertFalse(soldier.isAlive());
+        assertFalse(normal.isAlive());
+        assertFalse(crazy.isAlive());
     }
 
 }

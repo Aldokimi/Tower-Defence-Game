@@ -79,7 +79,7 @@ public class Tower {
     /**
      * Measures/Checks the avaliability of building on the placeholders.
      * By checking the distance (~three squares), not taken placeholder(either by
-     * the  player himself or the enemy)
+     * the player himself or the enemy)
      */
     public void build() {
         for (TowerSprite currentPlace : takenPlaces) {
@@ -100,7 +100,8 @@ public class Tower {
      */
     private boolean contains(ArrayList<TowerSprite> towers, Placeholder checkPlace) {
         for (TowerSprite towerSprite : towers) {
-            if (towerSprite.getPosition().equals(checkPlace)) return true;
+            if (towerSprite.getPosition().equals(checkPlace))
+                return true;
         }
         return false;
     }
@@ -169,9 +170,6 @@ public class Tower {
     public void addTower(Placeholder placeholder, String towerType) {
         TowerSprite towerSprite = new TowerSprite(placeholder, towerType);
         this.takenPlaces.add(towerSprite);
-    }
-
-    protected void attack(java.awt.Point target) {
     }
 
 }

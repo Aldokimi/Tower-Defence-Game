@@ -23,7 +23,6 @@ public class Constants {
     public static final String MAGIC_TOWER = "MagicTower";
 
     // Player
-    public static final int TURN_TIME = 30;
     public static final int INIT_HEALTH = 1000;
     public static final int INIT_GOLD_COUNT = 25000;
 
