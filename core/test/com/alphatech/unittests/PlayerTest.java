@@ -120,7 +120,7 @@ public class PlayerTest {
     void lose() {
 
         player.setHealth(0);
-        assertFalse(player.hasWon());
+        assertTrue(player.hasLost());
     }
 
     @Test
@@ -128,7 +128,7 @@ public class PlayerTest {
     void win() {
 
         player.setHealth(100);
-        assertTrue(player.hasWon());
+        assertFalse(player.hasLost());
     }
 
     @Test

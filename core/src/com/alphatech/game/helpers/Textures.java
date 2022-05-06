@@ -12,10 +12,11 @@ public class Textures {
         public static final Texture MAIN_MENU_INSTRUCTIONS_TEXT = new Texture("Texts/Instructions.png");
         public static final Texture MAIN_MENU_EXIT_TEXT = new Texture("Texts/ExitGame.png");
 
-        // Instructions Screen Buttons
+        // Instructions/GameOver Screen Buttons
         public static final Texture INSTRUCTIONS_START_BUTTON = new Texture("Texts/play.png");
         public static final Texture INSTRUCTIONS_EXIT_BUTTON = new Texture("Texts/exit.png");
         public static final Texture INSTRUCTIONS_MAIN_MENU_BUTTON = new Texture("Texts/home.png");
+        public static final Texture GAMEOVER_PLAY_AGAIN_BUTTON = new Texture("Texts/replay.png");
 
         // Map
         public static final Texture PLACE_HOLDER = new Texture("GroundTiles/BuildGround.png");

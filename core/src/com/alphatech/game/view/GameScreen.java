@@ -253,6 +253,13 @@ public class GameScreen implements Screen {
         unitSettings.renderTempUnits(bluePlayer, elapsedTime, batch);
 
         batch.end();
+
+        if(bluePlayer.hasLost()){
+            ((Game) Gdx.app.getApplicationListener()).setScreen(new GameOverScreen("redPlayer"));
+        }
+        if(redPlayer.hasLost()){
+            ((Game) Gdx.app.getApplicationListener()).setScreen(new GameOverScreen("bluePlayer"));
+        }
     }
 
     /**
