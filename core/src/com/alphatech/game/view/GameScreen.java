@@ -101,8 +101,8 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(gameScreenButtons);
 
         // Sounds
-        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("Sounds/backgroundMusic.mp3"));
-        backgroundMusic.setVolume(0.2f);
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("Sounds/goodEnding.mp3"));
+        backgroundMusic.setVolume(0.4f);
         backgroundMusic.setLooping(true);
         backgroundMusic.play();
         turnSound = Gdx.audio.newSound(Gdx.files.internal("Sounds/endTurn.mp3"));
