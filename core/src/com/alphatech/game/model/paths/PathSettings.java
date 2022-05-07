@@ -7,6 +7,7 @@ import com.alphatech.game.model.towers.Placeholder;
 import com.alphatech.game.model.units.NormalSoldier;
 import com.alphatech.game.model.units.Unit;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -90,21 +91,9 @@ public class PathSettings {
         PathArrowBlue1Region = new TextureRegion(Textures.PathArrowB);
         PathArrowBlue1RegionDraw = new TextureRegionDrawable(PathArrowBlue1Region);
         PathArrowBlue1 = new ImageButton(PathArrowBlue1RegionDraw);
-        PathArrowBlue1.setPosition(137, 712);
-        PathArrowBlue1.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (isPathChosen && chosenPath == Constants.PathNum.FIRST) {
-                    resetColorsOfPaths();
-                    isPathChosen = false;
-                    chosenPath = null;
-                } else {
-                    chosenPath = Constants.PathNum.FIRST;
-                    isPathChosen = true;
-                    colorPath1();
-                }
-            }
-        });
+        setArrowSettings(PathArrowBlue1,137,712,Constants.PathNum.FIRST);
+
+
 
         PathArrowBlue2Region = new TextureRegion(Textures.PathArrowB);
         PathArrowBlue2RegionDraw = new TextureRegionDrawable(PathArrowBlue2Region);
@@ -610,4 +599,41 @@ public class PathSettings {
     public Boolean canTakeTreasure() {
         return appearingTime <= Constants.MAX_APPEARING_TIME;
     }
+
+    private void setArrowSettings( ImageButton btn, float x, float y, Constants.PathNum path)
+    {
+        btn.setPosition(x, y);
+        btn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (isPathChosen && chosenPath == path) {
+                    resetColorsOfPaths();
+                    isPathChosen = false;
+                    chosenPath = null;
+                } else {
+                    chosenPath = path;
+                    isPathChosen = true;
+                    switch (path){
+
+                        case FIRST:
+                            colorPath1();
+                            break;
+
+                        case SECOND:
+                            colorPath2();
+                            break;
+                        case THIRD:
+                            colorPath3();
+                            break;
+                        case FORTH:
+                            colorPath4();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
 }

@@ -10,6 +10,8 @@ import com.alphatech.game.model.units.UnitSettings;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -47,6 +49,16 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;
     private MainMenuScreen menuScreen;
     private Stage gameScreenButtons;
+
+    // Sounds
+    private Music backgroundMusic ;
+    private Sound turnSound;
+
+
+    // Players
+    public Player redPlayer;
+    public Player bluePlayer;
+
     // Timer bar
     private ProgressBar timerBar;
     private ProgressBarStyle timerBarStyle;
@@ -86,6 +98,15 @@ public class GameScreen implements Screen {
 
         // Stage should control input.
         Gdx.input.setInputProcessor(gameScreenButtons);
+
+        //Sounds
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("Sounds/backgroundMusic.mp3"));
+        backgroundMusic.setVolume(0.2f);
+        backgroundMusic.setLooping(true);
+        backgroundMusic.play();
+        turnSound =  Gdx.audio.newSound(Gdx.files.internal("Sounds/endTurn.mp3"));
+
+
 
         // Paths init
         pathSettings = new PathSettings();
@@ -148,6 +169,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ((Game) Gdx.app.getApplicationListener()).setScreen(menuScreen);
+                backgroundMusic.pause();
             }
         });
 
@@ -204,7 +226,7 @@ public class GameScreen implements Screen {
         unitSettings.renderCastleHealthBar(bluePlayer, redPlayer, batch);
 
         // Rendering unit counter
-        unitSettings.renderUnitCounter(batch);
+        unitSettings.renderUnitCounterAndNames(batch);
 
         elapsedTime += Gdx.graphics.getDeltaTime();// Time span between the current frame and the last frame in seconds.
         gameScreenButtons.act(Gdx.graphics.getDeltaTime()); // Perform ui logic
@@ -289,6 +311,7 @@ public class GameScreen implements Screen {
      * switching the turn among the two players.
      */
     public void switchTurn() {
+        turnSound.play();
         // Resetting the timer
         width = Constants.TIMER_CAPACITY;
 
