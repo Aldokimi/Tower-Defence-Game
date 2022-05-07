@@ -7,7 +7,6 @@ import com.alphatech.game.model.towers.Placeholder;
 import com.alphatech.game.model.units.NormalSoldier;
 import com.alphatech.game.model.units.Unit;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -91,160 +90,44 @@ public class PathSettings {
         PathArrowBlue1Region = new TextureRegion(Textures.PathArrowB);
         PathArrowBlue1RegionDraw = new TextureRegionDrawable(PathArrowBlue1Region);
         PathArrowBlue1 = new ImageButton(PathArrowBlue1RegionDraw);
-        setArrowSettings(PathArrowBlue1,137,712,Constants.PathNum.FIRST);
-
-
+        setArrowSettings(PathArrowBlue1, 137, 712, 0, Constants.PathNum.FIRST);
 
         PathArrowBlue2Region = new TextureRegion(Textures.PathArrowB);
         PathArrowBlue2RegionDraw = new TextureRegionDrawable(PathArrowBlue2Region);
         PathArrowBlue2 = new ImageButton(PathArrowBlue2RegionDraw);
-        PathArrowBlue2.setPosition(137, 647);
-        PathArrowBlue2.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (isPathChosen && chosenPath == Constants.PathNum.SECOND) {
-                    resetColorsOfPaths();
-                    isPathChosen = false;
-                    chosenPath = null;
-                } else {
-                    chosenPath = Constants.PathNum.SECOND;
-                    isPathChosen = true;
-                    colorPath2();
-                }
-            }
-        });
+        setArrowSettings(PathArrowBlue2, 137, 647, 0, Constants.PathNum.SECOND);
 
         PathArrowBlue3Region = new TextureRegion(Textures.PathArrowB);
         PathArrowBlue3RegionDraw = new TextureRegionDrawable(PathArrowBlue3Region);
         PathArrowBlue3 = new ImageButton(PathArrowBlue3RegionDraw);
-        PathArrowBlue3.setPosition(105, 618);
-        PathArrowBlue3.setTransform(true);
-        PathArrowBlue3.setRotation(270f);
-        PathArrowBlue3.setColor(255, 50, 40, 100);
-        PathArrowBlue3.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (isPathChosen && chosenPath == Constants.PathNum.THIRD) {
-                    resetColorsOfPaths();
-                    isPathChosen = false;
-                    chosenPath = null;
-                } else {
-                    chosenPath = Constants.PathNum.THIRD;
-                    isPathChosen = true;
-                    colorPath3();
-                }
-
-            }
-        });
+        setArrowSettings(PathArrowBlue3, 105, 618, 270f, Constants.PathNum.THIRD);
 
         PathArrowBlue4Region = new TextureRegion(Textures.PathArrowB);
         PathArrowBlue4RegionDraw = new TextureRegionDrawable(PathArrowBlue4Region);
         PathArrowBlue4 = new ImageButton(PathArrowBlue4RegionDraw);
-        PathArrowBlue4.setPosition(40, 618);
-        PathArrowBlue4.setTransform(true);
-        PathArrowBlue4.setRotation(270f);
-        PathArrowBlue4.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (isPathChosen && chosenPath == Constants.PathNum.FORTH) {
-                    resetColorsOfPaths();
-                    isPathChosen = false;
-                    chosenPath = null;
-                } else {
-                    chosenPath = Constants.PathNum.FORTH;
-                    isPathChosen = true;
-                    colorPath4();
-                }
-
-            }
-        });
+        setArrowSettings(PathArrowBlue4, 40, 618, 270f, Constants.PathNum.FORTH);
 
         // Near red Castle
         PathArrowRed1Region = new TextureRegion(Textures.PathArrowR);
         PathArrowRed1RegionDraw = new TextureRegionDrawable(PathArrowRed1Region);
         PathArrowRed1 = new ImageButton(PathArrowRed1RegionDraw);
-        PathArrowRed1.setPosition(919, 266);
-        PathArrowRed1.setTransform(true);
-        PathArrowRed1.setRotation(90);
-        PathArrowRed1.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (isPathChosen && chosenPath == Constants.PathNum.FIRST) {
-                    resetColorsOfPaths();
-                    isPathChosen = false;
-                    chosenPath = null;
-                } else {
-                    chosenPath = Constants.PathNum.FIRST;
-                    isPathChosen = true;
-                    colorPath1();
-                }
-
-            }
-        });
+        setArrowSettings(PathArrowRed1, 919, 266, 90f, Constants.PathNum.FIRST);
 
         PathArrowRed2Region = new TextureRegion(Textures.PathArrowR);
         PathArrowRed2RegionDraw = new TextureRegionDrawable(PathArrowRed2Region);
         PathArrowRed2 = new ImageButton(PathArrowRed2RegionDraw);
-        PathArrowRed2.setPosition(855, 266);
-        PathArrowRed2.setTransform(true);
-        PathArrowRed2.setRotation(90);
-        PathArrowRed2.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (isPathChosen && chosenPath == Constants.PathNum.SECOND) {
-                    resetColorsOfPaths();
-                    isPathChosen = false;
-                    chosenPath = null;
-                } else {
-                    chosenPath = Constants.PathNum.SECOND;
-                    isPathChosen = true;
-                    colorPath2();
-                }
-            }
-        });
+        setArrowSettings(PathArrowRed2, 855, 266, 90f, Constants.PathNum.SECOND);
 
         PathArrowRed3Region = new TextureRegion(Textures.PathArrowR);
         PathArrowRed3RegionDraw = new TextureRegionDrawable(PathArrowRed3Region);
         PathArrowRed3 = new ImageButton(PathArrowRed3RegionDraw);
-        PathArrowRed3.setPosition(819, 249);
-        PathArrowRed3.setTransform(true);
-        PathArrowRed3.setRotation(180);
-        PathArrowRed3.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (isPathChosen && chosenPath == Constants.PathNum.THIRD) {
-                    resetColorsOfPaths();
-                    isPathChosen = false;
-                    chosenPath = null;
-                } else {
-                    chosenPath = Constants.PathNum.THIRD;
-                    isPathChosen = true;
-                    colorPath3();
-                }
-
-            }
-        });
+        setArrowSettings(PathArrowRed3, 819, 249, 180, Constants.PathNum.THIRD);
 
         PathArrowRed4Region = new TextureRegion(Textures.PathArrowR);
         PathArrowRed4RegionDraw = new TextureRegionDrawable(PathArrowRed4Region);
         PathArrowRed4 = new ImageButton(PathArrowRed4RegionDraw);
-        PathArrowRed4.setPosition(819, 183);
-        PathArrowRed4.setTransform(true);
-        PathArrowRed4.setRotation(180);
-        PathArrowRed4.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (isPathChosen && chosenPath == Constants.PathNum.FORTH) {
-                    resetColorsOfPaths();
-                    isPathChosen = false;
-                    chosenPath = null;
-                } else {
-                    chosenPath = Constants.PathNum.FORTH;
-                    isPathChosen = true;
-                    colorPath4();
-                }
-            }
-        });
+        setArrowSettings(PathArrowRed4, 819, 183, 180, Constants.PathNum.FORTH);
+
         resetColorsOfPaths();
 
         // treasure
@@ -600,9 +483,10 @@ public class PathSettings {
         return appearingTime <= Constants.MAX_APPEARING_TIME;
     }
 
-    private void setArrowSettings( ImageButton btn, float x, float y, Constants.PathNum path)
-    {
+    private void setArrowSettings(ImageButton btn, float x, float y, float rotation, Constants.PathNum path) {
         btn.setPosition(x, y);
+        btn.setTransform(true);
+        btn.setRotation(rotation);
         btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -613,7 +497,7 @@ public class PathSettings {
                 } else {
                     chosenPath = path;
                     isPathChosen = true;
-                    switch (path){
+                    switch (path) {
 
                         case FIRST:
                             colorPath1();

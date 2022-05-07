@@ -37,10 +37,13 @@ public class GameScreen implements Screen {
     // Players
     private Player redPlayer;
     private Player bluePlayer;
+
     // Towers
     private TowerSettings towerSettings;
+
     // Paths
     private PathSettings pathSettings;
+
     // Map & Camera
     private TiledMap map;
     private Viewport viewport;
@@ -51,25 +54,23 @@ public class GameScreen implements Screen {
     private Stage gameScreenButtons;
 
     // Sounds
-    private Music backgroundMusic ;
+    private Music backgroundMusic;
     private Sound turnSound;
-
-
-    // Players
-    public Player redPlayer;
-    public Player bluePlayer;
 
     // Timer bar
     private ProgressBar timerBar;
     private ProgressBarStyle timerBarStyle;
     private float elapsedTime = 0;// Time span between the current frame and the last frame in seconds.
     private float width = 174f;
+
     // Units
     private UnitSettings unitSettings;
+
     // Turn Control
     private TextureRegion endTurnRegion;
     private TextureRegionDrawable endTurnRegionDraw;
     private ImageButton endTurn;
+
     // Options and Save
     private TextureRegion optionsRegion;
     private TextureRegionDrawable optionsRegionDraw;
@@ -99,14 +100,12 @@ public class GameScreen implements Screen {
         // Stage should control input.
         Gdx.input.setInputProcessor(gameScreenButtons);
 
-        //Sounds
+        // Sounds
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("Sounds/backgroundMusic.mp3"));
         backgroundMusic.setVolume(0.2f);
         backgroundMusic.setLooping(true);
         backgroundMusic.play();
-        turnSound =  Gdx.audio.newSound(Gdx.files.internal("Sounds/endTurn.mp3"));
-
-
+        turnSound = Gdx.audio.newSound(Gdx.files.internal("Sounds/endTurn.mp3"));
 
         // Paths init
         pathSettings = new PathSettings();
@@ -311,7 +310,7 @@ public class GameScreen implements Screen {
      * switching the turn among the two players.
      */
     public void switchTurn() {
-        turnSound.play();
+        turnSound.play(0.2f);
         // Resetting the timer
         width = Constants.TIMER_CAPACITY;
 

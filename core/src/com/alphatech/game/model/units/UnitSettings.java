@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,6 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class UnitSettings {
     private Animation<TextureRegion> idleBlueSoldier3Animation;
     private Animation<TextureRegion> walkingBlueSoldier3Animation;
     private Animation<TextureRegion> attackingBlueSoldier3Animation;
+
     // Units
     private ArrayList<Unit> TempUnits;// to Store units before adding them to the user units
     private TextureRegion sold1region;
@@ -48,6 +52,7 @@ public class UnitSettings {
     private Point2D.Float unitsPosition;
     private int turnToBlueMove;
     private int turnToRedMove;
+
     // Units counter
     private int unitCountSoldier1;
     private int unitCountSoldier3;
@@ -57,10 +62,15 @@ public class UnitSettings {
     private TextureRegionDrawable CastleHealthBarFrameB;
     private TextureRegionDrawable CastleHealthBarFrameR;
 
+    // Players
     private ProgressBarStyle healthBarBStyle;
     private ProgressBarStyle healthBarRStyle;
+    private BitmapFont names;
 
-    // saving purposed
+    // Sounds
+    private Sound treasureSound;
+
+    // saving purpose
     public UnitSettings() {
         initializeAnimations();
     }
@@ -69,6 +79,12 @@ public class UnitSettings {
             final PathSettings pathSettings) {
         // Unit counter
         unitCounter = new BitmapFont();
+
+        // player names
+        names = new BitmapFont();
+
+        // Sounds
+        treasureSound = Gdx.audio.newSound(Gdx.files.internal("Sounds/treasure.mp3"));
 
         // fill nearest corners array
         pathSettings.fillClosestCorners(towerSettings.getBarrackPlaceholders());
@@ -341,10 +357,14 @@ public class UnitSettings {
      *
      * @param batch
      */
-    public void renderUnitCounter(SpriteBatch batch) {
+    public void renderUnitCounterAndNames(SpriteBatch batch) {
         unitCounter.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         unitCounter.draw(batch, String.valueOf(unitCountSoldier1), 638, 129);// -- Soldier 1
         unitCounter.draw(batch, String.valueOf(unitCountSoldier3), 734, 129);// -- Soldier 3
+
+        names.setColor(Color.ORANGE);
+        names.draw(batch, "Red Player", 688, 867);
+        names.draw(batch, "Blue Player", 209, 867);
     }
 
     /**
@@ -476,6 +496,7 @@ public class UnitSettings {
                     pathSettings.getTreasurePlace().y, unit.getPosition().x, unit.getPosition().y) < 5) {
                 redPlayer.gainGold(Constants.TREASURE_CHEST);
                 pathSettings.refreshTreasure();
+                treasureSound.play(0.2f);
             }
 
             // one by one in the path (bigger array means bigger gaps) -> more stranght for
@@ -668,6 +689,7 @@ public class UnitSettings {
                     pathSettings.getTreasurePlace().y, unit.getPosition().x, unit.getPosition().y) < 5) {
                 bluePlayer.gainGold(Constants.TREASURE_CHEST);
                 pathSettings.refreshTreasure();
+                treasureSound.play(0.2f);
             }
             // the units
             unit.moveInPath(turnToBlueMove, bluePlayer.getUnits().size() * 75, this, "BLUE");
