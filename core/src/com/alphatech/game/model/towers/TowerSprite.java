@@ -1,15 +1,13 @@
 package com.alphatech.game.model.towers;
 
-import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.model.units.Unit;
-
-import java.awt.geom.Point2D;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TowerSprite {
     private CopyOnWriteArrayList<Unit> targets;
@@ -35,7 +33,6 @@ public class TowerSprite {
 
     /**
      * Sets the credentials of a tower sprite based on the tower type.
-     * 
      */
     private void setCredentials() {
         switch (this.towerType) {
@@ -66,18 +63,6 @@ public class TowerSprite {
 
     }
 
-    public void setTargets(CopyOnWriteArrayList<Unit> targets) {
-        this.targets = targets;
-    }
-
-    public void setUpdateRate(int updateRate) {
-        this.updateRate = updateRate;
-    }
-
-    public void setFires(CopyOnWriteArrayList<FireBall> fires) {
-        this.fires = fires;
-    }
-
     public Placeholder getPosition() {
         return position;
     }
@@ -86,12 +71,24 @@ public class TowerSprite {
         return targets;
     }
 
+    public void setTargets(CopyOnWriteArrayList<Unit> targets) {
+        this.targets = targets;
+    }
+
     public int getUpdateRate() {
         return updateRate;
     }
 
+    public void setUpdateRate(int updateRate) {
+        this.updateRate = updateRate;
+    }
+
     public CopyOnWriteArrayList<FireBall> getFires() {
         return fires;
+    }
+
+    public void setFires(CopyOnWriteArrayList<FireBall> fires) {
+        this.fires = fires;
     }
 
     public String getTowerType() {
@@ -101,7 +98,7 @@ public class TowerSprite {
     /**
      * Gets the box that srounds an object at some point
      * based on the hieght and the width of the object.
-     * 
+     *
      * @param point
      * @param width
      * @param height
@@ -113,7 +110,7 @@ public class TowerSprite {
 
     /**
      * This function contains the fire shooting logic.
-     * 
+     * <p>
      * We start by adding fire balls (that will attack all the targets if it is a
      * multi attack tower or will attack one target if it is magic or normal
      * tower) every 25 frame refresh. Then we render the fire ball based on its
@@ -123,7 +120,7 @@ public class TowerSprite {
      * target health points (the decreasing amount is based on the tower type) and
      * we remove the fire ball. We also check if the fire ball is out of the
      * firing range or didn't hit any object then we remove it.
-     * 
+     *
      * @param batch
      */
     public void update(SpriteBatch batch) {
@@ -187,7 +184,7 @@ public class TowerSprite {
     /**
      * Checking if a target position is inside the range of the current tower
      * sprite.
-     * 
+     *
      * @param target
      * @return whether the target is inside the circular range or not.
      */
@@ -213,7 +210,7 @@ public class TowerSprite {
     /**
      * Fill the target array (those target are the enemies that the tower will be
      * attacking).
-     * 
+     *
      * @param units
      */
     public void setEnemies(ArrayList<Unit> units) {

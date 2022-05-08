@@ -17,11 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class PathSettings {
     /// Store the coordinates of the corners of the paths
@@ -272,28 +268,28 @@ public class PathSettings {
         chooseRandomPlaceForTreasureChest();
     }
 
-    public void setPaths(HashMap<Constants.PathNum, ArrayList<Point2D.Float>> paths) {
-        this.paths = paths;
-    }
-
-    public void setIsPathChosen(Boolean isPathChosen) {
-        this.isPathChosen = isPathChosen;
+    public Constants.PathNum getChosenPath() {
+        return chosenPath;
     }
 
     public void setChosenPath(Constants.PathNum chosenPath) {
         this.chosenPath = chosenPath;
     }
 
-    public Constants.PathNum getChosenPath() {
-        return chosenPath;
-    }
-
     public Boolean getIsPathChosen() {
         return isPathChosen;
     }
 
+    public void setIsPathChosen(Boolean isPathChosen) {
+        this.isPathChosen = isPathChosen;
+    }
+
     public HashMap<Constants.PathNum, ArrayList<Point2D.Float>> getPaths() {
         return paths;
+    }
+
+    public void setPaths(HashMap<Constants.PathNum, ArrayList<Point2D.Float>> paths) {
+        this.paths = paths;
     }
 
     /**
@@ -519,7 +515,7 @@ public class PathSettings {
     /**
      * This fuction collect the closest path corners to the barracks where the
      * unit will be trained from and store them in the closestCorners
-     * 
+     *
      * @param barracks
      */
     public void fillClosestCorners(ArrayList<Placeholder> barracks) {
@@ -554,13 +550,9 @@ public class PathSettings {
         this.treasurePlace = new Point2D.Float(newSpotForTreasure.x, newSpotForTreasure.y);
     }
 
-    public void setTreasurePlace(Point2D.Float treasurePlace) {
-        this.treasurePlace = treasurePlace;
-    }
-
     /**
      * Place and render the treasures on the map
-     * 
+     *
      * @param batch
      * @param deltaTime
      * @param redPlayer
@@ -599,6 +591,10 @@ public class PathSettings {
         return treasurePlace;
     }
 
+    public void setTreasurePlace(Point2D.Float treasurePlace) {
+        this.treasurePlace = treasurePlace;
+    }
+
     /**
      * time interval between treasures appearance
      */
@@ -608,7 +604,7 @@ public class PathSettings {
 
     /**
      * Check if the treasure is still avaliable for collecting
-     * 
+     *
      * @return boolean
      */
     public Boolean canTakeTreasure() {

@@ -2,6 +2,7 @@ package com.alphatech.game.model.towers;
 
 import com.alphatech.game.model.Player;
 import com.badlogic.gdx.graphics.Texture;
+
 import java.util.ArrayList;
 
 public class GoldMine {
@@ -27,10 +28,6 @@ public class GoldMine {
         takenPlaces = new ArrayList<>();
     }
 
-    public void setTakenPlaces(ArrayList<Placeholder> takenPlaces) {
-        this.takenPlaces = takenPlaces;
-    }
-
     public Texture getGoldMineTexture() {
         return goldMineTexture;
     }
@@ -41,7 +38,7 @@ public class GoldMine {
 
     /**
      * Checks if placeholder is free
-     * 
+     *
      * @param a placeholder
      * @return true if placeholder is free so gold mine can be built
      */
@@ -64,7 +61,7 @@ public class GoldMine {
 
     /**
      * Checks if the given placeholder 'p' is in the placeholders array
-     * 
+     *
      * @param placeholders array of placeholders
      * @param p            given placeholder
      * @return true if it is contained by the array, otherwise false
@@ -75,7 +72,7 @@ public class GoldMine {
 
     /**
      * Gets the avaliable placeholders to build on
-     * 
+     *
      * @return Avaliable placeholders
      */
     public ArrayList<Placeholder> getAvailablePlaces() {
@@ -91,16 +88,20 @@ public class GoldMine {
 
     /**
      * get the occupied/taken placeholders
-     * 
+     *
      * @return occupied placeholders
      */
     public ArrayList<Placeholder> getTakenPlaces() {
         return this.takenPlaces;
     }
 
+    public void setTakenPlaces(ArrayList<Placeholder> takenPlaces) {
+        this.takenPlaces = takenPlaces;
+    }
+
     /**
      * Add a placeholder to the occupied placeholders array
-     * 
+     *
      * @param placeholder
      */
     public void addPlaceholder(Placeholder placeholder) {
@@ -109,7 +110,7 @@ public class GoldMine {
 
     /**
      * Add a placeholder to the available placeholders array
-     * 
+     *
      * @param placeholder
      */
     public void addAvailablePlaceholder(Placeholder placeholder) {
@@ -118,7 +119,7 @@ public class GoldMine {
 
     /**
      * Add a placeholder to the general placeholders array
-     * 
+     *
      * @param placeholder
      */
     public void addGeneralPlaceholder(Placeholder placeholder) {

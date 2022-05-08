@@ -1,9 +1,10 @@
 package com.alphatech.game.model.towers;
 
 import com.alphatech.game.helpers.Constants;
-import java.awt.geom.Point2D;
 import com.alphatech.game.helpers.Textures;
 import com.badlogic.gdx.graphics.Texture;
+
+import java.awt.geom.Point2D;
 
 public class FireBall {
     private Point2D.Float position;
@@ -18,11 +19,13 @@ public class FireBall {
         this.fireRate = fireRate;
         this.towerType = towerType;
         setFireBall(towerType);
-    };
+    }
+
+    ;
 
     /**
      * Sets the texture for a fire ball based on the tower type.
-     * 
+     *
      * @param towerType
      */
     private void setFireBall(String towerType) {
@@ -44,36 +47,36 @@ public class FireBall {
         }
     }
 
-    public void setFireRate(float fireRate) {
-        this.fireRate = fireRate;
+    public Point2D.Float getPosition() {
+        return this.position;
     }
 
     public void setPosition(Point2D.Float position) {
         this.position = position;
     }
 
-    public void setTarget(Point2D.Float target) {
-        this.target = target;
+    public Texture getTexture() {
+        return this.texture;
     }
 
     public void setTexture(Texture texture) {
         this.texture = texture;
     }
 
-    public Point2D.Float getPosition() {
-        return this.position;
-    }
-
-    public Texture getTexture() {
-        return this.texture;
-    }
-
     public Point2D.Float getTarget() {
         return this.target;
     }
 
+    public void setTarget(Point2D.Float target) {
+        this.target = target;
+    }
+
     public float getFireRate() {
         return this.fireRate;
+    }
+
+    public void setFireRate(float fireRate) {
+        this.fireRate = fireRate;
     }
 
     public String getTowerType() {
@@ -82,7 +85,6 @@ public class FireBall {
 
     /**
      * Update the position of the fire ball so it moves towards a target.
-     * 
      */
     public void moveToTarget() {
 
@@ -100,7 +102,7 @@ public class FireBall {
 
         double travelX = destX * this.fireRate;
         double travelY = destY * this.fireRate;
-  
+
         double distTravel = Math.sqrt(travelX * travelX + travelY * travelY);
 
         if (distTravel > dist) {
@@ -116,12 +118,13 @@ public class FireBall {
 
     /**
      * Resets the position and the target of the fire ball.
-     * 
+     *
      * @param position
      * @param target
      */
     public void reset(Point2D.Float position, Point2D.Float target) {
         this.position = position;
         this.target = target;
-    };
+    }
+
 }

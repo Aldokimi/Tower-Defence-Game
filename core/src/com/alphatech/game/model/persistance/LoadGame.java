@@ -1,22 +1,15 @@
 package com.alphatech.game.model.persistance;
 
-import com.alphatech.game.view.GameScreen;
+import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Constants.PathNum;
+import com.alphatech.game.helpers.Textures;
 import com.alphatech.game.model.paths.BarrackCorner;
-import com.alphatech.game.model.towers.FireBall;
-import com.alphatech.game.model.towers.GoldMine;
-import com.alphatech.game.model.towers.MagicTower;
-import com.alphatech.game.model.towers.MultiAttackTower;
-import com.alphatech.game.model.towers.NormalTower;
-import com.alphatech.game.model.towers.Placeholder;
-import com.alphatech.game.model.towers.Tower;
-import com.alphatech.game.model.towers.TowerSprite;
+import com.alphatech.game.model.towers.*;
 import com.alphatech.game.model.units.CrazySoldier;
 import com.alphatech.game.model.units.NormalSoldier;
 import com.alphatech.game.model.units.Unit;
 import com.alphatech.game.model.units.UnitSettings;
-import com.alphatech.game.helpers.Constants;
-import com.alphatech.game.helpers.Textures;
+import com.alphatech.game.view.GameScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;

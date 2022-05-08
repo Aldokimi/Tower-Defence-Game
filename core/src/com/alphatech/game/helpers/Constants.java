@@ -39,6 +39,14 @@ public class Constants {
     public static final int TRAIN_NORMAL_SOLDIER = 400;
     public static final int TRAIN_CRAZY_SOLDIER = 700;
 
+    // Fire shooting
+    public static final float PROXIMITY_RANGE = PLACEHOLDER_SIZE;
+
+    // Treasure timing
+    public static final int INIT_APPEARING_TIME = 0;
+    public static final int MAX_APPEARING_TIME = 25;
+    public static final int INIT_DISAPPEARING_TIME = 10;
+
     // Paths
     public enum PathNum {
         FIRST,
@@ -47,13 +55,5 @@ public class Constants {
         FORTH,
         CRAZY
     }
-
-    // Fire shooting
-    public static final float PROXIMITY_RANGE = PLACEHOLDER_SIZE;
-
-    // Treasure timing
-    public static final int INIT_APPEARING_TIME = 0;
-    public static final int MAX_APPEARING_TIME = 25;
-    public static final int INIT_DISAPPEARING_TIME = 10;
 
 }

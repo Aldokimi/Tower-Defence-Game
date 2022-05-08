@@ -22,17 +22,16 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class TowerSettings {
+
     // Placeholders
-    private Sprite placeHolderSprite;
     private static ArrayList<Placeholder> placeHolders;
+    private Sprite placeHolderSprite;
     private ArrayList<Placeholder> placeHoldersNearBlueCastle;
     private ArrayList<Placeholder> placeHoldersNearRedCastle;
-
     // Player's Gold
     private BitmapFont playerGold;
     private int redPlayerGoldCounter = Constants.INIT_GOLD_COUNT;
     private int bluePlayerGoldCounter = Constants.INIT_GOLD_COUNT;
-
     // Prices
     private BitmapFont prices;
     private int normalTowerPrice = Constants.BUILD_NORMAL_TOWER;
@@ -41,38 +40,32 @@ public class TowerSettings {
     private int goldMinePrice = Constants.BUILD_GOLDMINE;
     private int normalSoldierPrice = Constants.TRAIN_NORMAL_SOLDIER;
     private int crazySoldierPrice = Constants.TRAIN_CRAZY_SOLDIER;
-
     // barracks
     private ArrayList<Placeholder> barrackPlaceholders;
-
     // Towers
+    private ArrayList<Tower> towers;
     private boolean isHighlighted;
-    public ArrayList<Tower> towers;
-
     // Normal
     private ImageButton normalTowerButton;
     private TextureRegion normalTowerRegion;
     private TextureRegionDrawable normalTowerRegionDrawable;
     private Group normalTowerHighlights;
-
     // Multi attack
     private ImageButton multiAttackTowerButton;
     private TextureRegion multiAttackTowerRegion;
     private TextureRegionDrawable multiAttackTowerRegionDrawable;
     private Group MultiAttackTowerHighlights;
-
     // Magic
     private ImageButton magicTowerButton;
     private TextureRegion magicTowerRegion;
     private TextureRegionDrawable magicTowerRegionDrawable;
     private Group magicTowerHighlights;
-
     // Gold mines
+    private ArrayList<GoldMine> goldMines;
     private ImageButton goldMineButton;
     private TextureRegion goldMineRegion;
     private TextureRegionDrawable goldMineRegionDrawable;
     private Group goldMineHighlights;
-    public ArrayList<GoldMine> goldMines;
 
     public TowerSettings(final Player bluePlayer, final Player redPlayer, final Stage gameScreenButtons) {
 
@@ -262,29 +255,37 @@ public class TowerSettings {
         });
     }
 
-    // Getters & Setters
-    public void setRedPlayerGoldCounter(int redPlayerGoldCounter) {
-        this.redPlayerGoldCounter = redPlayerGoldCounter;
-    }
-
     public void setGoldMines(ArrayList<GoldMine> goldMines) {
         this.goldMines = goldMines;
-    }
-
-    public void setBluePlayerGoldCounter(int bluePlayerGoldCounter) {
-        this.bluePlayerGoldCounter = bluePlayerGoldCounter;
     }
 
     public int getRedPlayerGoldCounter() {
         return redPlayerGoldCounter;
     }
 
+    // Getters & Setters
+    public void setRedPlayerGoldCounter(int redPlayerGoldCounter) {
+        this.redPlayerGoldCounter = redPlayerGoldCounter;
+    }
+
     public int getBluePlayerGoldCounter() {
         return bluePlayerGoldCounter;
     }
 
+    public void setBluePlayerGoldCounter(int bluePlayerGoldCounter) {
+        this.bluePlayerGoldCounter = bluePlayerGoldCounter;
+    }
+
     public ArrayList<Placeholder> getPlaceHolders() {
         return placeHolders;
+    }
+
+    public ArrayList<Tower> getTowers() {
+        return towers;
+    }
+
+    public ArrayList<GoldMine> getGoldMines() {
+        return goldMines;
     }
 
     /**
@@ -313,7 +314,7 @@ public class TowerSettings {
 
     /**
      * Gives the corresponding price of a specific tower
-     * 
+     *
      * @param tower
      * @return
      */
@@ -392,7 +393,7 @@ public class TowerSettings {
 
     /**
      * highlight the avaliable (to build on) place holder.
-     * 
+     *
      * @param placeholder Place holder
      * @param type        tower class to add the new build tower to it if the
      *                    highlight is clicked.
@@ -568,7 +569,7 @@ public class TowerSettings {
 
     /**
      * Add the towers buttons/cards to the game screen
-     * 
+     *
      * @param gameScreenButtons
      */
     public void setTowersAsActors(Stage gameScreenButtons) {
@@ -581,7 +582,7 @@ public class TowerSettings {
 
     /**
      * Render place holders in the gamescreen
-     * 
+     *
      * @param batch
      */
     public void renderPlaceHolders(SpriteBatch batch) {
@@ -597,7 +598,7 @@ public class TowerSettings {
 
     /**
      * Render Players' gold and goldmines in the gamescreen
-     * 
+     *
      * @param batch
      */
     public void renderPlayersGoldAndGoldMines(SpriteBatch batch) {
@@ -617,7 +618,7 @@ public class TowerSettings {
 
     /**
      * Render gold-mines in the gamescreen
-     * 
+     *
      * @param batch
      */
     public void renderGoldMines(SpriteBatch batch) {
@@ -636,7 +637,7 @@ public class TowerSettings {
 
     /**
      * Render barracks in the gamescreen
-     * 
+     *
      * @param batch
      */
     public void renderBarracks(SpriteBatch batch) {
@@ -655,7 +656,7 @@ public class TowerSettings {
 
     /**
      * Render Towers in the gamescreen
-     * 
+     *
      * @param batch
      */
     public void renderTowers(SpriteBatch batch, Player redPlayer, Player bluePlayer) {
@@ -692,7 +693,7 @@ public class TowerSettings {
     /**
      * Sets the target enemies for every tower sprite (the red tower attacks the
      * blue units and the opposite is correct).
-     * 
+     *
      * @param redPlayer
      * @param bluePlayer
      */
@@ -715,17 +716,17 @@ public class TowerSettings {
         }
     }
 
+    public ArrayList<Placeholder> getBarrackPlaceholders() {
+        return barrackPlaceholders;
+    }
+
     /**
      * Set a place holder to place a barrack on!
-     * 
+     *
      * @param barrackPlaceholders
      */
     public void setBarrackPlaceholders(ArrayList<Placeholder> barrackPlaceholders) {
         this.barrackPlaceholders = barrackPlaceholders;
-    }
-
-    public ArrayList<Placeholder> getBarrackPlaceholders() {
-        return barrackPlaceholders;
     }
 
     public void setTowers(ArrayList<Tower> towers) {

@@ -5,7 +5,7 @@ import com.alphatech.game.helpers.Textures;
 import com.alphatech.game.model.Player;
 import com.alphatech.game.model.paths.PathSettings;
 import com.alphatech.game.model.persistance.SaveGame;
-import com.alphatech.game.model.towers.*;
+import com.alphatech.game.model.towers.TowerSettings;
 import com.alphatech.game.model.units.UnitSettings;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -14,7 +14,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -31,6 +32,13 @@ import java.util.Random;
 
 public class GameScreen implements Screen {
 
+    // Players
+    public Player redPlayer;
+    public Player bluePlayer;
+    // Towers
+    public TowerSettings towerSettings;
+    // Paths
+    public PathSettings pathSettings;
     // Map & Camera
     private TiledMap map;
     private Viewport viewport;
@@ -39,25 +47,17 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;
     private MainMenuScreen menuScreen;
     private Stage gameScreenButtons;
-
-    // Players
-    public Player redPlayer;
-    public Player bluePlayer;
-
     // Timer bar
     private ProgressBar timerBar;
     private ProgressBarStyle timerBarStyle;
-    public float width = 174f;
     private float elapsedTime = 0;// Time span between the current frame and the last frame in seconds.
-
+    public float width = 174f;
     // Units
     private UnitSettings unitSettings;
-
     // Turn Control
     private TextureRegion endTurnRegion;
     private TextureRegionDrawable endTurnRegionDraw;
     private ImageButton endTurn;
-
     // Options and Save
     private TextureRegion optionsRegion;
     private TextureRegionDrawable optionsRegionDraw;
@@ -65,12 +65,6 @@ public class GameScreen implements Screen {
     private TextureRegion saveRegion;
     private TextureRegionDrawable saveRegionDraw;
     private ImageButton saveButton;
-
-    // Towers
-    public TowerSettings towerSettings;
-
-    // Paths
-    public PathSettings pathSettings;
 
     @Override
     public void show() {
@@ -239,7 +233,7 @@ public class GameScreen implements Screen {
 
         // Rendering player's gold and towers prices
         towerSettings.renderPlayersGoldAndGoldMines(batch);
-        
+
         // pleacing a treasure chest
         pathSettings.placeTreasureChests(batch, Gdx.graphics.getDeltaTime(), redPlayer, bluePlayer);
 
@@ -254,10 +248,10 @@ public class GameScreen implements Screen {
 
         batch.end();
 
-        if(bluePlayer.hasLost()){
+        if (bluePlayer.hasLost()) {
             ((Game) Gdx.app.getApplicationListener()).setScreen(new GameOverScreen("redPlayer"));
         }
-        if(redPlayer.hasLost()){
+        if (redPlayer.hasLost()) {
             ((Game) Gdx.app.getApplicationListener()).setScreen(new GameOverScreen("bluePlayer"));
         }
     }
@@ -265,7 +259,6 @@ public class GameScreen implements Screen {
     /**
      * Resseting the timer and soldiers count, and
      * switching the turn among the two players.
-     * 
      */
     public void switchTurn() {
         // Resetting the timer
