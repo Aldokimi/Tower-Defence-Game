@@ -138,8 +138,8 @@ public class TowerSettings {
         normalTowerButton.setSize(Constants.UNIT_SIZE.x * 2, (float) (Constants.UNIT_SIZE.y * 2.3));
         normalTowerButton.setPosition(Constants.UNIT_SIZE.x * 3, (Constants.UNIT_SIZE.y - 11));
 
-        bluePlayer.normalTower = new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders, "BLUE");
-        redPlayer.normalTower = new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders, "RED");
+        bluePlayer.setNormalTower(new NormalTower(Textures.BLUE_NORMAL_TOWER, placeHolders, "BLUE"));
+        redPlayer.setNormalTower(new NormalTower(Textures.RED_NORMAL_TOWER, placeHolders, "RED"));
 
         // Towers -- Multi-Attack
         multiAttackTowerRegion = new TextureRegion(Textures.MULTI_ATTACK_TOWER);
@@ -148,8 +148,8 @@ public class TowerSettings {
         multiAttackTowerButton.setSize((float) (Constants.UNIT_SIZE.x * 1.4), (float) (Constants.UNIT_SIZE.y * 2.3));
         multiAttackTowerButton.setPosition((float) (Constants.UNIT_SIZE.x * 4.9), (Constants.UNIT_SIZE.y - 14));
 
-        bluePlayer.multiAttackTower = new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER, placeHolders, "BLUE");
-        redPlayer.multiAttackTower = new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER, placeHolders, "RED");
+        bluePlayer.setMultiAttackTower(new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER, placeHolders, "BLUE"));
+        redPlayer.setMultiAttackTower(new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER, placeHolders, "RED"));
 
         // Towers -- Magic
         magicTowerRegion = new TextureRegion(Textures.MAGIC_TOWER);
@@ -158,22 +158,22 @@ public class TowerSettings {
         magicTowerButton.setSize(Constants.UNIT_SIZE.x * 1.9f, (float) (Constants.UNIT_SIZE.y * 1.8));
         magicTowerButton.setPosition(376, 38);
 
-        bluePlayer.magicTower = new MagicTower(Textures.BLUE_MAGIC_TOWER, placeHolders, "BLUE");
-        redPlayer.magicTower = new MagicTower(Textures.RED_MAGIC_TOWER, placeHolders, "RED");
+        bluePlayer.setMagicTower(new MagicTower(Textures.BLUE_MAGIC_TOWER, placeHolders, "BLUE"));
+        redPlayer.setMagicTower(new MagicTower(Textures.RED_MAGIC_TOWER, placeHolders, "RED"));
 
         // Prepare all towers for rendering
         towers = new ArrayList<>(
-                Arrays.asList(bluePlayer.normalTower, redPlayer.normalTower, bluePlayer.multiAttackTower,
-                        redPlayer.multiAttackTower, bluePlayer.magicTower, redPlayer.magicTower));
+                Arrays.asList(bluePlayer.getNormalTower(), redPlayer.getNormalTower(), bluePlayer.getMultiAttackTower(),
+                        redPlayer.getMultiAttackTower(), bluePlayer.getMagicTower(), redPlayer.getMagicTower()));
 
         // Initializing the center which we will measure from.
-        bluePlayer.normalTower.initializeCenterofMeasurement(new Placeholder(2, 20));
-        bluePlayer.multiAttackTower.initializeCenterofMeasurement(new Placeholder(2, 20));
-        bluePlayer.magicTower.initializeCenterofMeasurement(new Placeholder(2, 20));
+        bluePlayer.getNormalTower().initializeCenterofMeasurement(new Placeholder(2, 20));
+        bluePlayer.getMultiAttackTower().initializeCenterofMeasurement(new Placeholder(2, 20));
+        bluePlayer.getMagicTower().initializeCenterofMeasurement(new Placeholder(2, 20));
 
-        redPlayer.normalTower.initializeCenterofMeasurement(new Placeholder(27, 6));
-        redPlayer.multiAttackTower.initializeCenterofMeasurement(new Placeholder(27, 6));
-        redPlayer.magicTower.initializeCenterofMeasurement(new Placeholder(27, 6));
+        redPlayer.getNormalTower().initializeCenterofMeasurement(new Placeholder(27, 6));
+        redPlayer.getMultiAttackTower().initializeCenterofMeasurement(new Placeholder(27, 6));
+        redPlayer.getMagicTower().initializeCenterofMeasurement(new Placeholder(27, 6));
 
         // Tower's buttons listeners
         normalTowerButton.addListener(new ClickListener() {
@@ -181,7 +181,8 @@ public class TowerSettings {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 normalTowerHighlights = new Group();
-                buildTowers(bluePlayer, redPlayer, bluePlayer.normalTower, redPlayer.normalTower, gameScreenButtons,
+                buildTowers(bluePlayer, redPlayer, bluePlayer.getNormalTower(), redPlayer.getNormalTower(),
+                        gameScreenButtons,
                         normalTowerHighlights);
             }
         });
@@ -191,7 +192,7 @@ public class TowerSettings {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 MultiAttackTowerHighlights = new Group();
-                buildTowers(bluePlayer, redPlayer, bluePlayer.multiAttackTower, redPlayer.multiAttackTower,
+                buildTowers(bluePlayer, redPlayer, bluePlayer.getMultiAttackTower(), redPlayer.getMultiAttackTower(),
                         gameScreenButtons,
                         MultiAttackTowerHighlights);
             }
@@ -203,7 +204,8 @@ public class TowerSettings {
             public void clicked(InputEvent event, float x, float y) {
                 magicTowerHighlights = new Group();
 
-                buildTowers(bluePlayer, redPlayer, bluePlayer.magicTower, redPlayer.magicTower, gameScreenButtons,
+                buildTowers(bluePlayer, redPlayer, bluePlayer.getMagicTower(), redPlayer.getMagicTower(),
+                        gameScreenButtons,
                         magicTowerHighlights);
             }
         });
@@ -215,9 +217,9 @@ public class TowerSettings {
         goldMineButton.setSize(110, 90);
         goldMineButton.setPosition(473, 38);
 
-        bluePlayer.goldMine = new GoldMine(Textures.BLUE_GOLD_MINE, placeHolders, "BLUE");
-        redPlayer.goldMine = new GoldMine(Textures.RED_GOLD_MINE, placeHolders, "RED");
-        goldMines = new ArrayList<>(Arrays.asList(bluePlayer.goldMine, redPlayer.goldMine));
+        bluePlayer.setGoldMine(new GoldMine(Textures.BLUE_GOLD_MINE, placeHolders, "BLUE"));
+        redPlayer.setGoldMine(new GoldMine(Textures.RED_GOLD_MINE, placeHolders, "RED"));
+        goldMines = new ArrayList<>(Arrays.asList(bluePlayer.getGoldMine(), redPlayer.getGoldMine()));
         // Gold Mine's button listener
         goldMineButton.addListener(new ClickListener() {
 
@@ -227,23 +229,23 @@ public class TowerSettings {
                 goldMineHighlights.setName("highlight");
                 if (!isHighlighted) {
                     if (bluePlayer.getTurn() && bluePlayer.hasEnoughGold(Constants.BUILD_GOLDMINE)) {
-                        bluePlayer.goldMine.build();
+                        bluePlayer.getGoldMine().build();
 
-                        for (Placeholder p : bluePlayer.goldMine.getAvailablePlaces()) {
+                        for (Placeholder p : bluePlayer.getGoldMine().getAvailablePlaces()) {
                             if (p.isFreePlace() && !getPlaceholdersNearCastle(redPlayer).contains(p)
                                     && !barrackPlaceholders.contains(p))
                                 goldMineHighlights.addActor(highlightPlaceforGoldMine(bluePlayer, redPlayer, p,
-                                        bluePlayer.goldMine, gameScreenButtons));
+                                        bluePlayer.getGoldMine(), gameScreenButtons));
                         }
                     } else if (redPlayer.getTurn() && redPlayer.hasEnoughGold(Constants.BUILD_GOLDMINE)) {
                         // Measuring from all directions
-                        redPlayer.goldMine.build();
+                        redPlayer.getGoldMine().build();
 
-                        for (Placeholder p : redPlayer.goldMine.getAvailablePlaces()) {
+                        for (Placeholder p : redPlayer.getGoldMine().getAvailablePlaces()) {
                             if (p.isFreePlace() && !getPlaceholdersNearCastle(redPlayer).contains(p)
                                     && !barrackPlaceholders.contains(p))
                                 goldMineHighlights.addActor(highlightPlaceforGoldMine(bluePlayer, redPlayer, p,
-                                        redPlayer.goldMine, gameScreenButtons));
+                                        redPlayer.getGoldMine(), gameScreenButtons));
                         }
                     }
                     isHighlighted = true;
@@ -342,19 +344,19 @@ public class TowerSettings {
      */
     private void buildBlueTowers(Player bluePlayer, Player redPlayer, Tower tower, Group highlights,
             Stage gameScreenButtons) {
-        bluePlayer.multiAttackTower.build();
-        bluePlayer.normalTower.build();
-        bluePlayer.magicTower.build();
+        bluePlayer.getMultiAttackTower().build();
+        bluePlayer.getNormalTower().build();
+        bluePlayer.getMagicTower().build();
 
-        for (Placeholder placeHolder : bluePlayer.magicTower.getAvailablePlaces()) {
+        for (Placeholder placeHolder : bluePlayer.getMagicTower().getAvailablePlaces()) {
             if (placeHolder.isFreePlace() && !barrackPlaceholders.contains(placeHolder))
                 highlights.addActor(highlightPlace(bluePlayer, redPlayer, placeHolder, tower, gameScreenButtons));
         }
-        for (Placeholder placeHolder : bluePlayer.multiAttackTower.getAvailablePlaces()) {
+        for (Placeholder placeHolder : bluePlayer.getMultiAttackTower().getAvailablePlaces()) {
             if (placeHolder.isFreePlace() && !barrackPlaceholders.contains(placeHolder))
                 highlights.addActor(highlightPlace(bluePlayer, redPlayer, placeHolder, tower, gameScreenButtons));
         }
-        for (Placeholder placeHolder : bluePlayer.normalTower.getAvailablePlaces()) {
+        for (Placeholder placeHolder : bluePlayer.getNormalTower().getAvailablePlaces()) {
             if (placeHolder.isFreePlace() && !barrackPlaceholders.contains(placeHolder))
                 highlights.addActor(highlightPlace(bluePlayer, redPlayer, placeHolder, tower, gameScreenButtons));
         }
@@ -373,19 +375,19 @@ public class TowerSettings {
      */
     private void buildRedTowers(Player bluePlayer, Player redPlayer, Tower tower, Group highlights,
             Stage gameScreenButtons) {
-        redPlayer.multiAttackTower.build();
-        redPlayer.normalTower.build();
-        redPlayer.magicTower.build();
+        redPlayer.getMultiAttackTower().build();
+        redPlayer.getNormalTower().build();
+        redPlayer.getMagicTower().build();
 
-        for (Placeholder placeHolder : redPlayer.magicTower.getAvailablePlaces()) {
+        for (Placeholder placeHolder : redPlayer.getMagicTower().getAvailablePlaces()) {
             if (placeHolder.isFreePlace() && !barrackPlaceholders.contains(placeHolder))
                 highlights.addActor(highlightPlace(bluePlayer, redPlayer, placeHolder, tower, gameScreenButtons));
         }
-        for (Placeholder placeHolder : redPlayer.multiAttackTower.getAvailablePlaces()) {
+        for (Placeholder placeHolder : redPlayer.getMultiAttackTower().getAvailablePlaces()) {
             if (placeHolder.isFreePlace() && !barrackPlaceholders.contains(placeHolder))
                 highlights.addActor(highlightPlace(bluePlayer, redPlayer, placeHolder, tower, gameScreenButtons));
         }
-        for (Placeholder placeHolder : redPlayer.normalTower.getAvailablePlaces()) {
+        for (Placeholder placeHolder : redPlayer.getNormalTower().getAvailablePlaces()) {
             if (placeHolder.isFreePlace() && !barrackPlaceholders.contains(placeHolder))
                 highlights.addActor(highlightPlace(bluePlayer, redPlayer, placeHolder, tower, gameScreenButtons));
         }
@@ -661,8 +663,8 @@ public class TowerSettings {
      */
     public void renderTowers(SpriteBatch batch, Player redPlayer, Player bluePlayer) {
         ArrayList<Unit> units = new ArrayList<>();
-        units.addAll(bluePlayer.units);
-        units.addAll(redPlayer.units);
+        units.addAll(bluePlayer.getUnits());
+        units.addAll(redPlayer.getUnits());
         for (Tower tower : towers) {
             Sprite towerSprite = new Sprite(tower.getTowerTexture());
             for (int i = 1; i < tower.getTakenPlaces().size(); i++) {
@@ -699,19 +701,20 @@ public class TowerSettings {
      */
     public void setEnemies(Player redPlayer, Player bluePlayer) {
         ArrayList<Tower> redTowers = new ArrayList<>(
-                Arrays.asList(redPlayer.normalTower, redPlayer.multiAttackTower, redPlayer.magicTower));
+                Arrays.asList(redPlayer.getNormalTower(), redPlayer.getMultiAttackTower(), redPlayer.getMagicTower()));
         ArrayList<Tower> blueTowers = new ArrayList<>(
-                Arrays.asList(bluePlayer.normalTower, bluePlayer.multiAttackTower, bluePlayer.magicTower));
+                Arrays.asList(bluePlayer.getNormalTower(), bluePlayer.getMultiAttackTower(),
+                        bluePlayer.getMagicTower()));
 
         for (Tower tower : redTowers) {
             for (TowerSprite towerSprite : tower.getTakenPlaces()) {
-                towerSprite.setEnemies(bluePlayer.units);
+                towerSprite.setEnemies(bluePlayer.getUnits());
             }
         }
 
         for (Tower tower : blueTowers) {
             for (TowerSprite towerSprite : tower.getTakenPlaces()) {
-                towerSprite.setEnemies(redPlayer.units);
+                towerSprite.setEnemies(redPlayer.getUnits());
             }
         }
     }

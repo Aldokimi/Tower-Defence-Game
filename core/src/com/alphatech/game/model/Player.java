@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Player {
 
-    public ArrayList<Unit> units;
+    private ArrayList<Unit> units;
     private int turnTime;
     private int gold;
     private boolean turn;
@@ -19,10 +19,10 @@ public class Player {
     private float timer;
 
     // Initialized in the game screen
-    public NormalTower normalTower;
-    public MultiAttackTower multiAttackTower;
-    public MagicTower magicTower;
-    public GoldMine goldMine;
+    private NormalTower normalTower;
+    private MultiAttackTower multiAttackTower;
+    private MagicTower magicTower;
+    private GoldMine goldMine;
 
     public Player() {
         this.turnTime = Constants.TURN_TIME;
@@ -42,18 +42,56 @@ public class Player {
         this.units = new ArrayList<>();
     }
 
-    // Getters
-    public int getTurnTime() {
-        return this.turnTime;
-    }
-
-    // Setters
     public void setTurnTime(int time) {
         this.turnTime = time;
     }
 
+    public int getTurnTime() {
+        return this.turnTime;
+    }
+
     public int getGoldMineCounter() {
         return goldMineCounter;
+    }
+
+    public ArrayList<Unit> getUnits() {
+        return units;
+    }
+
+    public GoldMine getGoldMine() {
+        return goldMine;
+    }
+
+    public MagicTower getMagicTower() {
+        return magicTower;
+    }
+
+    public MultiAttackTower getMultiAttackTower() {
+        return multiAttackTower;
+    }
+
+    public NormalTower getNormalTower() {
+        return normalTower;
+    }
+
+    public void setGoldMine(GoldMine goldMine) {
+        this.goldMine = goldMine;
+    }
+
+    public void setMagicTower(MagicTower magicTower) {
+        this.magicTower = magicTower;
+    }
+
+    public void setMultiAttackTower(MultiAttackTower multiAttackTower) {
+        this.multiAttackTower = multiAttackTower;
+    }
+
+    public void setNormalTower(NormalTower normalTower) {
+        this.normalTower = normalTower;
+    }
+
+    public void setUnits(ArrayList<Unit> units) {
+        this.units = units;
     }
 
     public void setGoldMineCounter(int goldMineCounter) {

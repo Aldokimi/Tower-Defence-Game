@@ -33,12 +33,12 @@ import java.util.Random;
 public class GameScreen implements Screen {
 
     // Players
-    public Player redPlayer;
-    public Player bluePlayer;
+    private Player redPlayer;
+    private Player bluePlayer;
     // Towers
-    public TowerSettings towerSettings;
+    private TowerSettings towerSettings;
     // Paths
-    public PathSettings pathSettings;
+    private PathSettings pathSettings;
     // Map & Camera
     private TiledMap map;
     private Viewport viewport;
@@ -51,7 +51,7 @@ public class GameScreen implements Screen {
     private ProgressBar timerBar;
     private ProgressBarStyle timerBarStyle;
     private float elapsedTime = 0;// Time span between the current frame and the last frame in seconds.
-    public float width = 174f;
+    private float width = 174f;
     // Units
     private UnitSettings unitSettings;
     // Turn Control
@@ -254,6 +254,34 @@ public class GameScreen implements Screen {
         if (redPlayer.hasLost()) {
             ((Game) Gdx.app.getApplicationListener()).setScreen(new GameOverScreen("bluePlayer"));
         }
+    }
+
+    public Player getBluePlayer() {
+        return bluePlayer;
+    }
+
+    public Player getRedPlayer() {
+        return redPlayer;
+    }
+
+    public UnitSettings getUnitSettings() {
+        return unitSettings;
+    }
+
+    public TowerSettings getTowerSettings() {
+        return towerSettings;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public PathSettings getPathSettings() {
+        return pathSettings;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
     }
 
     /**

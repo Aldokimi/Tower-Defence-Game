@@ -25,25 +25,104 @@ public class LoadGame {
 
         // setting the stored data
         // gold
-        gameScreen.redPlayer.setGold(prefs.getInteger("Rgold", Constants.INIT_GOLD_COUNT));
-        gameScreen.bluePlayer.setGold(prefs.getInteger("Bgold", Constants.INIT_GOLD_COUNT));
+        gameScreen.getRedPlayer().setGold(prefs.getInteger("Rgold", Constants.INIT_GOLD_COUNT));
+        gameScreen.getBluePlayer().setGold(prefs.getInteger("Bgold", Constants.INIT_GOLD_COUNT));
 
         // turn
-        gameScreen.redPlayer.setTurn(prefs.getBoolean("Rturn", false));
-        gameScreen.bluePlayer.setTurn(prefs.getBoolean("Bturn", false));
+        gameScreen.getRedPlayer().setTurn(prefs.getBoolean("Rturn", false));
+        gameScreen.getBluePlayer().setTurn(prefs.getBoolean("Bturn", false));
 
         // health
-        gameScreen.redPlayer.setHealth(prefs.getInteger("Rhealth", Constants.INIT_HEALTH));
-        gameScreen.bluePlayer.setHealth(prefs.getInteger("Bhealth", Constants.INIT_HEALTH));
+        gameScreen.getRedPlayer().setHealth(prefs.getInteger("Rhealth", Constants.INIT_HEALTH));
+        gameScreen.getBluePlayer().setHealth(prefs.getInteger("Bhealth", Constants.INIT_HEALTH));
 
         // timer
-        gameScreen.width = prefs.getFloat("Timer", 174f);
+        gameScreen.setWidth(prefs.getFloat("Timer", 174f));
 
         // units
         UnitSettings unitControl = new UnitSettings();
 
-        // red
+        // red -- temp
+        int TempUnitsSize = prefs.getInteger("TempunitsArraySize", 0);
+        ArrayList<Unit> tempUnitsTempArray = new ArrayList<>();
+        Unit TempUnit;
+        String TempUnitType;
+        Point2D.Float TempUnitPosition;
+        for (int i = 0; i < TempUnitsSize; i++) {
+            // Type
+            TempUnitType = prefs.getString("TempunitsType_" + i, "Unit");
+
+            // Position
+            TempUnitPosition = new Point2D.Float(prefs.getFloat("TempunitsPosX_" + i, 0),
+                    prefs.getFloat("TempunitsPosY_" + i, 0));
+
+            // Setting current unit state
+
+            // Initializing the class
+            if (TempUnitType.equals("NormalSoldier")) {
+                TempUnit = new NormalSoldier(TempUnitPosition);
+                TempUnit.setState(prefs.getString("TempunitsState_" + i, "IDLE"));
+                TempUnit.setColor(prefs.getString("TempunitsColor_" + i, ""));
+
+                if (TempUnit.getColor().equals("blue")) {
+                    if (TempUnit.getCurrentState().equals("WALK")) {
+                        TempUnit.setAnimation(unitControl.getWalkingBlueSoldier1Animation());
+                    } else if (TempUnit.getCurrentState().equals("ATTACK")) {
+                        TempUnit.setAnimation(unitControl.getAttackingBlueSoldier1Animation());
+                    } else {
+                        TempUnit.setAnimation(unitControl.getIdleBlueSoldier1Animation());
+                    }
+                } else {
+                    if (TempUnit.getCurrentState().equals("WALK")) {
+                        TempUnit.setAnimation(unitControl.getWalkingRedSoldier1Animation());
+                    } else if (TempUnit.getCurrentState().equals("ATTACK")) {
+                        TempUnit.setAnimation(unitControl.getAttackingRedSoldier1Animation());
+                    } else {
+                        TempUnit.setAnimation(unitControl.getIdleRedSoldier1Animation());
+                    }
+                }
+            } else if (TempUnitType.equals("CrazySoldier")) {
+                TempUnit = new CrazySoldier(TempUnitPosition);
+                TempUnit.setState(prefs.getString("TempunitsState_" + i, "IDLE"));
+                TempUnit.setColor(prefs.getString("TempunitsColor_" + i, ""));
+
+                if (TempUnit.getColor().equals("blue")) {
+                    if (TempUnit.getCurrentState().equals("WALK")) {
+                        TempUnit.setAnimation(unitControl.getWalkingBlueSoldier3Animation());
+                    } else if (TempUnit.getCurrentState().equals("ATTACK")) {
+                        TempUnit.setAnimation(unitControl.getAttackingBlueSoldier3Animation());
+                    } else {
+                        TempUnit.setAnimation(unitControl.getIdleBlueSoldier3Animation());
+                    }
+                } else {
+                    if (TempUnit.getCurrentState().equals("WALK")) {
+                        TempUnit.setAnimation(unitControl.getWalkingRedSoldier3Animation());
+                    } else if (TempUnit.getCurrentState().equals("ATTACK")) {
+                        TempUnit.setAnimation(unitControl.getAttackingRedSoldier3Animation());
+                    } else {
+                        TempUnit.setAnimation(unitControl.getIdleRedSoldier3Animation());
+                    }
+                }
+
+            } else {// (tempUnitType.equals("Unit")) rare case
+                TempUnit = new Unit(TempUnitPosition);
+            }
+            TempUnit.setFromBarrack(prefs.getBoolean("TempunitsFromBarrack_" + i, false));
+            TempUnit.setMovedInPath(prefs.getBoolean("TempunitsMovedInPath_" + i, false));
+            TempUnit.setIsXaxis(prefs.getBoolean("TempunitsIsXaxis_" + i, false));
+
+            // Health
+            TempUnit.setHealth(prefs.getInteger("TempunitsHealth_" + i, 1000));
+
+            // paths
+            TempUnit.setNextPathLevel(prefs.getInteger("TempunitsNextPathLevel_" + i, 1));
+            tempUnitsTempArray.add(TempUnit);
+        }
+        gameScreen.getUnitSettings().setTempUnits(tempUnitsTempArray);
+
+        // Red
         int redUnitsSize = prefs.getInteger("RunitsArraySize", 0);
+        ArrayList<Unit> tempUnitsArray = new ArrayList<>();
         Unit tempRedUnit;
         String tempRedUnitType;
         Point2D.Float tempRedUnitPosition;
@@ -63,22 +142,22 @@ public class LoadGame {
                 tempRedUnit.setState(prefs.getString("RunitsState_" + i, "IDLE"));
 
                 if (tempRedUnit.getCurrentState().equals("WALK")) {
-                    tempRedUnit.setAnimation(unitControl.walkingRedSoldier1Animation);
+                    tempRedUnit.setAnimation(unitControl.getWalkingRedSoldier1Animation());
                 } else if (tempRedUnit.getCurrentState().equals("ATTACK")) {
-                    tempRedUnit.setAnimation(unitControl.attackingRedSoldier1Animation);
+                    tempRedUnit.setAnimation(unitControl.getAttackingRedSoldier1Animation());
                 } else {
-                    tempRedUnit.setAnimation(unitControl.idleRedSoldier1Animation);
+                    tempRedUnit.setAnimation(unitControl.getIdleRedSoldier1Animation());
                 }
             } else if (tempRedUnitType.equals("CrazySoldier")) {
                 tempRedUnit = new CrazySoldier(tempRedUnitPosition);
                 tempRedUnit.setState(prefs.getString("RunitsState_" + i, "IDLE"));
 
                 if (tempRedUnit.getCurrentState().equals("WALK")) {
-                    tempRedUnit.setAnimation(unitControl.walkingRedSoldier3Animation);
+                    tempRedUnit.setAnimation(unitControl.getWalkingRedSoldier3Animation());
                 } else if (tempRedUnit.getCurrentState().equals("ATTACK")) {
-                    tempRedUnit.setAnimation(unitControl.attackingRedSoldier3Animation);
+                    tempRedUnit.setAnimation(unitControl.getAttackingRedSoldier3Animation());
                 } else {
-                    tempRedUnit.setAnimation(unitControl.idleRedSoldier3Animation);
+                    tempRedUnit.setAnimation(unitControl.getIdleRedSoldier3Animation());
                 }
 
             } else {// (tempUnitType.equals("Unit")) rare case
@@ -95,14 +174,14 @@ public class LoadGame {
             // paths
             tempRedUnit.setNextPathLevel(prefs.getInteger("RunitsNextPathLevel_" + i, 1));
             tempRedUnit.setPath(PathNum.valueOf(prefs.getString("RunitsPath_" + i, "FIRST")));
-
-            gameScreen.redPlayer.units.add(tempRedUnit);
+            tempUnitsArray.add(tempRedUnit);
         }
+        gameScreen.getRedPlayer().setUnits(tempUnitsArray);
 
         // Blue
         int blueUnitsSize = prefs.getInteger("BunitsArraySize", 0);
         Unit tempBlueUnit;
-
+        ArrayList<Unit> blueUnitsArray = new ArrayList<>();
         String tempBlueUnitType;
         Point2D.Float tempBlueUnitPosition;
         for (int i = 0; i < blueUnitsSize; i++) {
@@ -121,22 +200,22 @@ public class LoadGame {
                 tempBlueUnit.setState(prefs.getString("BunitsState_" + i, "IDLE"));
 
                 if (tempBlueUnit.getCurrentState().equals("WALK")) {
-                    tempBlueUnit.setAnimation(unitControl.walkingBlueSoldier1Animation);
+                    tempBlueUnit.setAnimation(unitControl.getWalkingBlueSoldier1Animation());
                 } else if (tempBlueUnit.getCurrentState().equals("ATTACK")) {
-                    tempBlueUnit.setAnimation(unitControl.attackingBlueSoldier1Animation);
+                    tempBlueUnit.setAnimation(unitControl.getAttackingBlueSoldier1Animation());
                 } else {
-                    tempBlueUnit.setAnimation(unitControl.idleBlueSoldier1Animation);
+                    tempBlueUnit.setAnimation(unitControl.getIdleBlueSoldier1Animation());
                 }
             } else if (tempBlueUnitType.equals("CrazySoldier")) {
                 tempBlueUnit = new CrazySoldier(tempBlueUnitPosition);
                 tempBlueUnit.setState(prefs.getString("BunitsState_" + i, "IDLE"));
 
                 if (tempBlueUnit.getCurrentState().equals("WALK")) {
-                    tempBlueUnit.setAnimation(unitControl.walkingBlueSoldier3Animation);
+                    tempBlueUnit.setAnimation(unitControl.getWalkingBlueSoldier3Animation());
                 } else if (tempBlueUnit.getCurrentState().equals("ATTACK")) {
-                    tempBlueUnit.setAnimation(unitControl.attackingBlueSoldier3Animation);
+                    tempBlueUnit.setAnimation(unitControl.getAttackingBlueSoldier3Animation());
                 } else {
-                    tempBlueUnit.setAnimation(unitControl.idleBlueSoldier3Animation);
+                    tempBlueUnit.setAnimation(unitControl.getIdleBlueSoldier3Animation());
                 }
 
             } else {// (tempUnitType.equals("Unit")) rare case
@@ -153,9 +232,9 @@ public class LoadGame {
             // paths
             tempBlueUnit.setNextPathLevel(prefs.getInteger("BunitsNextPathLevel_" + i, 1));
             tempBlueUnit.setPath(PathNum.valueOf(prefs.getString("BunitsPath_" + i, "FIRST")));
-
-            gameScreen.bluePlayer.units.add(tempBlueUnit);
+            blueUnitsArray.add(tempBlueUnit);
         }
+        gameScreen.getBluePlayer().setUnits(blueUnitsArray);
 
         // barracks
         int barracksArraySize = prefs.getInteger("barracksSize", 0);
@@ -168,7 +247,7 @@ public class LoadGame {
             tempPlaceholder.setIsFree(prefs.getBoolean("barracksPlaceholderIsFree_" + i, false));
             barracksArray.add(tempPlaceholder);
         }
-        gameScreen.towerSettings.setBarrackPlaceholders(barracksArray);
+        gameScreen.getTowerSettings().setBarrackPlaceholders(barracksArray);
 
         // barracks corners
         int barracksCornersSize = prefs.getInteger("barracksCornersSize", 0);
@@ -181,13 +260,13 @@ public class LoadGame {
 
             barracksCorners.add(tmpBarrackCorner);
         }
-        gameScreen.pathSettings.setClosestCorners(barracksCorners);
+        gameScreen.getPathSettings().setClosestCorners(barracksCorners);
 
         // Place holders
         int placeholdersSize = prefs.getInteger("PlaceHoldersSize", 0);
 
         for (int i = 0; i < placeholdersSize; i++) {
-            gameScreen.towerSettings.getPlaceHolders().get(i)
+            gameScreen.getTowerSettings().getPlaceHolders().get(i)
                     .setIsFree(prefs.getBoolean("PlaceHoldersSizeIsFree_" + i, false));
         }
 
@@ -231,55 +310,56 @@ public class LoadGame {
 
                 if (parentName.equals("BLUE")) {
                     tower = new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER,
-                            gameScreen.towerSettings.getPlaceHolders(),
+                            gameScreen.getTowerSettings().getPlaceHolders(),
                             "BLUE");
 
-                    gameScreen.bluePlayer.multiAttackTower = new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER,
-                            gameScreen.towerSettings.getPlaceHolders(),
-                            "BLUE");
-                    gameScreen.bluePlayer.multiAttackTower.initializeCenterofMeasurement(towerPlaceholder);
+                    gameScreen.getBluePlayer()
+                            .setMultiAttackTower(new MultiAttackTower(Textures.BLUE_MULTI_ATTACK_TOWER,
+                                    gameScreen.getTowerSettings().getPlaceHolders(),
+                                    "BLUE"));
+                    gameScreen.getBluePlayer().getMultiAttackTower().initializeCenterofMeasurement(towerPlaceholder);
                 } else {
                     tower = new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER,
-                            gameScreen.towerSettings.getPlaceHolders(),
+                            gameScreen.getTowerSettings().getPlaceHolders(),
                             "RED");
-                    gameScreen.redPlayer.multiAttackTower = new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER,
-                            gameScreen.towerSettings.getPlaceHolders(),
-                            "RED");
-                    gameScreen.redPlayer.multiAttackTower.initializeCenterofMeasurement(towerPlaceholder);
+                    gameScreen.getRedPlayer().setMultiAttackTower(new MultiAttackTower(Textures.RED_MULTI_ATTACK_TOWER,
+                            gameScreen.getTowerSettings().getPlaceHolders(),
+                            "RED"));
+                    gameScreen.getRedPlayer().getMultiAttackTower().initializeCenterofMeasurement(towerPlaceholder);
                 }
             } else if (towerName.equals("MagicTower")) {
 
                 if (parentName.equals("BLUE")) {
-                    tower = new MagicTower(Textures.BLUE_MAGIC_TOWER, gameScreen.towerSettings.getPlaceHolders(),
+                    tower = new MagicTower(Textures.BLUE_MAGIC_TOWER, gameScreen.getTowerSettings().getPlaceHolders(),
                             "BLUE");
-                    gameScreen.bluePlayer.magicTower = new MagicTower(Textures.BLUE_MAGIC_TOWER,
-                            gameScreen.towerSettings.getPlaceHolders(),
-                            "BLUE");
-                    gameScreen.bluePlayer.magicTower.initializeCenterofMeasurement(towerPlaceholder);
+                    gameScreen.getBluePlayer().setMagicTower(new MagicTower(Textures.BLUE_MAGIC_TOWER,
+                            gameScreen.getTowerSettings().getPlaceHolders(),
+                            "BLUE"));
+                    gameScreen.getBluePlayer().getMagicTower().initializeCenterofMeasurement(towerPlaceholder);
                 } else {
-                    tower = new MagicTower(Textures.RED_MAGIC_TOWER, gameScreen.towerSettings.getPlaceHolders(),
+                    tower = new MagicTower(Textures.RED_MAGIC_TOWER, gameScreen.getTowerSettings().getPlaceHolders(),
                             "RED");
-                    gameScreen.redPlayer.magicTower = new MagicTower(Textures.RED_MAGIC_TOWER,
-                            gameScreen.towerSettings.getPlaceHolders(),
-                            "RED");
-                    gameScreen.redPlayer.magicTower.initializeCenterofMeasurement(towerPlaceholder);
+                    gameScreen.getRedPlayer().setMagicTower(new MagicTower(Textures.RED_MAGIC_TOWER,
+                            gameScreen.getTowerSettings().getPlaceHolders(),
+                            "RED"));
+                    gameScreen.getRedPlayer().getMagicTower().initializeCenterofMeasurement(towerPlaceholder);
                 }
             } else {// Normal Tower
                 if (parentName.equals("BLUE")) {
-                    tower = new NormalTower(Textures.BLUE_NORMAL_TOWER, gameScreen.towerSettings.getPlaceHolders(),
+                    tower = new NormalTower(Textures.BLUE_NORMAL_TOWER, gameScreen.getTowerSettings().getPlaceHolders(),
                             "BLUE");
-                    gameScreen.bluePlayer.normalTower = new NormalTower(Textures.BLUE_NORMAL_TOWER,
-                            gameScreen.towerSettings.getPlaceHolders(),
-                            "BLUE");
-                    gameScreen.bluePlayer.normalTower.initializeCenterofMeasurement(towerPlaceholder);
+                    gameScreen.getBluePlayer().setNormalTower(new NormalTower(Textures.BLUE_NORMAL_TOWER,
+                            gameScreen.getTowerSettings().getPlaceHolders(),
+                            "BLUE"));
+                    gameScreen.getBluePlayer().getNormalTower().initializeCenterofMeasurement(towerPlaceholder);
 
                 } else {
-                    tower = new NormalTower(Textures.RED_NORMAL_TOWER, gameScreen.towerSettings.getPlaceHolders(),
+                    tower = new NormalTower(Textures.RED_NORMAL_TOWER, gameScreen.getTowerSettings().getPlaceHolders(),
                             "RED");
-                    gameScreen.redPlayer.normalTower = new NormalTower(Textures.RED_NORMAL_TOWER,
-                            gameScreen.towerSettings.getPlaceHolders(),
-                            "RED");
-                    gameScreen.redPlayer.normalTower.initializeCenterofMeasurement(towerPlaceholder);
+                    gameScreen.getRedPlayer().setNormalTower(new NormalTower(Textures.RED_NORMAL_TOWER,
+                            gameScreen.getTowerSettings().getPlaceHolders(),
+                            "RED"));
+                    gameScreen.getRedPlayer().getNormalTower().initializeCenterofMeasurement(towerPlaceholder);
                 }
             }
 
@@ -320,19 +400,19 @@ public class LoadGame {
 
                         if (tempTargetUnit.getColor().equals("blue")) {
                             if (tempTargetUnit.getCurrentState().equals("WALK")) {
-                                tempTargetUnit.setAnimation(unitControl.walkingBlueSoldier1Animation);
+                                tempTargetUnit.setAnimation(unitControl.getWalkingBlueSoldier1Animation());
                             } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
-                                tempTargetUnit.setAnimation(unitControl.attackingBlueSoldier1Animation);
+                                tempTargetUnit.setAnimation(unitControl.getAttackingBlueSoldier1Animation());
                             } else {
-                                tempTargetUnit.setAnimation(unitControl.idleBlueSoldier1Animation);
+                                tempTargetUnit.setAnimation(unitControl.getIdleBlueSoldier1Animation());
                             }
                         } else {// red
                             if (tempTargetUnit.getCurrentState().equals("WALK")) {
-                                tempTargetUnit.setAnimation(unitControl.walkingRedSoldier1Animation);
+                                tempTargetUnit.setAnimation(unitControl.getWalkingRedSoldier1Animation());
                             } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
-                                tempTargetUnit.setAnimation(unitControl.attackingRedSoldier1Animation);
+                                tempTargetUnit.setAnimation(unitControl.getAttackingRedSoldier1Animation());
                             } else {
-                                tempTargetUnit.setAnimation(unitControl.idleRedSoldier1Animation);
+                                tempTargetUnit.setAnimation(unitControl.getIdleRedSoldier1Animation());
                             }
                         }
                     } else if (tempTargetUnitType.equals("CrazySoldier")) {
@@ -342,19 +422,19 @@ public class LoadGame {
 
                         if (tempTargetUnit.getColor().equals("blue")) {
                             if (tempTargetUnit.getCurrentState().equals("WALK")) {
-                                tempTargetUnit.setAnimation(unitControl.walkingBlueSoldier3Animation);
+                                tempTargetUnit.setAnimation(unitControl.getWalkingBlueSoldier3Animation());
                             } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
-                                tempTargetUnit.setAnimation(unitControl.attackingBlueSoldier3Animation);
+                                tempTargetUnit.setAnimation(unitControl.getAttackingBlueSoldier3Animation());
                             } else {
-                                tempTargetUnit.setAnimation(unitControl.idleBlueSoldier3Animation);
+                                tempTargetUnit.setAnimation(unitControl.getIdleBlueSoldier3Animation());
                             }
                         } else {// red
                             if (tempTargetUnit.getCurrentState().equals("WALK")) {
-                                tempTargetUnit.setAnimation(unitControl.walkingRedSoldier3Animation);
+                                tempTargetUnit.setAnimation(unitControl.getWalkingRedSoldier3Animation());
                             } else if (tempTargetUnit.getCurrentState().equals("ATTACK")) {
-                                tempTargetUnit.setAnimation(unitControl.attackingRedSoldier3Animation);
+                                tempTargetUnit.setAnimation(unitControl.getAttackingRedSoldier3Animation());
                             } else {
-                                tempTargetUnit.setAnimation(unitControl.idleRedSoldier3Animation);
+                                tempTargetUnit.setAnimation(unitControl.getIdleRedSoldier3Animation());
                             }
                         }
 
@@ -403,35 +483,35 @@ public class LoadGame {
             if (tower instanceof MultiAttackTower) {
                 if (tower.getParentName().equals("BLUE")) {
 
-                    gameScreen.bluePlayer.multiAttackTower.setTakenPlaces(takenPlaces);
+                    gameScreen.getBluePlayer().getMultiAttackTower().setTakenPlaces(takenPlaces);
                 } else {
 
-                    gameScreen.redPlayer.multiAttackTower.setTakenPlaces(takenPlaces);
+                    gameScreen.getRedPlayer().getMultiAttackTower().setTakenPlaces(takenPlaces);
                 }
             } else if (tower instanceof MagicTower) {
                 if (tower.getParentName().equals("BLUE")) {
 
-                    gameScreen.bluePlayer.magicTower.setTakenPlaces(takenPlaces);
+                    gameScreen.getBluePlayer().getMagicTower().setTakenPlaces(takenPlaces);
                 } else {
 
-                    gameScreen.redPlayer.magicTower.setTakenPlaces(takenPlaces);
+                    gameScreen.getRedPlayer().getMagicTower().setTakenPlaces(takenPlaces);
                 }
             } else {
                 if (tower.getParentName().equals("BLUE")) {
 
-                    gameScreen.bluePlayer.normalTower.setTakenPlaces(takenPlaces);
+                    gameScreen.getBluePlayer().getNormalTower().setTakenPlaces(takenPlaces);
                 } else {
-                    gameScreen.redPlayer.normalTower.setTakenPlaces(takenPlaces);
+                    gameScreen.getRedPlayer().getNormalTower().setTakenPlaces(takenPlaces);
                 }
             }
 
             totalTowers.add(tower);
         }
-        gameScreen.towerSettings.setTowers(totalTowers);
+        gameScreen.getTowerSettings().setTowers(totalTowers);
 
         // Goldmine counter & Goldmines
-        gameScreen.redPlayer.setGoldMineCounter(prefs.getInteger("redPlayerGoldMines"));
-        gameScreen.bluePlayer.setGoldMineCounter(prefs.getInteger("bluePlayerGoldMines"));
+        gameScreen.getRedPlayer().setGoldMineCounter(prefs.getInteger("redPlayerGoldMines"));
+        gameScreen.getBluePlayer().setGoldMineCounter(prefs.getInteger("bluePlayerGoldMines"));
 
         int goldMinesArraySize = prefs.getInteger("goldMinesArraySize", 0);
         GoldMine tmpGoldMine;
@@ -445,16 +525,16 @@ public class LoadGame {
 
             if (goldParentName.equals("BLUE")) {
                 tmpGoldMine = new GoldMine(Textures.BLUE_GOLD_MINE,
-                        gameScreen.towerSettings.getPlaceHolders(), "BLUE");
+                        gameScreen.getTowerSettings().getPlaceHolders(), "BLUE");
 
-                gameScreen.bluePlayer.goldMine = new GoldMine(Textures.BLUE_GOLD_MINE,
-                        gameScreen.towerSettings.getPlaceHolders(), "BLUE");
+                gameScreen.getBluePlayer().setGoldMine(new GoldMine(Textures.BLUE_GOLD_MINE,
+                        gameScreen.getTowerSettings().getPlaceHolders(), "BLUE"));
 
             } else {
                 tmpGoldMine = new GoldMine(Textures.RED_GOLD_MINE,
-                        gameScreen.towerSettings.getPlaceHolders(), "RED");
-                gameScreen.redPlayer.goldMine = new GoldMine(Textures.RED_GOLD_MINE,
-                        gameScreen.towerSettings.getPlaceHolders(), "RED");
+                        gameScreen.getTowerSettings().getPlaceHolders(), "RED");
+                gameScreen.getRedPlayer().setGoldMine(new GoldMine(Textures.RED_GOLD_MINE,
+                        gameScreen.getTowerSettings().getPlaceHolders(), "RED"));
             }
 
             takenGoldminePlaces = new ArrayList<>();
@@ -470,16 +550,16 @@ public class LoadGame {
             tmpGoldMine.setTakenPlaces(takenGoldminePlaces);
             if (tmpGoldMine.getParentName().equals("BLUE")) {
 
-                gameScreen.bluePlayer.goldMine.setTakenPlaces(takenGoldminePlaces);
+                gameScreen.getBluePlayer().getGoldMine().setTakenPlaces(takenGoldminePlaces);
             } else {
-                gameScreen.redPlayer.goldMine.setTakenPlaces(takenGoldminePlaces);
+                gameScreen.getRedPlayer().getGoldMine().setTakenPlaces(takenGoldminePlaces);
             }
             goldMines.add(tmpGoldMine);
         }
-        gameScreen.towerSettings.setGoldMines(goldMines);
+        gameScreen.getTowerSettings().setGoldMines(goldMines);
 
         // Treasures
-        gameScreen.pathSettings.setTreasurePlace(
+        gameScreen.getPathSettings().setTreasurePlace(
                 new Point2D.Float(prefs.getFloat("TreasureChestsPosX"), prefs.getFloat("TreasureChestsPosY")));
     }
 }

@@ -21,8 +21,6 @@ public class FireBall {
         setFireBall(towerType);
     }
 
-    ;
-
     /**
      * Sets the texture for a fire ball based on the tower type.
      *

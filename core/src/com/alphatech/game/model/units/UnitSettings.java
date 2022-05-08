@@ -25,18 +25,18 @@ import java.util.ArrayList;
 public class UnitSettings {
 
     // Units animation
-    public Animation<TextureRegion> idleRedSoldier1Animation;
-    public Animation<TextureRegion> walkingRedSoldier1Animation;
-    public Animation<TextureRegion> attackingRedSoldier1Animation;
-    public Animation<TextureRegion> idleRedSoldier3Animation;
-    public Animation<TextureRegion> walkingRedSoldier3Animation;
-    public Animation<TextureRegion> attackingRedSoldier3Animation;
-    public Animation<TextureRegion> idleBlueSoldier1Animation;
-    public Animation<TextureRegion> walkingBlueSoldier1Animation;
-    public Animation<TextureRegion> attackingBlueSoldier1Animation;
-    public Animation<TextureRegion> idleBlueSoldier3Animation;
-    public Animation<TextureRegion> walkingBlueSoldier3Animation;
-    public Animation<TextureRegion> attackingBlueSoldier3Animation;
+    private Animation<TextureRegion> idleRedSoldier1Animation;
+    private Animation<TextureRegion> walkingRedSoldier1Animation;
+    private Animation<TextureRegion> attackingRedSoldier1Animation;
+    private Animation<TextureRegion> idleRedSoldier3Animation;
+    private Animation<TextureRegion> walkingRedSoldier3Animation;
+    private Animation<TextureRegion> attackingRedSoldier3Animation;
+    private Animation<TextureRegion> idleBlueSoldier1Animation;
+    private Animation<TextureRegion> walkingBlueSoldier1Animation;
+    private Animation<TextureRegion> attackingBlueSoldier1Animation;
+    private Animation<TextureRegion> idleBlueSoldier3Animation;
+    private Animation<TextureRegion> walkingBlueSoldier3Animation;
+    private Animation<TextureRegion> attackingBlueSoldier3Animation;
     // Units
     private ArrayList<Unit> TempUnits;// to Store units before adding them to the user units
     private TextureRegion sold1region;
@@ -66,7 +66,7 @@ public class UnitSettings {
     }
 
     public UnitSettings(final Player bluePlayer, final Player redPlayer, final TowerSettings towerSettings,
-                        final PathSettings pathSettings) {
+            final PathSettings pathSettings) {
         // Unit counter
         unitCounter = new BitmapFont();
 
@@ -253,6 +253,54 @@ public class UnitSettings {
                 PlayMode.LOOP);
     }
 
+    public Animation<TextureRegion> getAttackingBlueSoldier1Animation() {
+        return attackingBlueSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getAttackingBlueSoldier3Animation() {
+        return attackingBlueSoldier3Animation;
+    }
+
+    public Animation<TextureRegion> getAttackingRedSoldier1Animation() {
+        return attackingRedSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getAttackingRedSoldier3Animation() {
+        return attackingRedSoldier3Animation;
+    }
+
+    public Animation<TextureRegion> getIdleBlueSoldier1Animation() {
+        return idleBlueSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getIdleBlueSoldier3Animation() {
+        return idleBlueSoldier3Animation;
+    }
+
+    public Animation<TextureRegion> getIdleRedSoldier1Animation() {
+        return idleRedSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getIdleRedSoldier3Animation() {
+        return idleRedSoldier3Animation;
+    }
+
+    public Animation<TextureRegion> getWalkingBlueSoldier1Animation() {
+        return walkingBlueSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getWalkingBlueSoldier3Animation() {
+        return walkingBlueSoldier3Animation;
+    }
+
+    public Animation<TextureRegion> getWalkingRedSoldier1Animation() {
+        return walkingRedSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getWalkingRedSoldier3Animation() {
+        return walkingRedSoldier3Animation;
+    }
+
     /**
      * Render blue/red castle healthbars in the gamescreen
      *
@@ -308,9 +356,9 @@ public class UnitSettings {
     public void endTurnRedPlayerSetUp(Player redPlayer, PathSettings pathSettings) {
         pathSettings.chooseRandomPath(TempUnits);
 
-        redPlayer.units.addAll(TempUnits);
+        redPlayer.getUnits().addAll(TempUnits);
         clearTempUnits();
-        for (Unit unit : redPlayer.units) {
+        for (Unit unit : redPlayer.getUnits()) {
             if (unit.getCurrentState() == "IDLE") {
                 if (unit instanceof NormalSoldier) {
                     unit.setAnimation(walkingRedSoldier1Animation);
@@ -343,9 +391,9 @@ public class UnitSettings {
 
         pathSettings.chooseRandomPath(TempUnits);
 
-        bluePlayer.units.addAll(getTempUnits());
+        bluePlayer.getUnits().addAll(getTempUnits());
         clearTempUnits();
-        for (Unit unit : bluePlayer.units) {
+        for (Unit unit : bluePlayer.getUnits()) {
             if (unit.getCurrentState() == "IDLE") {
 
                 if (unit instanceof NormalSoldier) {
@@ -417,9 +465,9 @@ public class UnitSettings {
      * @param batch
      */
     public void renderPlayersUnits(Player bluePlayer, Player redPlayer, PathSettings pathSettings, Float elapsedTime,
-                                   SpriteBatch batch) {
+            SpriteBatch batch) {
 
-        for (Unit unit : redPlayer.units) {
+        for (Unit unit : redPlayer.getUnits()) {
             if (!unit.isAlive())
                 continue;
 
@@ -432,7 +480,7 @@ public class UnitSettings {
 
             // one by one in the path (bigger array means bigger gaps) -> more stranght for
             // the units
-            unit.moveInPath(turnToRedMove, redPlayer.units.size() * 75, this, "RED");
+            unit.moveInPath(turnToRedMove, redPlayer.getUnits().size() * 75, this, "RED");
 
             turnToRedMove++;
 
@@ -512,7 +560,7 @@ public class UnitSettings {
 
                                 if (pathSettings.getPaths().get(PathNum.THIRD).get(1).x == unit.getPosition().x
                                         && pathSettings.getPaths().get(PathNum.THIRD).get(1).y
-                                        + 25 == unit.getPosition().y) {
+                                                + 25 == unit.getPosition().y) {
 
                                     unit.setState("ATTACK");
                                     unit.attackCastle(bluePlayer, 10);
@@ -540,7 +588,7 @@ public class UnitSettings {
                             case FORTH:
                                 if (pathSettings.getPaths().get(PathNum.FORTH).get(0).x == unit.getPosition().x
                                         && pathSettings.getPaths().get(PathNum.FORTH).get(0).y == unit
-                                        .getPosition().y) {
+                                                .getPosition().y) {
 
                                     unit.setState("ATTACK");
                                     unit.attackCastle(bluePlayer, 10);
@@ -572,7 +620,7 @@ public class UnitSettings {
                     } else {
                         if (pathSettings.getPaths().get(PathNum.CRAZY)
                                 .get(0).x >= unit
-                                .getPosition().x) {
+                                        .getPosition().x) {
                             unit.setState("ATTACK");
                             unit.attackCastle(bluePlayer, 50);
                             unit.setAnimation(attackingRedSoldier3Animation);
@@ -611,7 +659,7 @@ public class UnitSettings {
 
         }
 
-        for (Unit unit : bluePlayer.units) {
+        for (Unit unit : bluePlayer.getUnits()) {
             if (!unit.isAlive())
                 continue;
 
@@ -622,7 +670,7 @@ public class UnitSettings {
                 pathSettings.refreshTreasure();
             }
             // the units
-            unit.moveInPath(turnToBlueMove, bluePlayer.units.size() * 75, this, "BLUE");
+            unit.moveInPath(turnToBlueMove, bluePlayer.getUnits().size() * 75, this, "BLUE");
 
             turnToBlueMove++;
 
@@ -763,7 +811,7 @@ public class UnitSettings {
                     } else { // Crazy Soldier
                         if (pathSettings.getPaths().get(PathNum.CRAZY)
                                 .get(pathSettings.getPaths().get(PathNum.CRAZY).size() - 1).x <= unit
-                                .getPosition().x) {
+                                        .getPosition().x) {
                             unit.setState("ATTACK");
                             unit.attackCastle(redPlayer, 50);
                             unit.setAnimation(attackingBlueSoldier3Animation);
@@ -813,7 +861,7 @@ public class UnitSettings {
      * Clearing the units from the players `Unit` array lists
      */
     public void clearDeadUnits(Player player) {
-        player.units.removeIf(element -> !element.isAlive());
+        player.getUnits().removeIf(element -> !element.isAlive());
     }
 
     /**
@@ -828,14 +876,14 @@ public class UnitSettings {
      * @return true if the unit is at one of the corners, otherwise false
      */
     private boolean isACornerOfCrazyPath(Unit unit, String Player, PathSettings pathSettings, Float elapsedTime,
-                                         SpriteBatch batch) {
+            SpriteBatch batch) {
 
         // Blue player corners switching
         if (Player.equals("BLUE") && unit.getNextPathLevel() <= 5) {
             if (unit.getPosition().x > (pathSettings.getPaths().get(Constants.PathNum.CRAZY)
                     .get(unit.getNextPathLevel())).x
                     || unit.getPosition().y < (pathSettings.getPaths().get(Constants.PathNum.CRAZY)
-                    .get(unit.getNextPathLevel())).y && unit.getNextPathLevel() == 1) {
+                            .get(unit.getNextPathLevel())).y && unit.getNextPathLevel() == 1) {
 
                 batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
                         unit.getPosition().y,
@@ -957,7 +1005,7 @@ public class UnitSettings {
      * @param elapsedTime
      */
     private void controlCrazyBlueUnitAnimationXY(Unit unit, PathSettings pathSettings,
-                                                 SpriteBatch batch, Float elapsedTime) {
+            SpriteBatch batch, Float elapsedTime) {
         if (unit.getNextPathLevel() <= 5) {
             if (unit.getPosition().x < pathSettings.getPaths().get(unit.getPath())
                     .get(unit.getNextPathLevel()).x && unit.getNextPathLevel() == 1) {
@@ -1021,7 +1069,7 @@ public class UnitSettings {
      * @param elapsedTime
      */
     private void controlCrazyRedUnitAnimationXY(Unit unit, PathSettings pathSettings,
-                                                SpriteBatch batch, Float elapsedTime) {
+            SpriteBatch batch, Float elapsedTime) {
         if (unit.getNextPathLevel() >= 0) {
             if (unit.getPosition().x > pathSettings.getPaths().get(unit.getPath())
                     .get(unit.getNextPathLevel()).x && unit.getNextPathLevel() == 4) {
@@ -1091,7 +1139,7 @@ public class UnitSettings {
      * @return true if the unit is at one of the corners, otherwise false
      */
     private boolean isACornerOfPath1ForBlue(Unit unit, PathSettings pathSettings, Float elapsedTime,
-                                            SpriteBatch batch) {
+            SpriteBatch batch) {
         if (unit.getPosition().equals(pathSettings.getPaths().get(Constants.PathNum.FIRST).get(1))) {
 
             batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
@@ -1132,7 +1180,7 @@ public class UnitSettings {
      * @return true if the unit is at one of the corners, otherwise false
      */
     private boolean isACornerOfPath1ForRed(Unit unit, PathSettings pathSettings, Float elapsedTime,
-                                           SpriteBatch batch) {
+            SpriteBatch batch) {
         if (unit.getPosition().y >= pathSettings.getPaths().get(Constants.PathNum.FIRST).get(3).y
                 && unit.getNextPathLevel() == 3) {
 
@@ -1174,7 +1222,7 @@ public class UnitSettings {
             if (pathSettings.getPaths().get(Constants.PathNum.FIRST).get(3)
                     .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))
                     || pathSettings.getPaths().get(Constants.PathNum.FIRST).get(1)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))) {
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))) {
 
                 unit.setIsXaxis(false);
 
@@ -1189,7 +1237,7 @@ public class UnitSettings {
             if ((pathSettings.getPaths().get(Constants.PathNum.FIRST).get(3)
                     .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.FIRST).get(1)
-                    .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y)))) {
+                            .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y)))) {
 
                 unit.setIsXaxis(true);
 
@@ -1215,11 +1263,11 @@ public class UnitSettings {
             if (pathSettings.getPaths().get(Constants.PathNum.SECOND).get(2)
                     .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(4)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(6)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(8)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))) {
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))) {
 
                 unit.setIsXaxis(false);
 
@@ -1227,11 +1275,11 @@ public class UnitSettings {
             if (pathSettings.getPaths().get(Constants.PathNum.SECOND).get(1)
                     .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(3)
-                    .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
+                            .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(5)
-                    .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
+                            .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(7)
-                    .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))) {
+                            .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))) {
                 unit.setIsXaxis(true);
 
             }
@@ -1239,11 +1287,11 @@ public class UnitSettings {
             if (pathSettings.getPaths().get(Constants.PathNum.SECOND).get(1)
                     .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(3)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(5)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(7)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))) {
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))) {
 
                 unit.setIsXaxis(false);
 
@@ -1251,11 +1299,11 @@ public class UnitSettings {
             if (pathSettings.getPaths().get(Constants.PathNum.SECOND).get(2)
                     .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(4)
-                    .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))
+                            .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(6)
-                    .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))
+                            .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.SECOND).get(8)
-                    .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))) {
+                            .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))) {
                 unit.setIsXaxis(true);
 
             }
@@ -1276,7 +1324,7 @@ public class UnitSettings {
      */
     private boolean isACornerOfPath3ForBlue(Unit unit, PathSettings pathSettings, Float elapsedTime,
 
-                                            SpriteBatch batch) {
+            SpriteBatch batch) {
         if (unit.getPosition().equals(pathSettings.getPaths().get(PathNum.THIRD).get(1))) {
 
             batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
@@ -1339,15 +1387,15 @@ public class UnitSettings {
             if (pathSettings.getPaths().get(PathNum.THIRD).get(2)
                     .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.THIRD).get(4)
-                    .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
+                            .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.THIRD).get(6)
-                    .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))) {
+                            .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))) {
 
                 unit.setIsXaxis(true);
             } else if (pathSettings.getPaths().get(Constants.PathNum.THIRD).get(3)
                     .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))
                     || pathSettings.getPaths().get(Constants.PathNum.THIRD).get(5)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))) {
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))) {
                 unit.setIsXaxis(false);
 
             }
@@ -1356,15 +1404,15 @@ public class UnitSettings {
             if (pathSettings.getPaths().get(Constants.PathNum.THIRD).get(3)
                     .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.THIRD).get(5)
-                    .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))) {
+                            .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))) {
                 unit.setIsXaxis(true);
 
             } else if (pathSettings.getPaths().get(Constants.PathNum.THIRD).get(2)
                     .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))
                     || pathSettings.getPaths().get(Constants.PathNum.THIRD).get(4)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))
                     || pathSettings.getPaths().get(Constants.PathNum.THIRD).get(6)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))) {
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))) {
 
                 unit.setIsXaxis(false);
 
@@ -1385,7 +1433,7 @@ public class UnitSettings {
      * @return true if the unit is at one of the corners, otherwise false
      */
     private boolean isACornerOfPath3ForRed(Unit unit, PathSettings pathSettings, Float elapsedTime,
-                                           SpriteBatch batch) {
+            SpriteBatch batch) {
         if (unit.getPosition().equals(pathSettings.getPaths().get(PathNum.THIRD).get(6))) {
 
             batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
@@ -1446,7 +1494,7 @@ public class UnitSettings {
      */
     private boolean isACornerOfPath4ForBlue(Unit unit, PathSettings pathSettings, Float elapsedTime,
 
-                                            SpriteBatch batch) {
+            SpriteBatch batch) {
         if (unit.getPosition().equals(pathSettings.getPaths().get(PathNum.FORTH).get(1))) {
 
             batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
@@ -1509,15 +1557,15 @@ public class UnitSettings {
             if (pathSettings.getPaths().get(PathNum.FORTH).get(1)
                     .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.FORTH).get(3)
-                    .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
+                            .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.FORTH).get(5)
-                    .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))) {
+                            .equals(new Point2D.Float(unit.getPosition().x - 1, unit.getPosition().y))) {
 
                 unit.setIsXaxis(true);
             } else if (pathSettings.getPaths().get(Constants.PathNum.FORTH).get(2)
                     .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))
                     || pathSettings.getPaths().get(Constants.PathNum.FORTH).get(4)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))) {
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y + 1))) {
                 unit.setIsXaxis(false);
 
             }
@@ -1528,15 +1576,15 @@ public class UnitSettings {
                     pathSettings.getPaths().get(Constants.PathNum.FORTH).get(1)
                             .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))
                     || pathSettings.getPaths().get(Constants.PathNum.FORTH).get(5)
-                    .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))) {
+                            .equals(new Point2D.Float(unit.getPosition().x, unit.getPosition().y - 1))) {
                 unit.setIsXaxis(false);
 
             } else if (pathSettings.getPaths().get(Constants.PathNum.FORTH).get(2)
                     .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.FORTH).get(4)
-                    .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))
+                            .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))
                     || pathSettings.getPaths().get(Constants.PathNum.FORTH).get(6)
-                    .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))) {
+                            .equals(new Point2D.Float(unit.getPosition().x + 1, unit.getPosition().y))) {
 
                 unit.setIsXaxis(true);
 
@@ -1557,7 +1605,7 @@ public class UnitSettings {
      * @return true if the unit is at one of the corners, otherwise false
      */
     private boolean isACornerOfPath4ForRed(Unit unit, PathSettings pathSettings, Float elapsedTime,
-                                           SpriteBatch batch) {
+            SpriteBatch batch) {
         if (unit.getPosition().equals(pathSettings.getPaths().get(PathNum.FORTH).get(5))) {
 
             batch.draw(unit.getAnimation().getKeyFrame(elapsedTime, true), unit.getPosition().x,
@@ -1608,7 +1656,7 @@ public class UnitSettings {
      * @param negative left movement
      */
     private void controlRedUnitsAnimationX(Unit unit, boolean negative, PathSettings pathSettings, SpriteBatch batch,
-                                           Float elapsedTime) {
+            Float elapsedTime) {
         if (!negative) {
 
             if (unit.getPosition().x < pathSettings.getPaths().get(unit.getPath()).get(unit.getNextPathLevel()).x) {
@@ -1642,7 +1690,7 @@ public class UnitSettings {
      * @param negative left movement
      */
     private void controlBlueUnitsAnimationX(Unit unit, boolean negative, PathSettings pathSettings, SpriteBatch batch,
-                                            Float elapsedTime) {
+            Float elapsedTime) {
         if (!negative) {
 
             if (unit.getPosition().x < pathSettings.getPaths().get(unit.getPath())
@@ -1677,7 +1725,7 @@ public class UnitSettings {
      * @param negative down movement
      */
     private void controlRedUnitsAnimationY(Unit unit, boolean negative, PathSettings pathSettings, SpriteBatch batch,
-                                           Float elapsedTime) {
+            Float elapsedTime) {
         if (!negative) {
 
             if (unit.getPosition().y < pathSettings.getPaths().get(unit.getPath())
@@ -1717,7 +1765,7 @@ public class UnitSettings {
      * @return true if the unit is at one of the corners, otherwise false
      */
     private boolean isACornerOfPath2ForBlue(Unit unit, PathSettings pathSettings, Float elapsedTime,
-                                            SpriteBatch batch) {
+            SpriteBatch batch) {
 
         if (unit.getPosition().equals(pathSettings.getPaths().get(Constants.PathNum.SECOND).get(2))
                 || unit.getPosition().equals(pathSettings.getPaths().get(Constants.PathNum.SECOND).get(6))
@@ -1766,7 +1814,7 @@ public class UnitSettings {
      * @return true if the unit is at one of the corners, otherwise false
      */
     private boolean isACornerOfPath2ForRed(Unit unit, PathSettings pathSettings, Float elapsedTime,
-                                           SpriteBatch batch) {
+            SpriteBatch batch) {
         if (unit.getPosition().equals(pathSettings.getPaths().get(Constants.PathNum.SECOND).get(2))
                 || unit.getPosition().equals(pathSettings.getPaths().get(Constants.PathNum.SECOND).get(4))
                 || unit.getPosition().equals(pathSettings.getPaths().get(Constants.PathNum.SECOND).get(6))
@@ -1809,7 +1857,7 @@ public class UnitSettings {
      * @param negative down movement
      */
     private void controlBlueUnitsAnimationY(Unit unit, boolean negative, PathSettings pathSettings, SpriteBatch batch,
-                                            Float elapsedTime) {
+            Float elapsedTime) {
         if (!negative) {
 
             if (unit.getPosition().y < pathSettings.getPaths().get(unit.getPath())
