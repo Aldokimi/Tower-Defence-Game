@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -24,9 +24,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class GameOverScreen implements Screen {
 
 
+    protected Stage gameOverScreenButtons;
     private TiledMap gameOver;
     private SpriteBatch batch;
-    protected Stage gameOverScreenButtons;
     private Viewport viewport;
     private OrthographicCamera camera;
     private OrthoCachedTiledMapRenderer renderer;
@@ -49,16 +49,16 @@ public class GameOverScreen implements Screen {
     // Loser
     private String loser;
 
-    public GameOverScreen(String loser){
+    public GameOverScreen(String loser) {
         this.loser = loser;
     }
 
     @Override
     public void show() {
-        if(this.loser.equals("redPlayer")){
+        if (this.loser.equals("redPlayer")) {
             gameOver = new TmxMapLoader().load("GameOver/GameOverRed.tmx");
-        }else{
-            gameOver = new TmxMapLoader().load("GameOverBlue.tmx");
+        } else {
+            gameOver = new TmxMapLoader().load("GameOver/GameOverBlue.tmx");
         }
         renderer = new OrthoCachedTiledMapRenderer(gameOver);
         float w = Gdx.graphics.getWidth();
@@ -81,7 +81,7 @@ public class GameOverScreen implements Screen {
         // Play Again 
         playAgainButtonRegion = new TextureRegion(Textures.GAMEOVER_PLAY_AGAIN_BUTTON);
         playAgainButtonDraw = new TextureRegionDrawable(playAgainButtonRegion);
-        playAgainButton= new ImageButton(playAgainButtonDraw);
+        playAgainButton = new ImageButton(playAgainButtonDraw);
         playAgainButton.setSize(40, 40);
         playAgainButton.setPosition(470, 340);
         // Go back to main menu
@@ -97,8 +97,8 @@ public class GameOverScreen implements Screen {
         exitButton.setSize(40, 40);
         exitButton.setPosition(570, 340);
 
-         // Add listeners
-         playAgainButton.addListener(new ClickListener() {
+        // Add listeners
+        playAgainButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());

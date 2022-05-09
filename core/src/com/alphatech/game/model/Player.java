@@ -1,28 +1,28 @@
 package com.alphatech.game.model;
 
-import java.util.ArrayList;
-
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.model.towers.*;
 import com.alphatech.game.model.units.CrazySoldier;
 import com.alphatech.game.model.units.NormalSoldier;
 import com.alphatech.game.model.units.Unit;
 
+import java.util.ArrayList;
+
 public class Player {
 
+    private ArrayList<Unit> units;
     private int turnTime;
     private int gold;
     private boolean turn;
     private int health;
     private int goldMineCounter;
-    public ArrayList<Unit> units;
     private float timer;
 
     // Initialized in the game screen
-    public NormalTower normalTower;
-    public MultiAttackTower multiAttackTower;
-    public MagicTower magicTower;
-    public GoldMine goldMine;
+    private NormalTower normalTower;
+    private MultiAttackTower multiAttackTower;
+    private MagicTower magicTower;
+    private GoldMine goldMine;
 
     public Player() {
         this.turnTime = Constants.TURN_TIME;
@@ -42,32 +42,10 @@ public class Player {
         this.units = new ArrayList<>();
     }
 
-    // Setters
     public void setTurnTime(int time) {
         this.turnTime = time;
     }
 
-    public void setGoldMineCounter(int goldMineCounter) {
-        this.goldMineCounter = goldMineCounter;
-    }
-
-    public void setGold(int gold) {
-        this.gold = gold;
-    }
-
-    public void setTurn(Boolean turn) {
-        this.turn = turn;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public void setTimer(float timer) {
-        this.timer = timer;
-    }
-
-    // Getters
     public int getTurnTime() {
         return this.turnTime;
     }
@@ -76,20 +54,80 @@ public class Player {
         return goldMineCounter;
     }
 
+    public ArrayList<Unit> getUnits() {
+        return units;
+    }
+
+    public GoldMine getGoldMine() {
+        return goldMine;
+    }
+
+    public MagicTower getMagicTower() {
+        return magicTower;
+    }
+
+    public MultiAttackTower getMultiAttackTower() {
+        return multiAttackTower;
+    }
+
+    public NormalTower getNormalTower() {
+        return normalTower;
+    }
+
+    public void setGoldMine(GoldMine goldMine) {
+        this.goldMine = goldMine;
+    }
+
+    public void setMagicTower(MagicTower magicTower) {
+        this.magicTower = magicTower;
+    }
+
+    public void setMultiAttackTower(MultiAttackTower multiAttackTower) {
+        this.multiAttackTower = multiAttackTower;
+    }
+
+    public void setNormalTower(NormalTower normalTower) {
+        this.normalTower = normalTower;
+    }
+
+    public void setUnits(ArrayList<Unit> units) {
+        this.units = units;
+    }
+
+    public void setGoldMineCounter(int goldMineCounter) {
+        this.goldMineCounter = goldMineCounter;
+    }
+
     public int getGold() {
         return this.gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 
     public boolean getTurn() {
         return this.turn;
     }
 
+    public void setTurn(Boolean turn) {
+        this.turn = turn;
+    }
+
     public int getHealth() {
         return this.health;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public float getTimer() {
         return this.timer;
+    }
+
+    public void setTimer(float timer) {
+        this.timer = timer;
     }
 
     /**
@@ -108,7 +146,7 @@ public class Player {
 
     /**
      * Build a tower
-     * 
+     *
      * @param tower Tower type
      */
     public void buildTower(Tower tower) {
@@ -123,7 +161,7 @@ public class Player {
 
     /**
      * Train a unit
-     * 
+     *
      * @param unit Unit type
      */
     public void trainUnit(Unit unit) {
@@ -137,7 +175,7 @@ public class Player {
     /**
      * Check if the player has enough gold to build/train sprites
      * (gold amount can't be negative)
-     * 
+     *
      * @param price
      * @return true if the player has enough gold
      */
@@ -147,7 +185,7 @@ public class Player {
 
     /**
      * Decreasing the player gold
-     * 
+     *
      * @param goldSpent
      */
     public void spendGold(int goldSpent) {
@@ -158,7 +196,7 @@ public class Player {
 
     /**
      * Gold gained
-     * 
+     *
      * @param goldGained amount of the gained gold
      */
     public void gainGold(int goldGained) {
@@ -167,10 +205,10 @@ public class Player {
 
     /**
      * Check if a player has lost the game or not
-     * 
+     *
      * @return true if the player has lost the game
      */
-    public boolean hasLost(){
+    public boolean hasLost() {
         return this.health <= 0;
     }
 
@@ -191,7 +229,7 @@ public class Player {
 
     /**
      * Increasing the players' gold as the time elapse
-     * 
+     *
      * @param deltaTime time between each frame
      */
     public void makeGold(float deltaTime) {

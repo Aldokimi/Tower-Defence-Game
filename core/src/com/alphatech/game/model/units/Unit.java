@@ -30,40 +30,8 @@ public class Unit {
         this.color = null;
     }
 
-    public void setNextPathLevel(int nextPathLevel) {
-        this.nextPathLevel = nextPathLevel;
-    }
-
-    public void setIsXaxis(boolean isXaxis) {
-        this.isXaxis = isXaxis;
-    }
-
-    public void setPath(Constants.PathNum path) {
-        this.path = path;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public void setMovedInPath(boolean movedInPath) {
-        this.movedInPath = movedInPath;
-    }
-
-    public void setPosition(Point2D.Float position) {
-        this.position = position;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
     public void setState(String state) {
         this.currentState = state;
-    }
-
-    public void setAnimation(Animation<TextureRegion> animation) {
-        this.animation = animation;
     }
 
     public String getClassName() {
@@ -74,8 +42,16 @@ public class Unit {
         return isXaxis;
     }
 
+    public void setIsXaxis(boolean isXaxis) {
+        this.isXaxis = isXaxis;
+    }
+
     public boolean getMovedInPath() {
         return movedInPath;
+    }
+
+    public void setMovedInPath(boolean movedInPath) {
+        this.movedInPath = movedInPath;
     }
 
     public Boolean getFromBarrack() {
@@ -90,8 +66,16 @@ public class Unit {
         return path;
     }
 
+    public void setPath(Constants.PathNum path) {
+        this.path = path;
+    }
+
     public int getSpeed() {
         return this.speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public String getColor() {
@@ -106,6 +90,10 @@ public class Unit {
         return this.position;
     }
 
+    public void setPosition(Point2D.Float position) {
+        this.position = position;
+    }
+
     public String getCurrentState() {
         return this.currentState;
     }
@@ -114,8 +102,16 @@ public class Unit {
         return nextPathLevel;
     }
 
+    public void setNextPathLevel(int nextPathLevel) {
+        this.nextPathLevel = nextPathLevel;
+    }
+
     public Animation<TextureRegion> getAnimation() {
         return this.animation;
+    }
+
+    public void setAnimation(Animation<TextureRegion> animation) {
+        this.animation = animation;
     }
 
     public void attackCastle(Player p, int damage) {
@@ -130,10 +126,14 @@ public class Unit {
         return health;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     /**
      * Make each unit move one by one (no collapse).
      * must be synced with turnToMove variable in the UnitSettings
-     * 
+     *
      * @param timeToMove
      */
     public void moveInPath(int timeToMove, int unitsArraySize, UnitSettings setting, String PlayerColor) {

@@ -2,15 +2,15 @@ package com.alphatech.game.model.units;
 
 import com.alphatech.game.helpers.Constants;
 import com.alphatech.game.helpers.Constants.PathNum;
+import com.alphatech.game.helpers.Textures;
 import com.alphatech.game.model.Player;
 import com.alphatech.game.model.paths.PathSettings;
 import com.alphatech.game.model.towers.TowerSettings;
-import com.alphatech.game.helpers.Textures;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -19,11 +19,24 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import java.util.ArrayList;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 public class UnitSettings {
 
+    // Units animation
+    private Animation<TextureRegion> idleRedSoldier1Animation;
+    private Animation<TextureRegion> walkingRedSoldier1Animation;
+    private Animation<TextureRegion> attackingRedSoldier1Animation;
+    private Animation<TextureRegion> idleRedSoldier3Animation;
+    private Animation<TextureRegion> walkingRedSoldier3Animation;
+    private Animation<TextureRegion> attackingRedSoldier3Animation;
+    private Animation<TextureRegion> idleBlueSoldier1Animation;
+    private Animation<TextureRegion> walkingBlueSoldier1Animation;
+    private Animation<TextureRegion> attackingBlueSoldier1Animation;
+    private Animation<TextureRegion> idleBlueSoldier3Animation;
+    private Animation<TextureRegion> walkingBlueSoldier3Animation;
+    private Animation<TextureRegion> attackingBlueSoldier3Animation;
     // Units
     private ArrayList<Unit> TempUnits;// to Store units before adding them to the user units
     private TextureRegion sold1region;
@@ -35,24 +48,6 @@ public class UnitSettings {
     private Point2D.Float unitsPosition;
     private int turnToBlueMove;
     private int turnToRedMove;
-
-    // Units animation
-    public Animation<TextureRegion> idleRedSoldier1Animation;
-    public Animation<TextureRegion> walkingRedSoldier1Animation;
-    public Animation<TextureRegion> attackingRedSoldier1Animation;
-
-    public Animation<TextureRegion> idleRedSoldier3Animation;
-    public Animation<TextureRegion> walkingRedSoldier3Animation;
-    public Animation<TextureRegion> attackingRedSoldier3Animation;
-
-    public Animation<TextureRegion> idleBlueSoldier1Animation;
-    public Animation<TextureRegion> walkingBlueSoldier1Animation;
-    public Animation<TextureRegion> attackingBlueSoldier1Animation;
-
-    public Animation<TextureRegion> idleBlueSoldier3Animation;
-    public Animation<TextureRegion> walkingBlueSoldier3Animation;
-    public Animation<TextureRegion> attackingBlueSoldier3Animation;
-
     // Units counter
     private int unitCountSoldier1;
     private int unitCountSoldier3;
@@ -180,36 +175,36 @@ public class UnitSettings {
 
     }
 
-    public void setSoldier1(ImageButton soldier1) {
-        this.soldier1 = soldier1;
-    }
-
-    public void setUnitCountSoldier1(int unitCountSoldier1) {
-        this.unitCountSoldier1 = unitCountSoldier1;
-    }
-
-    public void setUnitCountSoldier3(int unitCountSoldier3) {
-        this.unitCountSoldier3 = unitCountSoldier3;
-    }
-
-    public void setTempUnits(ArrayList<Unit> tempUnits) {
-        TempUnits = tempUnits;
-    }
-
     public ImageButton getSoldier1() {
         return soldier1;
+    }
+
+    public void setSoldier1(ImageButton soldier1) {
+        this.soldier1 = soldier1;
     }
 
     public int getUnitCountSoldier1() {
         return unitCountSoldier1;
     }
 
+    public void setUnitCountSoldier1(int unitCountSoldier1) {
+        this.unitCountSoldier1 = unitCountSoldier1;
+    }
+
     public int getUnitCountSoldier3() {
         return unitCountSoldier3;
     }
 
+    public void setUnitCountSoldier3(int unitCountSoldier3) {
+        this.unitCountSoldier3 = unitCountSoldier3;
+    }
+
     public ArrayList<Unit> getTempUnits() {
         return TempUnits;
+    }
+
+    public void setTempUnits(ArrayList<Unit> tempUnits) {
+        TempUnits = tempUnits;
     }
 
     /**
@@ -226,7 +221,7 @@ public class UnitSettings {
         attackingRedSoldier1Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER1_ATTACKING_RED.findRegions("attack"),
                 PlayMode.LOOP);
-        
+
         idleRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER3_IDLE_RED.findRegions("idle"),
                 PlayMode.LOOP);
@@ -236,7 +231,7 @@ public class UnitSettings {
         attackingRedSoldier3Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER3_ATTACKING_RED.findRegions("attack"),
                 PlayMode.LOOP);
-       
+
         idleBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER1_IDLE_BLUE.findRegions("idle"),
                 PlayMode.LOOP);
@@ -246,7 +241,7 @@ public class UnitSettings {
         attackingBlueSoldier1Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER1_ATTACKING_BLUE.findRegions("attack"),
                 PlayMode.LOOP);
-        
+
         idleBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER3_IDLE_BLUE.findRegions("idle"),
                 PlayMode.LOOP);
@@ -256,6 +251,54 @@ public class UnitSettings {
         attackingBlueSoldier3Animation = new Animation<TextureRegion>(0.08f,
                 Textures.SOLDIER3_ATTACKING_BLUE.findRegions("attack"),
                 PlayMode.LOOP);
+    }
+
+    public Animation<TextureRegion> getAttackingBlueSoldier1Animation() {
+        return attackingBlueSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getAttackingBlueSoldier3Animation() {
+        return attackingBlueSoldier3Animation;
+    }
+
+    public Animation<TextureRegion> getAttackingRedSoldier1Animation() {
+        return attackingRedSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getAttackingRedSoldier3Animation() {
+        return attackingRedSoldier3Animation;
+    }
+
+    public Animation<TextureRegion> getIdleBlueSoldier1Animation() {
+        return idleBlueSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getIdleBlueSoldier3Animation() {
+        return idleBlueSoldier3Animation;
+    }
+
+    public Animation<TextureRegion> getIdleRedSoldier1Animation() {
+        return idleRedSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getIdleRedSoldier3Animation() {
+        return idleRedSoldier3Animation;
+    }
+
+    public Animation<TextureRegion> getWalkingBlueSoldier1Animation() {
+        return walkingBlueSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getWalkingBlueSoldier3Animation() {
+        return walkingBlueSoldier3Animation;
+    }
+
+    public Animation<TextureRegion> getWalkingRedSoldier1Animation() {
+        return walkingRedSoldier1Animation;
+    }
+
+    public Animation<TextureRegion> getWalkingRedSoldier3Animation() {
+        return walkingRedSoldier3Animation;
     }
 
     /**
@@ -313,9 +356,9 @@ public class UnitSettings {
     public void endTurnRedPlayerSetUp(Player redPlayer, PathSettings pathSettings) {
         pathSettings.chooseRandomPath(TempUnits);
 
-        redPlayer.units.addAll(TempUnits);
+        redPlayer.getUnits().addAll(TempUnits);
         clearTempUnits();
-        for (Unit unit : redPlayer.units) {
+        for (Unit unit : redPlayer.getUnits()) {
             if (unit.getCurrentState() == "IDLE") {
                 if (unit instanceof NormalSoldier) {
                     unit.setAnimation(walkingRedSoldier1Animation);
@@ -348,9 +391,9 @@ public class UnitSettings {
 
         pathSettings.chooseRandomPath(TempUnits);
 
-        bluePlayer.units.addAll(getTempUnits());
+        bluePlayer.getUnits().addAll(getTempUnits());
         clearTempUnits();
-        for (Unit unit : bluePlayer.units) {
+        for (Unit unit : bluePlayer.getUnits()) {
             if (unit.getCurrentState() == "IDLE") {
 
                 if (unit instanceof NormalSoldier) {
@@ -424,7 +467,7 @@ public class UnitSettings {
     public void renderPlayersUnits(Player bluePlayer, Player redPlayer, PathSettings pathSettings, Float elapsedTime,
             SpriteBatch batch) {
 
-        for (Unit unit : redPlayer.units) {
+        for (Unit unit : redPlayer.getUnits()) {
             if (!unit.isAlive())
                 continue;
 
@@ -437,7 +480,7 @@ public class UnitSettings {
 
             // one by one in the path (bigger array means bigger gaps) -> more stranght for
             // the units
-            unit.moveInPath(turnToRedMove, redPlayer.units.size() * 75, this, "RED");
+            unit.moveInPath(turnToRedMove, redPlayer.getUnits().size() * 75, this, "RED");
 
             turnToRedMove++;
 
@@ -485,8 +528,8 @@ public class UnitSettings {
                                     unit.setState("ATTACK");
                                     unit.attackCastle(bluePlayer, 10);
                                     unit.setAnimation(attackingRedSoldier1Animation);//////// HERE should if-else for to
-                                                                                     //////// assign animation for diff
-                                                                                     //////// solidiers
+                                    //////// assign animation for diff
+                                    //////// solidiers
 
                                 } else {
                                     if (isACornerOfPath2ForRed(unit, pathSettings, elapsedTime, batch)) {
@@ -616,7 +659,7 @@ public class UnitSettings {
 
         }
 
-        for (Unit unit : bluePlayer.units) {
+        for (Unit unit : bluePlayer.getUnits()) {
             if (!unit.isAlive())
                 continue;
 
@@ -627,7 +670,7 @@ public class UnitSettings {
                 pathSettings.refreshTreasure();
             }
             // the units
-            unit.moveInPath(turnToBlueMove, bluePlayer.units.size() * 75, this, "BLUE");
+            unit.moveInPath(turnToBlueMove, bluePlayer.getUnits().size() * 75, this, "BLUE");
 
             turnToBlueMove++;
 
@@ -818,7 +861,7 @@ public class UnitSettings {
      * Clearing the units from the players `Unit` array lists
      */
     public void clearDeadUnits(Player player) {
-        player.units.removeIf(element -> !element.isAlive());
+        player.getUnits().removeIf(element -> !element.isAlive());
     }
 
     /**
@@ -955,7 +998,7 @@ public class UnitSettings {
 
     /**
      * Move crazy blue units left/right and up/down
-     * 
+     *
      * @param unit
      * @param pathSettings
      * @param batch
@@ -1019,7 +1062,7 @@ public class UnitSettings {
 
     /**
      * Move crazy red units left/right and up/down
-     * 
+     *
      * @param unit
      * @param pathSettings
      * @param batch

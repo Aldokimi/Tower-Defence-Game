@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
 public class BarrackCorner {
 
     private Constants.PathNum path;
-    private Point2D.Float point ;
+    private Point2D.Float point;
     private int nextLevel;
 
     public BarrackCorner(Constants.PathNum path, Point2D.Float point, int nextLevel) {
