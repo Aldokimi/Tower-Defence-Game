@@ -25,7 +25,6 @@ public class Player {
     private GoldMine goldMine;
 
     public Player() {
-        this.turnTime = Constants.TURN_TIME;
         this.gold = Constants.INIT_GOLD_COUNT;
         this.turn = false;
         this.health = Constants.INIT_HEALTH;

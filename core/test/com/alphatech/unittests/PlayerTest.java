@@ -18,15 +18,11 @@ import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
     private Player player;
-    private int turnTime;
-    private int gold;
-    private boolean turn;
-    private int health;
     public ArrayList<Placeholder> placeholders;
 
     @BeforeEach
     void setUp() {
-        player = new Player(turnTime, gold, turn, health);
+        player = new Player();
     }
 
     @Test
@@ -49,7 +45,7 @@ public class PlayerTest {
     @DisplayName("Getting player's gold")
     void getGold() {
 
-        assertEquals(gold, player.getGold());
+        assertEquals(Constants.INIT_GOLD_COUNT, player.getGold());
     }
 
     @Test
@@ -64,7 +60,7 @@ public class PlayerTest {
     @DisplayName("Checking if player has enough gold -- he does")
     void hasEnoughGoldYes() {
 
-        player.setGold(Constants.INIT_GOLD_COUNT);
+        player.gainGold(Constants.INIT_GOLD_COUNT);
         assertTrue(player.hasEnoughGold(100));
     }
 
@@ -119,6 +115,16 @@ public class PlayerTest {
 
         player.setHealth(0);
         assertTrue(player.hasLost());
+    }
+
+    @Test
+    @DisplayName("Decreased health")
+    void healthDecreased() {
+
+        player.setHealth(1000);
+        player.decreaseHealthBy(500);
+        assertEquals(500, player.getHealth());
+        assertFalse(player.hasLost());
     }
 
     @Test

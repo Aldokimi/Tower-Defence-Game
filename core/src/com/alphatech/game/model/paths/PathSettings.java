@@ -75,6 +75,7 @@ public class PathSettings {
     private float appearingTime = Constants.INIT_APPEARING_TIME;
     private float disapearingTime = Constants.INIT_DISAPPEARING_TIME;
     private ArrayList<Point2D.Float> tPoints;
+    private ArrayList<Point2D.Float> notAllowedPlacesForTreasure;
 
     public PathSettings() {
         // Paths
@@ -217,6 +218,22 @@ public class PathSettings {
                 new Point2D.Float(621, 218),
                 new Point2D.Float(750, 218),
                 new Point2D.Float(820, 200))));
+
+        // Not allow places for treasure chest to appeare
+        notAllowedPlacesForTreasure = new ArrayList<>(Arrays.asList(
+                new Point2D.Float(85, 705),
+                new Point2D.Float(883, 230),
+                new Point2D.Float(820, 217),
+                new Point2D.Float(80, 705),
+                new Point2D.Float(820, 218),
+                new Point2D.Float(20, 640),
+                new Point2D.Float(820, 162),
+                new Point2D.Float(85, 640),
+                new Point2D.Float(820, 200),
+                new Point2D.Float(80, 640),
+                new Point2D.Float(750, 218),
+                new Point2D.Float(621, 218)));
+
     }
 
     /**
@@ -419,6 +436,9 @@ public class PathSettings {
      */
     private void chooseRandomPlaceForTreasureChest() {
         Point2D.Float newSpotForTreasure = tPoints.get(new Random().nextInt(tPoints.size()));
+        while (notAllowedPlacesForTreasure.contains(newSpotForTreasure)) {
+            newSpotForTreasure = tPoints.get(new Random().nextInt(tPoints.size()));
+        }
         this.treasurePlace = new Point2D.Float(newSpotForTreasure.x, newSpotForTreasure.y);
     }
 
@@ -433,7 +453,7 @@ public class PathSettings {
     public void placeTreasureChests(SpriteBatch batch, float deltaTime, Player redPlayer, Player bluePlayer) {
 
         Sprite sprite = new Sprite(Textures.TREASURE_CHEST);
-        if (appearingTime <= 20) {
+        if (appearingTime <= Constants.TREASURE_DISAPPEARING_TIME) {
             if (treasurePlace.getX() > 40 || treasurePlace.getY() > 40) {
                 sprite.setPosition((float) treasurePlace.getX() + 16, (float) treasurePlace.getY() + 5);
             } else {
@@ -445,6 +465,7 @@ public class PathSettings {
             appearingTime += deltaTime;
         } else {
             disapearingTime -= deltaTime;
+            this.treasurePlace = new Point2D.Float(0, 0); // so the treasure cannot be collected after it disapear!!
             if (disapearingTime <= 0.0) {
                 appearingTime = 0;
                 disapearingTime = Constants.INIT_DISAPPEARING_TIME;

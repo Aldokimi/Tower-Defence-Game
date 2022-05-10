@@ -20,7 +20,7 @@ public class GoldMinesTest {
     @BeforeEach
     void setUp() {
         goldMine = new GoldMine(placeholders);
-        
+
     }
 
     @Test
@@ -46,6 +46,16 @@ public class GoldMinesTest {
 
         goldMine.releaseAvailablePlaces();
         assertTrue(goldMine.getAvailablePlaces().isEmpty());
+
+    }
+
+    @Test
+    @DisplayName("Available Places -- Full array")
+    void AvaliablePlaceholders() {
+        Placeholder p = new Placeholder(4, 2);
+        p.takePlace();
+        goldMine.addAvailablePlaceholder(p);
+        assertFalse(goldMine.getAvailablePlaces().isEmpty());
 
     }
 
@@ -78,7 +88,7 @@ public class GoldMinesTest {
     @Test
     @DisplayName("We can't build goldmine - taken placeholder")
     void buildGoldMineNot() {
-        
+
         goldMine.addPlaceholder(new Placeholder(12, 12));
         assertTrue(goldMine.getAvailablePlaces().isEmpty());
     }
@@ -92,5 +102,5 @@ public class GoldMinesTest {
         assertFalse(goldMine.getAvailablePlaces().isEmpty());
         assertEquals(1, goldMine.getAvailablePlaces().size());
     }
-   
+
 }

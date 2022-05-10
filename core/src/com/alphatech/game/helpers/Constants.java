@@ -23,7 +23,6 @@ public class Constants {
     public static final String MAGIC_TOWER = "MagicTower";
 
     // Player
-    public static final int TURN_TIME = 30;
     public static final int INIT_HEALTH = 1000;
     public static final int INIT_GOLD_COUNT = 25000;
 
@@ -45,7 +44,8 @@ public class Constants {
     // Treasure timing
     public static final int INIT_APPEARING_TIME = 0;
     public static final int MAX_APPEARING_TIME = 25;
-    public static final int INIT_DISAPPEARING_TIME = 10;
+    public static final int INIT_DISAPPEARING_TIME = 20;
+    public static final int TREASURE_DISAPPEARING_TIME = 20;
 
     // Paths
     public enum PathNum {
