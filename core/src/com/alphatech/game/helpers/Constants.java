@@ -44,7 +44,8 @@ public class Constants {
     // Treasure timing
     public static final int INIT_APPEARING_TIME = 0;
     public static final int MAX_APPEARING_TIME = 25;
-    public static final int INIT_DISAPPEARING_TIME = 10;
+    public static final int INIT_DISAPPEARING_TIME = 20;
+    public static final int TREASURE_DISAPPEARING_TIME = 20;
 
     // Paths
     public enum PathNum {
