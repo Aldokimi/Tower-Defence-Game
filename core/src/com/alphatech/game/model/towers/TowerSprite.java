@@ -95,6 +95,10 @@ public class TowerSprite {
         return this.towerType;
     }
 
+    public float getFireRate(){
+        return this.fireRate;
+    }
+
     /**
      * Gets the box that srounds an object at some point
      * based on the hieght and the width of the object.

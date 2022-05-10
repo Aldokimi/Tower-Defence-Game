@@ -1,19 +1,22 @@
 package com.alphatech.unittests;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.awt.geom.Point2D;
 
+import com.alphatech.game.helpers.Constants;
+import com.alphatech.game.model.towers.FireBall;
 import com.alphatech.game.model.towers.MultiAttackTower;
 import com.alphatech.game.model.towers.NormalTower;
 import com.alphatech.game.model.towers.Placeholder;
 import com.alphatech.game.model.towers.Tower;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 public class TowersTest {
     public NormalTower normalTower;
@@ -121,6 +124,35 @@ public class TowersTest {
         normalTower.releaseAvailablePlaces();
         assertEquals(0, tower.getAvailablePlaces().size());
         assertEquals(0, normalTower.getAvailablePlaces().size());
+
+    }
+
+    @Test
+    @DisplayName("Shoot a Fire Ball")
+    void shootingFire() {
+        tower.initializeCenterofMeasurement(new Placeholder(16, 16));
+        tower.build();
+        FireBall f = new FireBall(
+                new Point2D.Float(
+                        tower.getTakenPlaces().get(0).getPosition().getX() * Constants.PLACEHOLDER_SIZE,
+                        tower.getTakenPlaces().get(0).getPosition().getY() * Constants.PLACEHOLDER_SIZE),
+
+                new Point2D.Float(
+                        tower.getTakenPlaces().get(0).getPosition().getX() * Constants.PLACEHOLDER_SIZE,
+                        tower.getTakenPlaces().get(0).getPosition().getY() * Constants.PLACEHOLDER_SIZE),
+
+                tower.getTakenPlaces().get(0).getFireRate(),
+                tower.getTakenPlaces().get(0).getTowerType());
+
+        assertTrue(tower.getTakenPlaces().get(0).inRange(f.getPosition()));
+        assertTrue(tower.getTakenPlaces().get(0).inRange(f.getTarget()));
+
+        for (int i = 0; i < 4; i++) {
+            f.moveToTarget();
+            assertTrue(tower.getTakenPlaces().get(0).inRange(new Point2D.Float(
+                    tower.getTakenPlaces().get(0).getPosition().getX() * Constants.PLACEHOLDER_SIZE,
+                    tower.getTakenPlaces().get(0).getPosition().getY() * Constants.PLACEHOLDER_SIZE)));
+        }
 
     }
 
