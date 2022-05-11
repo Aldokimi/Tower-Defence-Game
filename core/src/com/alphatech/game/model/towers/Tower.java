@@ -98,7 +98,7 @@ public class Tower {
      * @param checkPlace
      * @return wheather a list of towers contain the place holder or not.
      */
-    private boolean contains(ArrayList<TowerSprite> towers, Placeholder checkPlace) {
+    public boolean contains(ArrayList<TowerSprite> towers, Placeholder checkPlace) {
         for (TowerSprite towerSprite : towers) {
             if (towerSprite.getPosition().equals(checkPlace))
                 return true;

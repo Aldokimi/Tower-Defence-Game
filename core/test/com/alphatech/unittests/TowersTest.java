@@ -156,6 +156,57 @@ public class TowersTest {
 
     }
 
+
+    @Test
+    @DisplayName("Check if a Fire Ball hits an object")
+    void collisionOfFireBalls() {
+        tower.initializeCenterofMeasurement(new Placeholder(16, 16));
+        tower.build();
+        FireBall f = new FireBall(
+                new Point2D.Float(
+                        tower.getTakenPlaces().get(0).getPosition().getX() * Constants.PLACEHOLDER_SIZE,
+                        tower.getTakenPlaces().get(0).getPosition().getY() * Constants.PLACEHOLDER_SIZE),
+
+                new Point2D.Float(
+                        tower.getTakenPlaces().get(0).getPosition().getX() * Constants.PLACEHOLDER_SIZE + 10,
+                        tower.getTakenPlaces().get(0).getPosition().getY() * Constants.PLACEHOLDER_SIZE + 10),
+
+                tower.getTakenPlaces().get(0).getFireRate(),
+                tower.getTakenPlaces().get(0).getTowerType());
+
+        assertTrue(tower.getTakenPlaces().get(0).getColistionBox(new Point2D.Float(
+            tower.getTakenPlaces().get(0).getPosition().getX() * Constants.PLACEHOLDER_SIZE,
+            tower.getTakenPlaces().get(0).getPosition().getY() * Constants.PLACEHOLDER_SIZE), 10 , 10).intersects(
+                tower.getTakenPlaces().get(0).getColistionBox(f.getPosition(), 10 , 10)
+            ));
+
+        for (int i = 0; i < 4; i++) {
+            f.moveToTarget();
+            assertTrue(tower.getTakenPlaces().get(0).getColistionBox(new Point2D.Float(
+                tower.getTakenPlaces().get(0).getPosition().getX() * Constants.PLACEHOLDER_SIZE,
+                tower.getTakenPlaces().get(0).getPosition().getY() * Constants.PLACEHOLDER_SIZE), 10 , 10).intersects(
+                    tower.getTakenPlaces().get(0).getColistionBox(f.getPosition(), 10 , 10)
+            ));
+        }
+    }
+
+
+    @Test
+    @DisplayName("Check the if towers are added")
+    void addedTowers() {
+        tower.initializeCenterofMeasurement(new Placeholder(16, 16));
+        tower.build();
+        tower.addTower(new Placeholder(8, 8), Constants.NORMAL_TOWER);
+        tower.addTower(new Placeholder(9, 9), Constants.NORMAL_TOWER);
+        tower.addTower(new Placeholder(7, 7), Constants.NORMAL_TOWER);
+        
+        assertTrue (tower.contains(tower.getTakenPlaces(), new Placeholder(7, 7)));
+        assertTrue (tower.contains(tower.getTakenPlaces(), new Placeholder(8, 8)));
+        assertTrue (tower.contains(tower.getTakenPlaces(), new Placeholder(9, 9)));
+        assertFalse(tower.contains(tower.getTakenPlaces(), new Placeholder(7, 8)));
+    }
+
+
     public void fillPlaceHolders() {
 
         for (int x = 0; x < 30; x++) {
