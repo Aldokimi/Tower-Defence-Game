@@ -108,7 +108,7 @@ public class TowerSprite {
      * @param height
      * @return Rectangle that srounds the object.
      */
-    private java.awt.Rectangle getColistionBox(Point2D.Float point, int width, int height) {
+    public java.awt.Rectangle getColistionBox(Point2D.Float point, int width, int height) {
         return new java.awt.Rectangle((int) point.x, (int) point.getY(), width, height);
     }
 
